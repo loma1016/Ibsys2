@@ -14,7 +14,7 @@ export class XmlUploadService {
         if (period && group == this.group) {
             delete val.$;
             var jsonStr = JSON.stringify(val);
-            var jsonStrRep = jsonStr.replace(/\$/g , "@");
+            var jsonStrRep = jsonStr.replace(/\$/g , "item");
             var jsonObj = JSON.parse(jsonStrRep);
             this.db.list('/periods').update(period, jsonObj);
         } 
