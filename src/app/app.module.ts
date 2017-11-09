@@ -6,6 +6,8 @@ import { XmlUploadComponent } from './xml-upload/xml-upload.component';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { XmlUploadService } from './shared/xml-upload/xml-upload.service';
 
 import { AppComponent } from './app.component';
 import { WorkspacePlaningComponent } from './workspace-planing/workspace-planing.component';
@@ -22,8 +24,9 @@ import { WorkspacePlaningComponent } from './workspace-planing/workspace-planing
     HttpModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireDatabaseModule 
   ],
-  providers: [],
+  providers: [XmlUploadService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

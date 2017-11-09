@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { XmlUploadService } from '../shared/xml-upload/xml-upload.service';
+
 
 @Component({
   selector: 'app-xml-upload',
@@ -6,23 +8,35 @@ import { Component } from '@angular/core';
   styleUrls: ['./xml-upload.component.css']
 })
 export class XmlUploadComponent {
-  
-  changeListener($event) : void {
-    this.readThis($event.target);
+
+  constructor(private xmlUploadService: XmlUploadService) {
   }
 
-  readThis(inputValue: any) : void {
-    var file:File = inputValue.files[0]; 
-    var myReader:FileReader = new FileReader();
+  changeListener($event) : void {
+    let input = $event.target.files[0];
 
-    myReader.onloadend = function(e){
-      let parseString = require('xml2js').parseString;
-      
-      parseString(myReader.result, function (err, result) {  
-          
-        console.log(result);
-      });
-    }
-    myReader.readAsText(file);    
+    let reader = new FileReader();
+    reader.onload = this.parseToJson.bind(this);
+    reader.readAsText(input);
+  }
+
+  parseToJson(e) {
+    let parseString = require('xml2js').parseString;    
+    var reader = e.target;
+    var result = reader.result;
+
+    var resultJson = new Promise(function(resolve, reject) {
+      parseString(result, function (err, res) {  
+        if (!err) {
+            resolve(res.results);
+        } else {
+            reject(err);
+        }
+      })
+    });
+
+    resultJson.then(val => {  
+      this.xmlUploadService.uploadPeriod(val);
+    }); 
   }
 }
