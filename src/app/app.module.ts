@@ -7,6 +7,7 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { XmlUploadService } from './shared/xml-upload/xml-upload.service';
 
 import { AppComponent } from './app.component';
 
@@ -23,7 +24,7 @@ import { AppComponent } from './app.component';
     AngularFirestoreModule,
     AngularFireDatabaseModule 
   ],
-  providers: [],
+  providers: [XmlUploadService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
