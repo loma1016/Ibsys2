@@ -1,0 +1,32 @@
+.example-container {
+  height: 100%;
+}
+
+.example-sidenav-content {
+  display: flex;
+
+
+}
+
+.example-sidenav {
+  padding: 20px;
+}
+
+.example-icon {
+  padding: 0 14px;
+}
+mat-toolbar {
+  width: 100%;
+}
+
+.page-content {
+  margin-top: 25px;
+  margin-left: 25px;
+}
+
+.more_icon {
+  margin-top: 15px;
+}
+.link {
+  cursor: pointer;
+}
