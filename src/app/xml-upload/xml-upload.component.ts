@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
   selector: 'app-xml-upload',
@@ -6,23 +7,36 @@ import { Component } from '@angular/core';
   styleUrls: ['./xml-upload.component.css']
 })
 export class XmlUploadComponent {
+
+  constructor(private db: AngularFireDatabase) {
+  }
   
   changeListener($event) : void {
-    this.readThis($event.target);
+    let input = $event.target.files[0];
+
+    let reader = new FileReader();
+    reader.onload = this.blabla.bind(this);
+    reader.readAsText(input);
   }
 
-  readThis(inputValue: any) : void {
-    var file:File = inputValue.files[0]; 
-    var myReader:FileReader = new FileReader();
+  blabla(e) {
+    let parseString = require('xml2js').parseString;    
+    var reader = e.target;
+    var result = reader.result;
 
-    myReader.onloadend = function(e){
-      let parseString = require('xml2js').parseString;
-      
-      parseString(myReader.result, function (err, result) {  
-          
-        console.log(result);
-      });
-    }
-    myReader.readAsText(file);    
+    var resultJson = new Promise(function(resolve, reject) {
+      parseString(result, function (err, res) {  
+        if (!err) {
+            resolve(res.results);
+        } else {
+            reject(err);
+        }
+      })
+    });
+
+    resultJson.then(val => {  
+      debugger
+      this.db.list('period').push(JSON.stringify(val));
+    }); 
   }
 }
