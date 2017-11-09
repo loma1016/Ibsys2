@@ -8,11 +8,13 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { AppComponent } from './app.component';
+import { WorkspacePlaningComponent } from './workspace-planing/workspace-planing.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    XmlUploadComponent
+    XmlUploadComponent,
+    WorkspacePlaningComponent
   ],
   imports: [
     BrowserModule,
