@@ -20,16 +20,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 
 import { AppComponent } from './app.component';
-import { WorkspacePlaningComponent } from './workspace-planing/workspace-planing.component';
+import { WorkspacePlaningComponent } from './planing/workspace-planing/workspace-planing.component';
 import { routes } from './app.routes';
 import { PlaningComponent } from './planing/planing.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     XmlUploadComponent,
     WorkspacePlaningComponent,
-    PlaningComponent
+    PlaningComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
