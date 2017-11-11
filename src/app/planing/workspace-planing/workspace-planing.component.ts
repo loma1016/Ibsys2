@@ -11,14 +11,14 @@ export class WorkspacePlaningComponent implements OnInit {
 
   currentPeriod = 3;
 
-  workTime = {
+  workTimeList = {
     workplace: [1,1,1,2,2,2,3,3,3,4,4,4,6,6,6,6,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,11,11,11,11,11,11,12,12,12,12,12,12,13,13,13,13,13,13,14,15,15],
     item: [49,54,29,50,55,30,51,56,31,1,2,3,16,18,19,20,10,11,12,13,14,15,18,19,20,26,10,11,12,13,14,15,18,19,20,10,11,12,13,14,15,18,19,20,4,5,6,7,8,9,4,5,6,7,8,9,10,11,12,13,14,15,10,11,12,13,14,15,16,17,26],
     time: [6,6,6,5,5,5,5,6,6,6,7,7,2,3,3,3,2,2,2,2,2,2,2,2,2,2,1,2,2,1,2,2,3,3,3,3,3,3,3,3,3,2,2,2,4,4,4,4,4,4,3,3,3,3,3,3,3,3,3,3,3,3,2,2,2,2,2,2,3,3,3]
   };
 
 
-  workTime3 = {
+  workTimeObj = {
     1:  {4:6},
     2:  {4:7},
     3:  {4:7},
@@ -92,10 +92,12 @@ export class WorkspacePlaningComponent implements OnInit {
     56: { 3:6}
   };
 
-  setupTime = {
+  setup = {
     workplace: [1,1,1,2,2,2,3,3,3,4,4,4,6,6,6,6,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,11,11,11,11,11,11,12,12,12,12,12,12,13,13,13,13,13,13,14,15,15],
     item: [49,54,29,50,55,30,51,56,31,1,2,3,16,18,19,20,10,11,12,13,14,15,18,19,20,26,10,11,12,13,14,15,18,19,20,10,11,12,13,14,15,18,19,20,4,5,6,7,8,9,4,5,6,7,8,9,10,11,12,13,14,15,10,11,12,13,14,15,16,17,26],
-    time: [20,20,20,30,30,30,20,20,20,30,20,30,15,15,15,15,20,20,20,20,20,20,20,20,20,30,15,15,15,15,15,15,20,25,20,15,15,15,15,15,15,15,20,15,20,20,20,20,20,20,10,10,20,20,20,20,0,0,0,0,0,0,0,0,0,0,0,0,0,15,15]
+    time: [20,20,20,30,30,30,20,20,20,30,20,30,15,15,15,15,20,20,20,20,20,20,20,20,20,30,15,15,15,15,15,15,20,25,20,15,15,15,15,15,15,15,20,15,20,20,20,20,20,20,10,10,20,20,20,20,0,0,0,0,0,0,0,0,0,0,0,0,0,15,15],
+    mean: [20,30,20,27,0,15,21,17.5,15.5,20,17,0,0,0,15],
+    factor: [450,600,500,500,0,80,150,200,400,300,300,300,200,300,300]
   };
 
   workspaceOfItem = {
@@ -136,9 +138,11 @@ export class WorkspacePlaningComponent implements OnInit {
     amount: [150,100,100,130,100,100,130,100,100,130,100,100,130,100,100,680,680,130,100,100,330,130,100,100,280,200,200,180,100,200]
   };
 
-  productionQue = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+  productionQueTime = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
-  inProduction = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+  inProductionTime = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+
+  setupTime = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
   extraTime = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
@@ -170,13 +174,12 @@ export class WorkspacePlaningComponent implements OnInit {
         }
         for (let i = 0; i < this.workspaceOfItem[itemId].length; i++) {
           if (i>=index) {
-            this.inProduction[this.workspaceOfItem[itemId][i]-1] += itemAmount * this.workTime3[itemId][this.workspaceOfItem[itemId][i]];
+            this.inProductionTime[this.workspaceOfItem[itemId][i]-1] += itemAmount * this.workTimeObj[itemId][this.workspaceOfItem[itemId][i]];
           }
         }
       });
 
       _.waitinglistworkstations[0].workplace.forEach(workplace=>{
-        //console.log(workplace);
         if (workplace.waitinglist) {
           workplace.waitinglist.forEach(item => {
             let itemId = item.item.item;
@@ -190,46 +193,52 @@ export class WorkspacePlaningComponent implements OnInit {
 
             for (let i = 0; i < this.workspaceOfItem[itemId].length; i++) {
               if (i>=index) {
-                this.productionQue[this.workspaceOfItem[itemId][i]-1] += itemAmount * this.workTime3[itemId][this.workspaceOfItem[itemId][i]];
+                this.productionQueTime[this.workspaceOfItem[itemId][i]-1] += itemAmount * this.workTimeObj[itemId][this.workspaceOfItem[itemId][i]];
               }
             }
           });
         }
       });
-      this.calculateWorkspacePlan(); 
+      this.calculateWorkspacePlan();
     });
-  }
-
-  calculateSetupTime(){
-    this.setupTime.workplace.forEach(_=> {
-
-    })
   }
 
   calculateWorkspacePlan() {
     this.resetWorkspacePlan();
     for (let i=0; i<this.productionPlan.item.length; i++) {
-      for (let e=0; e<this.workTime.item.length; e++) {
-        if (this.workTime.item[e] === this.productionPlan.item[i]) {
-          this.workplacePlan.totalTime[this.workTime.workplace[e]-1] += this.productionPlan.amount[i]*this.workTime.time[e];
+      for (let e=0; e<this.workTimeList.item.length; e++) {
+        if (this.workTimeList.item[e] === this.productionPlan.item[i]) {
+          this.workplacePlan.totalTime[this.workTimeList.workplace[e]-1] += this.productionPlan.amount[i]*this.workTimeList.time[e];
         }
       }
     }
 
-    for (let i=0; i<this.productionQue.length; i++) {
-      this.workplacePlan.totalTime[i] += this.productionQue[i];
+    for (let i=0; i<this.productionQueTime.length; i++) {
+      this.workplacePlan.totalTime[i] += this.productionQueTime[i];
     }
 
-    for (let i=0; i<this.inProduction.length; i++) {
-      this.workplacePlan.totalTime[i] += this.inProduction[i];
+    for (let i=0; i<this.inProductionTime.length; i++) {
+      this.workplacePlan.totalTime[i] += this.inProductionTime[i];
     }
 
     for (let i=0; i<this.extraTime.length; i++) {
       this.workplacePlan.totalTime[i] += Number(this.extraTime[i]);
     }
 
+    for (let i=0; i< this.workplacePlan.totalTime.length; i++) {
+      if (this.setup.factor[i]) {
+        this.setupTime[i] = Math.round(this.workplacePlan.totalTime[i]/this.setup.factor[i]) * this.setup.mean[i];
+      }
+    }
+
+    for (let i=0; i<this.extraTime.length; i++) {
+      this.workplacePlan.totalTime[i] += this.setupTime[i];
+    }
+
     for (let i=0; i<this.workplacePlan.totalTime.length; i++) {
-      if (this.workplacePlan.totalTime[i]<=3600) {
+      if (this.workplacePlan.totalTime[i]===0) {
+        this.workplacePlan.shift[i] = 0;
+      } else if (this.workplacePlan.totalTime[i]<=3600) {
         this.workplacePlan.shift[i] = 1;
       } else if (this.workplacePlan.totalTime[i]>3600 && this.workplacePlan.totalTime[i]<=6000) {
         this.workplacePlan.shift[i] = 2;
@@ -240,14 +249,7 @@ export class WorkspacePlaningComponent implements OnInit {
       if ((this.workplacePlan.totalTime[i]- (2400*this.workplacePlan.shift[i])>0)) {
         this.workplacePlan.overtime[i] = (this.workplacePlan.totalTime[i] - (2400 * this.workplacePlan.shift[i])) / 5
       }
-
-
     }
-
-  }
-
-  calculateInProductionAndProductionQue(item: any) {
-
   }
 
   onExtraTimeChange() {
