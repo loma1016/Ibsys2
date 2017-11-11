@@ -159,31 +159,44 @@ export class WorkspacePlaningComponent implements OnInit {
 
   ngOnInit() {
     this.previousPeriodData.subscribe(_=> {
-
       _.ordersinwork[0].workplace.forEach(workplace=>{
-        this.inProduction[workplace.item.id-1] = Number(workplace.item.timeneed);
+        let itemId = workplace.item.item;
+        let itemAmount = workplace.item.amount;
+        let index;
+        for (let i = 0; i < this.workspaceOfItem[itemId].length; i++) {
+          if (this.workspaceOfItem[itemId][i] === Number(workplace.item.id)) {
+            index = i;
+          }
+        }
+        for (let i = 0; i < this.workspaceOfItem[itemId].length; i++) {
+          if (i>=index) {
+            this.inProduction[this.workspaceOfItem[itemId][i]-1] += itemAmount * this.workTime3[itemId][this.workspaceOfItem[itemId][i]];
+          }
+        }
       });
 
       _.waitinglistworkstations[0].workplace.forEach(workplace=>{
         //console.log(workplace);
         if (workplace.waitinglist) {
           workplace.waitinglist.forEach(item => {
+            let itemId = item.item.item;
+            let itemAmount = item.item.amount;
             let index;
-            for (let i = 0; i < this.workspaceOfItem[item.item.item].length; i++) {
-              if (this.workspaceOfItem[item.item.item][i] === Number(workplace.item.id)) {
+            for (let i = 0; i < this.workspaceOfItem[itemId].length; i++) {
+              if (this.workspaceOfItem[itemId][i] === Number(workplace.item.id)) {
                 index = i;
               }
             }
 
-            for (let i = 0; i < this.workspaceOfItem[item.item.item].length; i++) {
+            for (let i = 0; i < this.workspaceOfItem[itemId].length; i++) {
               if (i>=index) {
-                this.productionQue[this.workspaceOfItem[item.item.item][i]-1] += item.item.amount * this.workTime3[item.item.item][this.workspaceOfItem[item.item.item][i]];
+                this.productionQue[this.workspaceOfItem[itemId][i]-1] += itemAmount * this.workTime3[itemId][this.workspaceOfItem[itemId][i]];
               }
             }
           });
         }
       });
-      this.calculateWorkspacePlan();
+      this.calculateWorkspacePlan(); 
     });
   }
 
@@ -230,6 +243,10 @@ export class WorkspacePlaningComponent implements OnInit {
 
 
     }
+
+  }
+
+  calculateInProductionAndProductionQue(item: any) {
 
   }
 
