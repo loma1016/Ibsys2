@@ -1,3 +1,7 @@
 h3 {
   font-family: 'TeX Gyre Adventor', 'Lucida Sans Unicode', sans-serif
 }
+
+.mat-elevation-z8 {
+  width: 90%;
+}
