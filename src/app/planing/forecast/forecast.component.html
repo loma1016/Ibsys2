@@ -1,34 +1,94 @@
-<div class="example-container mat-elevation-z8">
-  <mat-table #table [dataSource]="dataSource">
+<mat-grid-list cols="2">
+  <mat-grid-tile>
+    <form class="forecast-form">
+      <div flex>
+        <h3>Auftraege diese Periode</h3>
+      </div>
+      <mat-form-field>
+        <input matInput placeholder="Herrenfahrrad P1">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Damenfahrrad P2">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Kinderfahrrad P3">
+      </mat-form-field>
 
-    <ng-container matColumnDef="empty">
-      <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.empty}} </mat-cell>
-    </ng-container>
+      <div flex>
+        <h3>Auftraege diese Periode +1</h3>
+      </div>
+      <mat-form-field>
+        <input matInput placeholder="Herrenfahrrad P1">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Damenfahrrad P2">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Kinderfahrrad P3">
+      </mat-form-field>
 
-    <ng-container matColumnDef="Auftraege">
-      <mat-header-cell *matHeaderCellDef> Auftraege </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.Auftraege}} </mat-cell>
-    </ng-container>
+      <div flex>
+        <h3>Auftraege diese Periode +2</h3>
+      </div>
+      <mat-form-field>
+        <input matInput placeholder="Herrenfahrrad P1">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Damenfahrrad P2">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Kinderfahrrad P3">
+      </mat-form-field>
 
-    <ng-container matColumnDef="GeplanteAuftraege1">
-      <mat-header-cell *matHeaderCellDef> GeplanteAuftraege1 </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.GeplanteAuftraege1}} </mat-cell>
-    </ng-container>
+      <div flex>
+        <h3>Auftraege diese Periode +3</h3>
+      </div>
+      <mat-form-field>
+        <input matInput placeholder="Herrenfahrrad P1">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Damenfahrrad P2">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Kinderfahrrad P3">
+      </mat-form-field>
+    </form>
+  </mat-grid-tile>
 
-    <ng-container matColumnDef="GeplanteAuftraege2">
-      <mat-header-cell *matHeaderCellDef> GeplanteAuftraege2 </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.GeplanteAuftraege2}} </mat-cell>
-    </ng-container>
+  <mat-grid-tile>
+    <div class="mat-elevation-z8">
+      <mat-table #table [dataSource]="dataSource">
 
-    <ng-container matColumnDef="GeplanteAuftraege3">
-      <mat-header-cell *matHeaderCellDef> GeplanteAuftraege3 </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.GeplanteAuftraege3}} </mat-cell>
-    </ng-container>
+        <ng-container matColumnDef="empty">
+          <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.empty}} </mat-cell>
+        </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-</div>
+        <ng-container matColumnDef="Auftraege">
+          <mat-header-cell *matHeaderCellDef> Auftraege </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.Auftraege}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="GeplanteAuftraege1">
+          <mat-header-cell *matHeaderCellDef> GeplanteAuftraege1 </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.GeplanteAuftraege1}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="GeplanteAuftraege2">
+          <mat-header-cell *matHeaderCellDef> GeplanteAuftraege2 </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.GeplanteAuftraege2}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="GeplanteAuftraege3">
+          <mat-header-cell *matHeaderCellDef> GeplanteAuftraege3 </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.GeplanteAuftraege3}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
 
 <button mat-button matStepperNext>Weiter</button>

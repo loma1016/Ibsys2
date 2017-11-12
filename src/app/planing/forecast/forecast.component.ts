@@ -26,11 +26,9 @@ export interface Element {
 }
 
 const ELEMENT_DATA: Element[] = [
-
-  {empty: 'Periode', Auftraege: 5, GeplanteAuftraege1: 1.0079, GeplanteAuftraege2: 10, GeplanteAuftraege3: 15},
-  {empty: 'P1', Auftraege: 6, GeplanteAuftraege1: 1.0079, GeplanteAuftraege2: 11, GeplanteAuftraege3: 16},
-  {empty: 'P2', Auftraege: 7, GeplanteAuftraege1: 1.0079, GeplanteAuftraege2: 12, GeplanteAuftraege3: 17},
-  {empty: 'P3', Auftraege: 8, GeplanteAuftraege1: 1.0079, GeplanteAuftraege2: 13, GeplanteAuftraege3: 18},
-  {empty: 'Summe', Auftraege: 9, GeplanteAuftraege1: 1.0079, GeplanteAuftraege2: 14, GeplanteAuftraege3: 19},
-
+  {empty: 'Periode', Auftraege: 1, GeplanteAuftraege1: 2, GeplanteAuftraege2: 3, GeplanteAuftraege3: 4},
+  {empty: 'P1', Auftraege: 100, GeplanteAuftraege1: 50, GeplanteAuftraege2: 75, GeplanteAuftraege3: 100},
+  {empty: 'P2', Auftraege: 100, GeplanteAuftraege1: 50, GeplanteAuftraege2: 75, GeplanteAuftraege3: 100},
+  {empty: 'P3', Auftraege: 100, GeplanteAuftraege1: 50, GeplanteAuftraege2: 75, GeplanteAuftraege3: 100},
+  {empty: 'Summe', Auftraege: 300, GeplanteAuftraege1: 150, GeplanteAuftraege2: 225, GeplanteAuftraege3: 300},
 ];

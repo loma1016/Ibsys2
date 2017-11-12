@@ -18,6 +18,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AppComponent } from './app.component';
 import { WorkspacePlaningComponent } from './planing/workspace-planing/workspace-planing.component';
@@ -44,6 +45,7 @@ import { ForecastComponent } from './planing/forecast/forecast.component';
     MatIconModule,
     MatSidenavModule,
     MatListModule,
+    MatGridListModule,
     MatStepperModule,
     MatButtonModule,
     MatTableModule,
