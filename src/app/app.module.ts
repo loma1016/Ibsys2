@@ -20,10 +20,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 
 import { AppComponent } from './app.component';
-import { WorkspacePlaningComponent } from './planing/workspace-planing/workspace-planing.component';
+import { WorkspacePlaningComponent } from './planning/workspace-planing/workspace-planing.component';
 import { routes } from './app.routes';
-import { PlaningComponent } from './planing/planing.component';
+import { PlaningComponent } from './planning/planning.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProductionPlanningComponent } from './planning/production-planning/production-planning.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     XmlUploadComponent,
     WorkspacePlaningComponent,
     PlaningComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProductionPlanningComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 import { ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { XmlUploadComponent } from "./xml-upload/xml-upload.component";
-import { PlaningComponent } from "./planing/planing.component";
+import { PlaningComponent } from "./planning/planning.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 
 const appRoutes: Routes = [
@@ -10,7 +10,7 @@ const appRoutes: Routes = [
     component: DashboardComponent
   },
   {
-    path: 'planing',
+    path: 'planning',
     component: PlaningComponent
   },
   {
