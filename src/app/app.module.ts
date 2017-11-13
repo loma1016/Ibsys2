@@ -24,6 +24,7 @@ import { WorkspacePlanningComponent } from './planning/workplace-planning/workpl
 import { routes } from './app.routes';
 import { PlanningComponent } from './planning/planning.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DispositionComponent } from './planning/disposition/disposition.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     XmlUploadComponent,
     WorkspacePlanningComponent,
     PlanningComponent,
-    DashboardComponent
+    DashboardComponent,
+    DispositionComponent
   ],
   imports: [
     BrowserModule,
