@@ -5,3 +5,11 @@ h3 {
 .mat-elevation-z8 {
   width: 90%;
 }
+
+#forecastTable {
+  border: 1px solid rgba(0,0,0,0.37);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 0 15px 2px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0 0 15px 2px rgba(0,0,0,0.5);
+  box-shadow: 0 0 15px 2px rgba(0,0,0,0.5);
+}

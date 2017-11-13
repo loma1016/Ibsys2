@@ -1,61 +1,64 @@
-<mat-grid-list cols="2">
+<!--mat-grid-list cols="2">
   <mat-grid-tile>
+    <mat-table></mat-table>
     <form class="forecast-form">
       <div flex>
         <h3>Auftraege diese Periode</h3>
       </div>
       <mat-form-field>
-        <input matInput placeholder="Herrenfahrrad P1">
+        <input matInput placeholder="Herrenfahrrad P1" [(ngModel)]="perOneMan" name="perOneMan">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Damenfahrrad P2">
+        <input matInput placeholder="Damenfahrrad P2" [(ngModel)]="perOneWoman" name="perOneWoman">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Kinderfahrrad P3">
+        <input matInput placeholder="Kinderfahrrad P3" [(ngModel)]="perOneKid" name="perOneKid">
       </mat-form-field>
 
       <div flex>
         <h3>Auftraege diese Periode +1</h3>
       </div>
       <mat-form-field>
-        <input matInput placeholder="Herrenfahrrad P1">
+        <input matInput placeholder="Herrenfahrrad P1" [(ngModel)]="perTwoMan" name="perTwoMan">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Damenfahrrad P2">
+        <input matInput placeholder="Damenfahrrad P2" [(ngModel)]="perTwoWoman" name="perTwoWoman">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Kinderfahrrad P3">
+        <input matInput placeholder="Kinderfahrrad P3" [(ngModel)]="perTwoKid" name="perTwoKid">
       </mat-form-field>
 
       <div flex>
         <h3>Auftraege diese Periode +2</h3>
       </div>
       <mat-form-field>
-        <input matInput placeholder="Herrenfahrrad P1">
+        <input matInput placeholder="Herrenfahrrad P1" [(ngModel)]="perThreeMan" name="perThreeMan">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Damenfahrrad P2">
+        <input matInput placeholder="Damenfahrrad P2" [(ngModel)]="perThreeWoman" name="perThreeWoman">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Kinderfahrrad P3">
+        <input matInput placeholder="Kinderfahrrad P3" [(ngModel)]="perThreeKid" name="perThreeKid">
       </mat-form-field>
 
       <div flex>
         <h3>Auftraege diese Periode +3</h3>
       </div>
       <mat-form-field>
-        <input matInput placeholder="Herrenfahrrad P1">
+        <input matInput placeholder="Herrenfahrrad P1" [(ngModel)]="perFourMan" name="perFourMan">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Damenfahrrad P2">
+        <input matInput placeholder="Damenfahrrad P2" [(ngModel)]="perFourWoman" name="perFourWoman">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Kinderfahrrad P3">
+        <input matInput placeholder="Kinderfahrrad P3" [(ngModel)]="perFourKid" name="perFourKid">
       </mat-form-field>
     </form>
   </mat-grid-tile>
 
-  <mat-grid-tile>
+  
+
+  <!--mat-grid-tile>
     <div class="mat-elevation-z8">
       <mat-table #table [dataSource]="dataSource">
 
@@ -89,6 +92,38 @@
       </mat-table>
     </div>
   </mat-grid-tile>
-</mat-grid-list>
+</mat-grid-list-->
+<div id="forecastTable" class="col-lg-6">
+  <table>
+      <tr>
+        <th>Periode</th>
+        <th *ngFor="let period of forecastPeriod; let i = index">{{curPeriod + i}}</th>
+      </tr>
+      <tr>
+        <th>P1</th>
+        <td *ngFor="let period of forecastPeriod; let i = index">
+          <input placeholder="Herrenfahrrad P1" type="text" name="inputP1" [(ngModel)]="period.inputs.P1">
+        </td>
+      </tr>
+      <tr>
+        <th>P2</th>      
+        <td *ngFor="let period of forecastPeriod; let i = index">
+          <input placeholder="Damenfahrrad P2" type="text" name="inputP2" [(ngModel)]="period.inputs.P2">
+        </td>
+      </tr>
+      <tr>
+        <th>P3</th>      
+        <td *ngFor="let period of forecastPeriod; let i = index">
+          <input placeholder="Kinderfahrrad P3" type="text" name="inputP3" [(ngModel)]="period.inputs.P3">
+        </td>
+      </tr>
+      <tr>
+          <th>Summe</th>      
+          
+        </tr>
+    </table>
+</div>
+
+
 
 <button mat-button matStepperNext>Weiter</button>
