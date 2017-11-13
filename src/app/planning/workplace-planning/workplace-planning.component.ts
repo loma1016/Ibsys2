@@ -3,13 +3,13 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
-  selector: 'app-workspace-planing',
-  templateUrl: './workspace-planing.component.html',
-  styleUrls: ['./workspace-planing.component.css']
+  selector: 'app-workspace-planning',
+  templateUrl: './workplace-planning.component.html',
+  styleUrls: ['./workplace-planning.component.css']
 })
-export class WorkspacePlaningComponent implements OnInit {
+export class WorkspacePlanningComponent implements OnInit {
 
-  currentPeriod = 3;
+  currentPeriod: number;
 
   workTimeList = {
     workplace: [1,1,1,2,2,2,3,3,3,4,4,4,6,6,6,6,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,11,11,11,11,11,11,12,12,12,12,12,12,13,13,13,13,13,13,14,15,15],
@@ -154,52 +154,55 @@ export class WorkspacePlaningComponent implements OnInit {
 
   previousPeriodData: Observable<any>;
 
-  constructor(db: AngularFireDatabase) {
 
-
-
-    this.previousPeriodData = db.object('periods/' + (this.currentPeriod-1)).valueChanges();
+  constructor(private db: AngularFireDatabase) {
   }
 
+
   ngOnInit() {
-    this.previousPeriodData.subscribe(_=> {
-      _.ordersinwork[0].workplace.forEach(workplace=>{
-        let itemId = workplace.item.item;
-        let itemAmount = workplace.item.amount;
-        let index;
-        for (let i = 0; i < this.workspaceOfItem[itemId].length; i++) {
-          if (this.workspaceOfItem[itemId][i] === Number(workplace.item.id)) {
-            index = i;
-          }
-        }
-        for (let i = 0; i < this.workspaceOfItem[itemId].length; i++) {
-          if (i>=index) {
-            this.inProductionTime[this.workspaceOfItem[itemId][i]-1] += itemAmount * this.workTimeObj[itemId][this.workspaceOfItem[itemId][i]];
-          }
-        }
-      });
-
-      _.waitinglistworkstations[0].workplace.forEach(workplace=>{
-        if (workplace.waitinglist) {
-          workplace.waitinglist.forEach(item => {
-            let itemId = item.item.item;
-            let itemAmount = item.item.amount;
-            let index;
-            for (let i = 0; i < this.workspaceOfItem[itemId].length; i++) {
-              if (this.workspaceOfItem[itemId][i] === Number(workplace.item.id)) {
-                index = i;
+    this.db.object('currentPeriod').valueChanges().subscribe(currentPeriod => {
+      this.previousPeriodData = this.db.object('periods/' + (Number(currentPeriod)-1).toString()).valueChanges();
+        this.previousPeriodData.subscribe(_=>{
+          if (_.ordersinwork[0].workplace) {
+            _.ordersinwork[0].workplace.forEach(workplace => {
+              let itemId = workplace.item.item;
+              let itemAmount = workplace.item.amount;
+              let index;
+              for (let i = 0; i < this.workspaceOfItem[itemId].length; i++) {
+                if (this.workspaceOfItem[itemId][i] === Number(workplace.item.id)) {
+                  index = i;
+                }
               }
-            }
-
-            for (let i = 0; i < this.workspaceOfItem[itemId].length; i++) {
-              if (i>=index) {
-                this.productionQueTime[this.workspaceOfItem[itemId][i]-1] += itemAmount * this.workTimeObj[itemId][this.workspaceOfItem[itemId][i]];
+              for (let i = 0; i < this.workspaceOfItem[itemId].length; i++) {
+                if (i >= index) {
+                  this.inProductionTime[this.workspaceOfItem[itemId][i] - 1] += itemAmount * this.workTimeObj[itemId][this.workspaceOfItem[itemId][i]];
+                }
               }
+            });
+          }
+
+          _.waitinglistworkstations[0].workplace.forEach(workplace=>{
+            if (workplace.waitinglist) {
+              workplace.waitinglist.forEach(item => {
+                let itemId = item.item.item;
+                let itemAmount = item.item.amount;
+                let index;
+                for (let i = 0; i < this.workspaceOfItem[itemId].length; i++) {
+                  if (this.workspaceOfItem[itemId][i] === Number(workplace.item.id)) {
+                    index = i;
+                  }
+                }
+
+                for (let i = 0; i < this.workspaceOfItem[itemId].length; i++) {
+                  if (i>=index) {
+                    this.productionQueTime[this.workspaceOfItem[itemId][i]-1] += itemAmount * this.workTimeObj[itemId][this.workspaceOfItem[itemId][i]];
+                  }
+                }
+              });
             }
           });
-        }
+          this.calculateWorkspacePlan();
       });
-      this.calculateWorkspacePlan();
     });
   }
 
@@ -250,6 +253,7 @@ export class WorkspacePlaningComponent implements OnInit {
         this.workplacePlan.overtime[i] = (this.workplacePlan.totalTime[i] - (2400 * this.workplacePlan.shift[i])) / 5
       }
     }
+    this.saveWorkplacePlan();
   }
 
   onExtraTimeChange() {
@@ -262,6 +266,10 @@ export class WorkspacePlaningComponent implements OnInit {
       shift: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       overtime: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     };
+  }
+
+  saveWorkplacePlan() {
+    this.db.object('/result/workplace').update(this.workplacePlan);
   }
 
 }
