@@ -93,35 +93,44 @@
     </div>
   </mat-grid-tile>
 </mat-grid-list-->
-<div id="forecastTable" class="col-lg-6">
-  <table>
-      <tr>
-        <th>Periode</th>
-        <th *ngFor="let period of forecastPeriod; let i = index">{{curPeriod + i}}</th>
-      </tr>
-      <tr>
-        <th>P1</th>
-        <td *ngFor="let period of forecastPeriod; let i = index">
-          <input placeholder="Herrenfahrrad P1" type="text" name="inputP1" [(ngModel)]="period.inputs.P1">
-        </td>
-      </tr>
-      <tr>
-        <th>P2</th>      
-        <td *ngFor="let period of forecastPeriod; let i = index">
-          <input placeholder="Damenfahrrad P2" type="text" name="inputP2" [(ngModel)]="period.inputs.P2">
-        </td>
-      </tr>
-      <tr>
-        <th>P3</th>      
-        <td *ngFor="let period of forecastPeriod; let i = index">
-          <input placeholder="Kinderfahrrad P3" type="text" name="inputP3" [(ngModel)]="period.inputs.P3">
-        </td>
-      </tr>
-      <tr>
-          <th>Summe</th>      
-          
-        </tr>
-    </table>
+<div id="forecastContainer" class="container">
+  <table id ="forecastTable">
+    <tr class="table-row">
+      <th class="col-xs-2">Periode</th>
+      <th *ngFor="let period of forecastPeriod; let i = index" class="table-header">{{curPeriod + i}}</th>
+    </tr>
+    <tr class="table-row">
+      <th class="col-xs-2">P1</th>
+      <td *ngFor="let period of forecastPeriod; let i = index">
+        <mat-form-field>
+          <input (blur)="checkSum()" (keypress)="onlyNumbers($event)" matInput class="table-input" placeholder="Herrenfahrrad P1" type="text" name="inputP1" [(ngModel)]="period.inputs.P1">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr class="table-row">
+      <th class="col-xs-2">P2</th>      
+      <td *ngFor="let period of forecastPeriod; let i = index">
+        <mat-form-field>
+          <input (blur)="checkSum()" (keypress)="onlyNumbers($event)" matInput class="table-input" placeholder="Damenfahrrad P2" type="text" name="inputP2" [(ngModel)]="period.inputs.P2">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr class="table-row">
+      <th class="col-xs-2">P3</th>      
+      <td *ngFor="let period of forecastPeriod; let i = index">
+        <mat-form-field>
+          <input (blur)="checkSum()" (keypress)="onlyNumbers($event)" matInput class="table-input" placeholder="Kinderfahrrad P3" type="text" name="inputP3" [(ngModel)]="period.inputs.P3">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr class="table-row">
+      <th class="col-xs-2">Summe</th>
+      <td>{{sumFirst}}</td>    
+      <td>{{sumSecond}}</td>  
+      <td>{{sumThird}}</td>  
+      <td>{{sumFourth}}</td>     
+    </tr>
+  </table>
 </div>
 
 
