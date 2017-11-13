@@ -25,7 +25,7 @@ import { WorkspacePlanningComponent } from './planning/workplace-planning/workpl
 import { routes } from './app.routes';
 import { PlanningComponent } from './planning/planning.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ForecastComponent } from './planing/forecast/forecast.component';
+import { ForecastComponent } from './planning/forecast/forecast.component';
 
 @NgModule({
   declarations: [
