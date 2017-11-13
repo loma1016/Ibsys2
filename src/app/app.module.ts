@@ -18,12 +18,14 @@ import { MatListModule } from '@angular/material/list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AppComponent } from './app.component';
 import { WorkspacePlanningComponent } from './planning/workplace-planning/workplace-planning.component';
 import { routes } from './app.routes';
 import { PlanningComponent } from './planning/planning.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ForecastComponent } from './planing/forecast/forecast.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     XmlUploadComponent,
     WorkspacePlanningComponent,
     PlanningComponent,
-    DashboardComponent
+    DashboardComponent,
+    ForecastComponent
   ],
   imports: [
     BrowserModule,
@@ -42,8 +45,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatIconModule,
     MatSidenavModule,
     MatListModule,
+    MatGridListModule,
     MatStepperModule,
-    MatButtonModule,MatTableModule,
+    MatButtonModule,
+    MatTableModule,
     FormsModule,
     HttpModule,
     routes,

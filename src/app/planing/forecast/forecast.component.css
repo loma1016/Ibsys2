@@ -1,0 +1,29 @@
+#forecastContainer {
+  padding: 30px 50px;  
+  border: 1px solid rgba(0,0,0,0.37);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 0 15px 2px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0 0 15px 2px rgba(0,0,0,0.5);
+  box-shadow: 0 0 15px 2px rgba(0,0,0,0.5);
+}
+
+#forecastTable {
+  width: 100%;
+}
+
+.table-header {
+  text-align: center;
+}
+
+.sum-row {
+  height: 58px;
+  border-top: 1px solid #a5a5a5;
+}
+
+.sum-row-content {
+  font-weight: bold;
+}
+
+.head-row {
+  height: 58px;
+}
