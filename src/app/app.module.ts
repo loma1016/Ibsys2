@@ -18,6 +18,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AppComponent } from './app.component';
 import { WorkspacePlanningComponent } from './planning/workplace-planning/workplace-planning.component';
@@ -25,6 +26,8 @@ import { routes } from './app.routes';
 import { PlanningComponent } from './planning/planning.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DispositionComponent } from './planning/disposition/disposition.component';
+import { ForecastComponent } from './planning/forecast/forecast.component';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,8 @@ import { DispositionComponent } from './planning/disposition/disposition.compone
     PlanningComponent,
     DashboardComponent,
     DispositionComponent
+    DashboardComponent,
+    ForecastComponent
   ],
   imports: [
     BrowserModule,
@@ -44,14 +49,17 @@ import { DispositionComponent } from './planning/disposition/disposition.compone
     MatIconModule,
     MatSidenavModule,
     MatListModule,
+    MatGridListModule,
     MatStepperModule,
-    MatButtonModule,MatTableModule,
+    MatButtonModule,
+    MatTableModule,
     FormsModule,
     HttpModule,
     routes,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    ChartsModule
   ],
   providers: [XmlUploadService],
   bootstrap: [AppComponent]

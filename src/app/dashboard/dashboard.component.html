@@ -1,3 +1,30 @@
-<p>
-  dashboard works!
-</p>
+<div class="row">
+  <div class="col-xs-6" style="display: block;">
+    <canvas baseChart width="800" height="400"
+              [datasets]="lineChartData"
+              [chartType]="lineChartType"
+              [options]="option"
+              [labels]="lineChartLabels"
+              [colors]="lineChartColors">
+    </canvas>
+  </div>
+  <div class="col-xs-6" style="display: block;">
+    <canvas baseChart width="800" height="400"
+              [datasets]="summaryChartData"
+              [chartType]="lineChartType"
+              [options]="profitChartOptions"
+              [labels]="lineChartLabels"
+              [colors]="profitChartColors">
+    </canvas>
+  </div>
+</div>
+<div class="row">  
+  <div class="col-xs-12" style="display: block">
+    <canvas baseChart width="800" height="400"
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"            
+            [chartType]="barChartType">
+    </canvas>
+  </div>
+<div class="row">    
