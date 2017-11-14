@@ -24,6 +24,15 @@
 .table-row {
   height: 58px;
 }
+
+input {
+  width: 90%;
+}
+
+.extra-row {
+  border-top: 1px solid #a5a5a5;
+}
+
 .pull-right {
   position: absolute;
   right: 0px;

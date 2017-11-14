@@ -1,22 +1,22 @@
 <div id="workspaceContainer" class="container">
-  <table width=100% id ="workspaceTable">
+  <table id ="workspaceTable">
     <tr class="table-row head-row">
       <th class="col-xs-2">Arbeitsplatz</th>
-    <td *ngFor="let totalTime of workplacePlan.totalTime; let i = index">{{i+1}}</td>
+    <th *ngFor="let totalTime of workplacePlan.totalTime; let i = index">{{i+1}}</th>
   </tr>
   <tr class="table-row">
       <th class="col-xs-2">Gesamtzeit</th>
-    <td *ngFor="let totalTime of workplacePlan.totalTime">{{totalTime}}</td>
+    <th *ngFor="let totalTime of workplacePlan.totalTime">{{totalTime}}</th>
   </tr>
   <tr class="table-row">
       <th class="col-xs-2">Schichten</th>
-    <td *ngFor="let shift of workplacePlan.shift">{{shift}}</td>
+    <th *ngFor="let shift of workplacePlan.shift">{{shift}}</th>
   </tr>
   <tr class="table-row">
       <th class="col-xs-2">Überstunden</th>
-    <td *ngFor="let overtime of workplacePlan.overtime">{{overtime}}</td>
+    <th *ngFor="let overtime of workplacePlan.overtime">{{overtime}}</th>
   </tr>
-  <tr class="table-row">
+  <tr class="table-row extra-row">
       <th class="col-xs-2">Extrazeit</th>
     <td><input type="text" [(ngModel)]="extraTime[0]" (ngModelChange)="onExtraTimeChange()"/></td>
     <td><input type="text" [(ngModel)]="extraTime[1]" (ngModelChange)="onExtraTimeChange()"/></td>
