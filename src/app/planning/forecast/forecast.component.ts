@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { AngularFireDatabase } from "angularfire2/database";
 
 @Component({
   selector: 'app-forecast',
@@ -14,7 +14,7 @@ export class ForecastComponent implements OnInit {
   sumFourth: number;
   curPeriod = 3;
 
-  constructor() { 
+  constructor(private db: AngularFireDatabase) {
     this.forecastPeriod = [
       {period: 'first', inputs: []},
       {period: 'second', inputs: []},
@@ -52,6 +52,9 @@ export class ForecastComponent implements OnInit {
             break;
           }
         }
+      }
+      if (this.sumFirst && this.sumSecond && this.sumThird && this.sumFourth) {
+        this.db.object('/result/forecast').set(this.forecastPeriod);
       }
     });
   }
