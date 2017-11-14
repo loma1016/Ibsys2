@@ -38,22 +38,50 @@ export class DashboardComponent implements OnInit {
       },
   ]
 
+  public allStockValues: Array<any> = [];  
+  public barChartData: any[] = [{ data: [] }];
+  public barChartType:string = 'bar';  
+  public barChartLabels: Array<any> = [];  
+  public barChartOptions = {
+    responsive: false,
+    maintainAspectRatio: false,
+  };
+
+
   constructor(private db: AngularFireDatabase) {
   }
 
   ngOnInit() {
-    this.db.object('periods').valueChanges().subscribe(periods => {
+    var context = this;
+    var drawTotalStockValue = function(periods) {
       for (var period in periods) {
         if (period) {
-          this.lineChartLabels.push("Periode " + period);
-          this.allTotalStockValues.push(Number(periods[period].warehousestock[0].totalstockvalue[0]));
+          context.lineChartLabels.push("Periode " + period);
+          context.allTotalStockValues.push(Number(periods[period].warehousestock[0].totalstockvalue[0]));
         }
       }
 
-      this.lineChartData = [
-        {data: this.allTotalStockValues, label: 'TotalStockValue'},
+      context.lineChartData = [
+        {data: context.allTotalStockValues, label: 'TotalStockValue'},
         {data: [250000, 250000, 250000], label: 'Target'},        
-      ]   
+      ] 
+    }
+
+    var drawAllStockValues = function(periods) {
+      var period = periods[periods.length - 1];
+      for (var item in period.warehousestock[0].article) {
+        context.allStockValues.push(period.warehousestock[0].article[item].item.stockvalue);
+        context.barChartLabels.push(period.warehousestock[0].article[item].item.id);
+      }
+
+      context.barChartData = [
+        {data: context.allStockValues, label: 'AllStockValues'}
+      ]
+    }
+
+    this.db.object('periods').valueChanges().subscribe(periods => {
+      drawTotalStockValue(periods);
+      drawAllStockValues(periods);
     });
   }
 }
