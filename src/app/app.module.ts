@@ -36,7 +36,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     WorkspacePlanningComponent,
     PlanningComponent,
     DashboardComponent,
-    DispositionComponent
+    DispositionComponent,
     DashboardComponent,
     ForecastComponent
   ],
