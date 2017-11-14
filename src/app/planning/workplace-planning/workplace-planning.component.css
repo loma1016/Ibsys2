@@ -1,10 +1,30 @@
+#workspaceContainer {
+  padding: 30px 50px;  
+  margin-top: 10px;  
+  border: 1px solid rgba(0,0,0,0.37);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 0 10px 2px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0 0 10px 2px rgba(0,0,0,0.5);
+  box-shadow: 0 0 10px 2px rgba(0,0,0,0.5);
+  overflow-x: auto;
+}
 
-table td input {
+#workspaceTable {
   width: 100%;
 }
 
+.table-header {
+  text-align: center;
+}
+
+.head-row {
+  height: 58px;
+}
+
+.table-row {
+  height: 58px;
+}
 .pull-right {
   position: absolute;
   right: 0px;
 }
-

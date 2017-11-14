@@ -1,22 +1,23 @@
-<table style="width:100%">
-  <tr >
-    <th>Arbeitsplatz</th>
-    <th *ngFor="let totalTime of workplacePlan.totalTime; let i = index">{{i+1}}</th>
+<div id="workspaceContainer" class="container">
+  <table width=100% id ="workspaceTable">
+    <tr class="table-row head-row">
+      <th class="col-xs-2">Arbeitsplatz</th>
+    <td *ngFor="let totalTime of workplacePlan.totalTime; let i = index">{{i+1}}</td>
   </tr>
-  <tr >
-    <th>Gesamtzeit</th>
-    <th *ngFor="let totalTime of workplacePlan.totalTime">{{totalTime}}</th>
+  <tr class="table-row">
+      <th class="col-xs-2">Gesamtzeit</th>
+    <td *ngFor="let totalTime of workplacePlan.totalTime">{{totalTime}}</td>
   </tr>
-  <tr >
-    <th>Schichten</th>
-    <th *ngFor="let shift of workplacePlan.shift">{{shift}}</th>
+  <tr class="table-row">
+      <th class="col-xs-2">Schichten</th>
+    <td *ngFor="let shift of workplacePlan.shift">{{shift}}</td>
   </tr>
-  <tr >
-    <th>Überstunden</th>
-    <th *ngFor="let overtime of workplacePlan.overtime">{{overtime}}</th>
+  <tr class="table-row">
+      <th class="col-xs-2">Überstunden</th>
+    <td *ngFor="let overtime of workplacePlan.overtime">{{overtime}}</td>
   </tr>
-  <tr >
-    <th>Extrazeit</th>
+  <tr class="table-row">
+      <th class="col-xs-2">Extrazeit</th>
     <td><input type="text" [(ngModel)]="extraTime[0]" (ngModelChange)="onExtraTimeChange()"/></td>
     <td><input type="text" [(ngModel)]="extraTime[1]" (ngModelChange)="onExtraTimeChange()"/></td>
     <td><input type="text" [(ngModel)]="extraTime[2]" (ngModelChange)="onExtraTimeChange()"/></td>
@@ -34,7 +35,7 @@
     <td><input type="text" [(ngModel)]="extraTime[14]" (ngModelChange)="onExtraTimeChange()"/></td>
   </tr>
 </table>
-
+</div>
 
 
 <button mat-button matStepperPrevious>Zurück</button>
