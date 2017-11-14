@@ -30,3 +30,9 @@ mat-toolbar {
 .link {
   cursor: pointer;
 }
+
+a {
+  text-decoration: none;
+  color: rgba(255,255,255,.87);
+  padding: 10px;
+}
