@@ -27,6 +27,7 @@ import { PlanningComponent } from './planning/planning.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ForecastComponent } from './planning/forecast/forecast.component';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
-    ChartsModule
+    ChartsModule,
+    MatTabsModule
   ],
   providers: [XmlUploadService],
   bootstrap: [AppComponent]
