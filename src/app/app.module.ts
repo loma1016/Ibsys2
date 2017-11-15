@@ -25,6 +25,7 @@ import { WorkspacePlanningComponent } from './planning/workplace-planning/workpl
 import { routes } from './app.routes';
 import { PlanningComponent } from './planning/planning.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DispositionComponent } from './planning/disposition/disposition.component';
 import { ForecastComponent } from './planning/forecast/forecast.component';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -35,6 +36,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     XmlUploadComponent,
     WorkspacePlanningComponent,
     PlanningComponent,
+    DashboardComponent,
+    DispositionComponent,
     DashboardComponent,
     ForecastComponent
   ],

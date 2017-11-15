@@ -1,0 +1,33 @@
+<table style="width:100%">
+  <tr >
+    <th>Kaufteil:</th>
+    <th *ngFor="let index of ordersData.index;">{{index}}</th>
+  </tr>
+  <tr >
+    <th>Normale Bestellung:</th>
+    <th *ngFor="let index of ordersData.index">{{ordersData[index].result.normalOrder}}</th>
+  </tr>
+  <tr >
+    <th>Express Bestellung:</th>
+    <th *ngFor="let index of ordersData.index">{{ordersData[index].result.expressOrder}}</th>
+  </tr>
+  <tr >
+    <th>Preis:</th>
+    <th *ngFor="let index of ordersData.index">
+      <div *ngIf="ordersData[index].result.normalOrder">
+      {{ordersData[index].result.normalOrder * ordersData[index].price + ordersData[index].oderCost }}
+      </div>
+      <div *ngIf="ordersData[index].result.expressOrder">
+        {{ordersData[index].result.expressOrder * ordersData[index].price + ordersData[index].oderCost*10 }}
+      </div>
+      <div *ngIf="!ordersData[index].result.expressOrder && !ordersData[index].result.normalOrder">
+        0
+      </div>
+    </th>
+  </tr>
+</table>
+
+<button mat-button matStepperPrevious>Zurück</button><br>
+<button mat-button matStepperNext class="pull-right">Weiter</button>
+
+
