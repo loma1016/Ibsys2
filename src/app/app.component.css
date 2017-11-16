@@ -4,8 +4,6 @@
 
 .example-sidenav-content {
   display: flex;
-
-
 }
 
 .example-sidenav {
@@ -26,6 +24,7 @@ mat-toolbar {
 
 .more_icon {
   margin-top: 15px;
+  cursor: pointer;
 }
 .link {
   cursor: pointer;

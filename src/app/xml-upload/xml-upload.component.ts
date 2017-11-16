@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { XmlUploadService } from '../shared/xml-upload/xml-upload.service';
-
 
 @Component({
   selector: 'app-xml-upload',
@@ -8,6 +7,8 @@ import { XmlUploadService } from '../shared/xml-upload/xml-upload.service';
   styleUrls: ['./xml-upload.component.css']
 })
 export class XmlUploadComponent {
+  @Output() hideXmlUpload = new EventEmitter();
+  
 
   constructor(private xmlUploadService: XmlUploadService) {
   }
@@ -37,6 +38,11 @@ export class XmlUploadComponent {
 
     resultJson.then(val => {  
       this.xmlUploadService.uploadPeriod(val);
+      this.closeXml();
     }); 
+  }
+
+  closeXml() {
+    this.hideXmlUpload.emit();
   }
 }

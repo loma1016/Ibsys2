@@ -1,10 +1,11 @@
 
+<ng2-toasty></ng2-toasty>
 <mat-sidenav-container class="example-container">
   <mat-sidenav #sidenav class="example-sidenav">
     <mat-list>
       <mat-list-item class="link" routerLink="/" (click)="sidenav.close()"> Übersicht </mat-list-item>
       <mat-list-item class="link" routerLink="/planning" (click)="sidenav.close()"> Planen </mat-list-item>
-      <mat-list-item class="link" routerLink="/xmlinput" (click)="sidenav.close()"> XML Input </mat-list-item>
+      <mat-list-item class="link" (click)="sidenav.close(); openXmlUpload()"> XML Input </mat-list-item>
     </mat-list>
   </mat-sidenav>
 
@@ -21,6 +22,7 @@
   </div>
   <div class="page-content">
     <router-outlet></router-outlet>
+    <app-xml-upload *ngIf="showXmlUpload" (hideXmlUpload)="closeXmlUpload()"></app-xml-upload>
   </div>
 
 </mat-sidenav-container>

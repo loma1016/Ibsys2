@@ -29,6 +29,8 @@ import { DispositionComponent } from './planning/disposition/disposition.compone
 import { ForecastComponent } from './planning/forecast/forecast.component';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import {MatTabsModule} from '@angular/material/tabs';
+import {ToastyModule} from 'ng2-toasty';
+
 
 @NgModule({
   declarations: [
@@ -61,7 +63,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     AngularFirestoreModule,
     AngularFireDatabaseModule,
     ChartsModule,
-    MatTabsModule
+    MatTabsModule,
+    ToastyModule.forRoot()    
   ],
   providers: [XmlUploadService],
   bootstrap: [AppComponent]
