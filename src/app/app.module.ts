@@ -18,22 +18,30 @@ import { MatListModule } from '@angular/material/list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AppComponent } from './app.component';
-import { WorkspacePlaningComponent } from './planning/workspace-planing/workspace-planing.component';
+import { WorkspacePlanningComponent } from './planning/workplace-planning/workplace-planning.component';
 import { routes } from './app.routes';
-import { PlaningComponent } from './planning/planning.component';
+import { PlanningComponent } from './planning/planning.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProductionPlanningComponent } from './planning/production-planning/production-planning.component';
+import { DispositionComponent } from './planning/disposition/disposition.component';
+import { ForecastComponent } from './planning/forecast/forecast.component';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+import {ProductionPlanningComponent} from "./planning/production-planning/production-planning.component";
+
 
 @NgModule({
   declarations: [
     AppComponent,
     XmlUploadComponent,
-    WorkspacePlaningComponent,
-    PlaningComponent,
+    WorkspacePlanningComponent,
+    PlanningComponent,
+    ProductionPlanningComponent,
     DashboardComponent,
-    ProductionPlanningComponent
+    DispositionComponent,
+    DashboardComponent,
+    ForecastComponent
   ],
   imports: [
     BrowserModule,
@@ -44,14 +52,17 @@ import { ProductionPlanningComponent } from './planning/production-planning/prod
     MatIconModule,
     MatSidenavModule,
     MatListModule,
+    MatGridListModule,
     MatStepperModule,
-    MatButtonModule,MatTableModule,
+    MatButtonModule,
+    MatTableModule,
     FormsModule,
     HttpModule,
     routes,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    ChartsModule
   ],
   providers: [XmlUploadService],
   bootstrap: [AppComponent]

@@ -1,2 +1,33 @@
+<div> FAGGOT</div>
+
+<div>
+  <label>P1</label>
+  <input placeholder="Lagerendbestand" type="number" [(ngModel)]="finishedProducts[0].plannedWHEnd"
+         (ngModelChange)="updateAmmountNeededForFinishedProducts(0); updateAmountNeededForSubProducts(0)">
+  <div>Benötigt: {{finishedProducts[0].amountneeded}}</div>
+</div>
+
+<div>
+  <label>E26</label>
+  <input placeholder="Lagerendbestand" type="number" [(ngModel)]="subProducts[0].plannedWHEnd" (ngModelChange)="updateAmountNeededForSubProducts(0)">
+  <div>Benötigt: {{subProducts[0].amountneeded}}</div>
+</div>
+
+<table>
+  <label>P2</label>
+  <input placeholder="Lagerendbestand" type="number" [(ngModel)]="finishedProducts[1].plannedWHEnd"
+         (ngModelChange)="updateAmmountNeededForFinishedProducts(1); updateAmountNeededForSubProducts(0)">
+  <div>Benötigt: {{finishedProducts[1].amountneeded}}</div>
+</table>
+
+<div>
+  <label>P3</label>
+  <input placeholder="Lagerendbestand" type="number" [(ngModel)]="finishedProducts[2].plannedWHEnd"
+         (ngModelChange)="updateAmmountNeededForFinishedProducts(2); updateAmountNeededForSubProducts(0)">
+  <div>Benötigt: {{finishedProducts[2].amountneeded}}</div>
+</div>
+
+
 <button mat-button matStepperPrevious>Zurück</button>
+
 <button mat-button matStepperNext>Weiter</button>

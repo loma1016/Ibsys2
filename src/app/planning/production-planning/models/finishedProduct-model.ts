@@ -1,20 +1,19 @@
 /**
  * Created by marvinlott on 13.11.17.
  */
-export interface SbProduct{
+
+export interface Product {
   id: number;
-  dependency: number[];
   orders: number;
   plannedWHEnd: number;
   inWarehouse: number;
   inWaitlist: number;
   inProduction: number;
-  amountneeded: number;
+  amountneeded;
 }
 
-export class SubProduct implements SbProduct {
+export class FinishedProduct implements Product {
   id: number;
-  dependency: number[];
   orders: number;
   plannedWHEnd: number;
   inWarehouse: number;

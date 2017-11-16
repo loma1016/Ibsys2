@@ -1,9 +1,9 @@
 /**
  * Created by marvinlott on 13.11.17.
  */
-
-export interface Product {
+export interface SbProduct{
   id: number;
+  dependency: number[];
   orders: number;
   plannedWHEnd: number;
   inWarehouse: number;
@@ -12,13 +12,14 @@ export interface Product {
   amountneeded: number;
 }
 
-export class FinishedProduct implements Product {
+export class SubProduct implements SbProduct {
   id: number;
+  dependency: number[];
   orders: number;
   plannedWHEnd: number;
   inWarehouse: number;
   inWaitlist: number;
   inProduction: number;
-  amountneeded: number;
+  amountneeded:  number;
   constructor(){}
 }

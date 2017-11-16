@@ -2,22 +2,16 @@
 
 <mat-horizontal-stepper>
   <mat-step label="Prognosen">
-    Prognosen Komponente<br>
-    Bitte folgenden button unterbringen:<br>
-    < button mat-button matStepperNext>Weiter< /button>
+    <app-forecast></app-forecast>
   </mat-step>
   <mat-step label="Produktions Plannung">
-    Produktions Plannung Komponente<br>
     <app-production-planning></app-production-planning>
   </mat-step>
   <mat-step label="Arbeitsplatz Planung">
-    <app-workspace-planing></app-workspace-planing>
+    <app-workspace-planning></app-workspace-planning>
   </mat-step>
-  <mat-step label="Waareneinkauf">
-    Waareneinkauf Komponente<br>
-    Bitte folgenden button unterbringen:<br>
-    < button mat-button matStepperPrevious>Zurück< /button><br>
-    < button mat-button matStepperNext>Weiter< /button>
+  <mat-step label="Wareneinkauf">
+    <app-disposition></app-disposition>
   </mat-step>
   <mat-step label="Ergebnis">
     Ergenis Komponente<br>
