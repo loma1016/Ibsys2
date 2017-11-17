@@ -1,10 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-<<<<<<< HEAD:src/app/planning/planning.component.spec.ts
-import { PlaningComponent } from './planning.component';
-=======
 import { PlanningComponent } from './planning.component';
->>>>>>> master:src/app/planning/planning.component.spec.ts
+
 
 describe('PlanningComponent', () => {
   let component: PlanningComponent;
