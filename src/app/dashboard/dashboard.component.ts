@@ -8,13 +8,17 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
+  // Total Stock Value Graph
   public allTotalStockValues: Array<any> = [];
   public lineChartData: any[] = [{ data: [] }, { data: [] }];
   public lineChartType:string = 'line';  
   public lineChartLabels: Array<any> = [];
+  public lineChartTarget: Array<any> = [];
+  public lineChartDiff: Array<any> = [];
   public option = {
-    responsive: false,
-    maintainAspectRatio: false,
+    responsive: true,
+    maintainAspectRatio: true,
     scales: {
       yAxes: [{
         ticks: {min: 200000, max: 300000}
@@ -38,38 +42,43 @@ export class DashboardComponent implements OnInit {
       },
   ]
 
+
+  // All Stock Values Graph
   public allStockValues: Array<any> = [];  
-  public barChartData: any[] = [{ data: [] }];
+  public startValues: Array<any> = [];    
+  public barChartData: any[] = [{ data: [] }, { data: [] }];
   public barChartType:string = 'bar';  
   public barChartLabels: Array<any> = [];  
   public barChartOptions = {
-    responsive: false,
-    maintainAspectRatio: false,
+    responsive: true,
+    maintainAspectRatio: true,
   };
 
+
+  // Profit Graph
   public allProfits: Array<any> = [];  
   public cumProfits: Array<any> = [];  
   public summaryChartData: any[] = [{ data: [] }, { data: [] }];
   public profitChartLabels: Array<any> = [];
   public profitChartOptions = {
-    responsive: false,
-    maintainAspectRatio: false
+    responsive: true,
+    maintainAspectRatio: true
   };
 
   public profitChartColors:Array<any> = [
-    { // grey
+    { // dark grey
+      backgroundColor: 'rgba(77,83,96,0.0)',
+      borderColor: 'rgba(77,83,96,1)',
+      pointBackgroundColor: 'rgba(77,83,96,1)'
+    },
+    { // blue
       backgroundColor: 'rgba(7, 137, 232, 0.2)',
       borderColor: 'rgba(0, 147, 255, 0.7)',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    { // dark grey
-      backgroundColor: 'rgba(77,83,96,0.0)',
-      borderColor: 'rgba(77,83,96,1)',
-      pointBackgroundColor: 'rgba(77,83,96,1)'
-      },
+    }
   ]
 
   constructor(private db: AngularFireDatabase) {
@@ -77,32 +86,40 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     var context = this;
+
+    // draw Total Stock Value line graph
     var drawTotalStockValue = function(periods) {
       for (var period in periods) {
         if (period) {
           context.lineChartLabels.push("Periode " + period);
           context.allTotalStockValues.push(Number(periods[period].warehousestock[0].totalstockvalue[0]));
+          context.lineChartTarget.push(250000);
+          context.lineChartDiff.push(Math.round((Number(periods[period].warehousestock[0].totalstockvalue[0]) - 250000) * 100) / 100);
         }
       }
 
       context.lineChartData = [
-        {data: context.allTotalStockValues, label: 'TotalStockValue'},
-        {data: [250000, 250000, 250000], label: 'Target'},        
+        {data: context.allTotalStockValues, label: 'Gesamter Lagerwert'},
+        {data: context.lineChartTarget, label: 'Zielwert'},        
       ] 
     }
 
+    // draw all Stock Values bar chart
     var drawAllStockValues = function(periods) {
       var period = periods[periods.length - 1];
       for (var item in period.warehousestock[0].article) {
         context.allStockValues.push(period.warehousestock[0].article[item].item.stockvalue);
+        context.startValues.push(Math.round(Number(period.warehousestock[0].article[item].item.startamount) * Number(period.warehousestock[0].article[item].item.price)));
         context.barChartLabels.push(period.warehousestock[0].article[item].item.id);
       }
 
       context.barChartData = [
-        {data: context.allStockValues, label: 'AllStockValues'}
+        {data: context.allStockValues, label: 'Alle Lagerwerte'},
+        {data: context.startValues, label: 'Start Werte'}
       ]
     }
 
+    // draw Profit line graph
     var drawProfitSummary = function(periods) {
       for (var period in periods) {
         if (period) {
@@ -112,8 +129,8 @@ export class DashboardComponent implements OnInit {
       }
 
       context.summaryChartData = [
-        {data: context.cumProfits, label: 'Kumulierter Profit'},       
-        {data: context.allProfits, label: 'Profit'}
+        {data: context.allProfits, label: 'Profit'},
+        {data: context.cumProfits, label: 'Kumulierter Profit'},               
       ] 
     }
 

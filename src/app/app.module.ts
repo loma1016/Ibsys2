@@ -25,8 +25,12 @@ import { WorkspacePlanningComponent } from './planning/workplace-planning/workpl
 import { routes } from './app.routes';
 import { PlanningComponent } from './planning/planning.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DispositionComponent } from './planning/disposition/disposition.component';
 import { ForecastComponent } from './planning/forecast/forecast.component';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import {MatTabsModule} from '@angular/material/tabs';
+import {ToastyModule} from 'ng2-toasty';
+
 
 @NgModule({
   declarations: [
@@ -34,6 +38,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     XmlUploadComponent,
     WorkspacePlanningComponent,
     PlanningComponent,
+    DashboardComponent,
+    DispositionComponent,
     DashboardComponent,
     ForecastComponent
   ],
@@ -56,7 +62,9 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
-    ChartsModule
+    ChartsModule,
+    MatTabsModule,
+    ToastyModule.forRoot()    
   ],
   providers: [XmlUploadService],
   bootstrap: [AppComponent]
