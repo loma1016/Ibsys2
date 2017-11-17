@@ -35,51 +35,40 @@ export class ProductionPlanningComponent implements OnInit {
 
   //Zwischen Vartiablen
   runner = 0;
-  dbResults: Observable<any>;
+  previousPeriodData: Observable<any>;
+  forecastData: Observable<any>;
+  forecast: any;
   workPlaceWithWaitList: Array<any> = [];
   values: any;
 
+  subProductsIndex = [26,51,56,31,16,17,50,55,30,4,10,49,5,11,54,6,12,29,7,13,18,8,14,19,9,15,20];
 
-  constructor(private db: AngularFireDatabase) {
-    this.dbResults = this.getValuesFromDB();
-  }
+  constructor(private db: AngularFireDatabase) {}
 
   ngOnInit() {
-    this.dbResults.subscribe(values => {
-      console.log(values);
-      this.values = values;
-      this.workPlaceWithWaitList = this.getWorkPlaceWithWaitlist();
-      this.finishedProducts = [this.setFinishedProduct(1), this.setFinishedProduct(2), this.setFinishedProduct(3)];
-      this.subProducts[0] = this.setSubProduct(26);
-      this.subProducts[1] = this.setSubProduct(51);
-      this.subProducts[2] = this.setSubProduct(56);
-      this.subProducts[3] = this.setSubProduct(31);
-      this.subProducts[4] = this.setSubProduct(16);
-      this.subProducts[5] = this.setSubProduct(17);
-      this.subProducts[6] = this.setSubProduct(50);
-      this.subProducts[7] = this.setSubProduct(55);
-      this.subProducts[8] = this.setSubProduct(30);
-      this.subProducts[9] = this.setSubProduct(4);
-      this.subProducts[10] = this.setSubProduct(10);
-      this.subProducts[11] = this.setSubProduct(49);
-      this.subProducts[12] = this.setSubProduct(5);
-      this.subProducts[13] = this.setSubProduct(11);
-      this.subProducts[14] = this.setSubProduct(54);
-      this.subProducts[15] = this.setSubProduct(6);
-      this.subProducts[16] = this.setSubProduct(12);
-      this.subProducts[17] = this.setSubProduct(29);
-      this.subProducts[18] = this.setSubProduct(7);
-      this.subProducts[19] = this.setSubProduct(13);
-      this.subProducts[20] = this.setSubProduct(18);
-      this.subProducts[21] = this.setSubProduct(8);
-      this.subProducts[22] = this.setSubProduct(14);
-      this.subProducts[23] = this.setSubProduct(19);
-      this.subProducts[24] = this.setSubProduct(9);
-      this.subProducts[25] = this.setSubProduct(15);
-      this.subProducts[26] = this.setSubProduct(20);
-      console.log('SubProducts: ', this.subProducts);
-      console.log('finished Products: ', this.finishedProducts);
-    })
+    this.db.object('currentPeriod').valueChanges().subscribe(currentPeriod => {
+      this.previousPeriodData = this.db.object('periods/' + (Number(currentPeriod)-1).toString()).valueChanges();
+      this.previousPeriodData.subscribe(values=>{
+        this.values = values;
+        this.workPlaceWithWaitList = this.getWorkPlaceWithWaitlist();
+        this.finishedProducts = [this.setFinishedProduct(1), this.setFinishedProduct(2), this.setFinishedProduct(3)];
+        this.subProductsIndex.forEach((subProductIndex, index) => {
+          this.subProducts[index] = this.setSubProduct(subProductIndex);
+        });
+        this.forecastData = this.db.object('result/forecast').valueChanges();
+        this.forecastData.subscribe(forecast=> {
+          this.forecast = forecast;
+          this.updateOrders();
+          this.updateAmmountNeededForFinishedProducts();
+        });
+      });
+    });
+  }
+
+  updateOrders(){
+    this.finishedProducts[0].orders = Number(this.forecast[0].inputs.P1);
+    this.finishedProducts[1].orders = Number(this.forecast[0].inputs.P2);
+    this.finishedProducts[2].orders = Number(this.forecast[0].inputs.P3);
   }
 
   //ObjektKonstruktoren
@@ -90,7 +79,7 @@ export class ProductionPlanningComponent implements OnInit {
     fP.orders = this.mockedOrders;
     fP.inWaitlist = this.getWaitlistSumByID(id);
     fP.inProduction = this.getOrdersInWorkByID(id);
-    fP.plannedWHEnd = null;
+    fP.plannedWHEnd = 100;
     fP.inWarehouse = this.getWarehouseAmountByID(id);
     fP.amountneeded = ProductionPlanningComponent.calculateAmountForProducts(fP);
     return fP;
@@ -103,7 +92,11 @@ export class ProductionPlanningComponent implements OnInit {
     sP.orders = this.getOrdersForSubProduct(sP);
     sP.inWaitlist = this.getWaitlistSumByID(id);
     sP.inProduction = this.getOrdersInWorkByID(id);
-    sP.plannedWHEnd = null;
+    if (id === 16 || id === 17 || id === 26) {
+      sP.plannedWHEnd = 300;
+    } else {
+      sP.plannedWHEnd = 100;
+    }
     sP.inWarehouse = this.getWarehouseAmountByID(id);
     sP.amountneeded = ProductionPlanningComponent.calculateAmountForProducts(sP);
     return sP;
@@ -111,13 +104,21 @@ export class ProductionPlanningComponent implements OnInit {
 
   //NgModelChange Methoden
 
-  updateAmmountNeededForFinishedProducts(listPlace: number) {
-    this.finishedProducts[listPlace].amountneeded = ProductionPlanningComponent.calculateAmountForProducts(this.finishedProducts[listPlace]);
+  updateAmmountNeededForFinishedProducts() {
+    this.finishedProducts.forEach((finishedProduct, index) => {
+      this.finishedProducts[index].amountneeded = ProductionPlanningComponent.calculateAmountForProducts(finishedProduct);
+    });
+    this.updateAmountNeededForSubProducts();
   }
 
-  updateAmountNeededForSubProducts(listPlace: number) {
-    this.subProducts[listPlace].orders = this.getOrdersForSubProduct(this.subProducts[listPlace]);
-    this.subProducts[listPlace].amountneeded = ProductionPlanningComponent.calculateAmountForProducts(this.subProducts[listPlace]);
+
+
+  updateAmountNeededForSubProducts() {
+    this.subProducts.forEach((subProduct, index) => {
+      this.subProducts[index].orders = this.getOrdersForSubProduct(subProduct);
+      this.subProducts[index].amountneeded = ProductionPlanningComponent.calculateAmountForProducts(subProduct);
+    });
+    this.saveResult();
   }
 
   //Rechnungen
@@ -221,9 +222,18 @@ export class ProductionPlanningComponent implements OnInit {
     return result;
   }
 
-  //VALUES FROM DATABASE
+  saveResult() {
+    let result = {item:[], amount:[]};
 
-  getValuesFromDB(): any {
-    return this.db.object('periods/' + (this.mockedPeriod - 1)).valueChanges();
+    this.finishedProducts.forEach((finishedProduct) => {
+      result.item.push(finishedProduct.id);
+      result.amount.push(finishedProduct.amountneeded);
+    });
+    this.subProducts.forEach((subProduct) => {
+      result.item.push(subProduct.id);
+      result.amount.push(subProduct.amountneeded);
+    });
+    this.db.object('/result/production').update(result);
+
   }
 }

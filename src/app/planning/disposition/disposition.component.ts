@@ -14,7 +14,7 @@ export class DispositionComponent implements OnInit {
 
   ordersData = ordersData;
 
-  forcast: any;
+  forecast: any;
 
   previousPeriodData: Observable<any>;
 
@@ -42,7 +42,7 @@ export class DispositionComponent implements OnInit {
         });
         this.forecastData = this.db.object('result/forecast').valueChanges();
         this.forecastData.subscribe(forecast=> {
-          this.forcast = forecast;
+          this.forecast = forecast;
           this.calculateDisposition()
 
         });
@@ -54,10 +54,16 @@ export class DispositionComponent implements OnInit {
   }
 
   calculateDisposition() {
-    let p1 = this.forcast[0].inputs;
-    let p2 = this.forcast[1].inputs;
-    let p3 = this.forcast[2].inputs;
-    let p4 = this.forcast[3].inputs;
+
+    let p1 = this.forecast[0].inputs;
+    let p2 = this.forecast[1].inputs;
+    let p3 = this.forecast[2].inputs;
+    let p4 = this.forecast[3].inputs;
+
+    this.ordersData.index.forEach(index => {
+      this.ordersData[index].result.normalOrder = 0;
+      this.ordersData[index].result.expressOrder = 0;
+    });
 
     this.ordersData.index.forEach(index => {
       let orderData = this.ordersData[index];

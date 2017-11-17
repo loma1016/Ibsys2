@@ -153,6 +153,7 @@ export class WorkspacePlanningComponent implements OnInit {
   };
 
   previousPeriodData: Observable<any>;
+  productionData: Observable<any>;
 
 
   constructor(private db: AngularFireDatabase) {
@@ -201,7 +202,13 @@ export class WorkspacePlanningComponent implements OnInit {
               });
             }
           });
-          this.calculateWorkspacePlan();
+
+          this.productionData = this.db.object('result/production').valueChanges();
+          this.productionData.subscribe(productionPlan=> {
+            this.productionPlan = productionPlan;
+            this.calculateWorkspacePlan();
+          });
+
       });
     });
   }
