@@ -1,30 +1,95 @@
-<div class="row">
-  <div class="col-xs-6" style="display: block;">
-    <canvas baseChart width="800" height="400"
-              [datasets]="lineChartData"
-              [chartType]="lineChartType"
-              [options]="option"
-              [labels]="lineChartLabels"
-              [colors]="lineChartColors">
-    </canvas>
-  </div>
-  <div class="col-xs-6" style="display: block;">
-    <canvas baseChart width="800" height="400"
-              [datasets]="summaryChartData"
-              [chartType]="lineChartType"
-              [options]="profitChartOptions"
-              [labels]="lineChartLabels"
-              [colors]="profitChartColors">
-    </canvas>
-  </div>
-</div>
-<div class="row">  
-  <div class="col-xs-12" style="display: block">
-    <canvas baseChart width="800" height="400"
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"            
-            [chartType]="barChartType">
-    </canvas>
-  </div>
-<div class="row">    
+<mat-tab-group>
+    <mat-tab label="Profit">
+      <div class="container offset-top">          
+        <div class="row">
+          <table class="col-xs-12">
+            <tr>
+              <td class="col-xs-6">
+                <div>
+                  <canvas baseChart 
+                          [datasets]="summaryChartData"
+                          [chartType]="lineChartType"
+                          [options]="profitChartOptions"
+                          [labels]="lineChartLabels"
+                          [colors]="profitChartColors">
+                  </canvas>
+                </div>
+              </td>
+              <td class="col-xs-6">
+                <div>
+                    <table class="table table-responsive table-condensed">
+                      <tr>
+                        <th></th>
+                        <th *ngFor="let label of lineChartLabels">{{label}}</th>
+                      </tr>
+                      <tr *ngFor="let d of summaryChartData; let i=index">
+                        <th *ngIf="i === 0">Profit</th>
+                        <th *ngIf="i === 1">Kummulierter Profit</th>
+                        <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
+                      </tr>
+                    </table>
+                  </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Gesamter Lagerwert">
+        <div class="container offset-top">
+          <div class="row">  
+            <table class="col-xs-12">
+              <tr>
+                <td class="col-xs-6">
+                  <div>
+                    <canvas baseChart
+                        [datasets]="lineChartData"
+                        [chartType]="lineChartType"
+                        [options]="option"
+                        [labels]="lineChartLabels"
+                        [colors]="lineChartColors">
+                    </canvas>                  
+                  </div>
+                </td>
+                <td class="col-xs-6">
+                  <div>
+                    <table class="table table-responsive table-condensed">
+                      <tr>
+                        <th></th>
+                        <th *ngFor="let label of lineChartLabels">{{label}}</th>
+                      </tr>
+                      <tr *ngFor="let d of lineChartData; let i=index">
+                        <th *ngIf="i === 0">Gesamtwert</th>
+                        <th *ngIf="i === 1">Zielwert</th>
+                        <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
+                      </tr>
+                      <tr>
+                        <th>Differenz</th>
+                        <td *ngFor="let diff of lineChartDiff">
+                          {{diff}}
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </mat-tab>
+    <mat-tab label="Lagerbestände">
+      <div class="container offset-top">
+        <div class="row">  
+            <div class="col-xs-10 col-xs-offset-1">
+              <canvas baseChart
+                      [datasets]="barChartData"
+                      [labels]="barChartLabels"
+                      [options]="barChartOptions"            
+                      [chartType]="barChartType">
+              </canvas>
+            </div>
+          </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  

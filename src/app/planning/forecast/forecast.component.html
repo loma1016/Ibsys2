@@ -13,7 +13,7 @@
       </td>
     </tr>
     <tr class="table-row">
-      <th class="col-xs-2">P2</th>      
+      <th class="col-xs-2">P2</th>
       <td *ngFor="let period of forecastPeriod; let i = index">
         <mat-form-field>
           <input (blur)="checkSum()" (keypress)="onlyNumbers($event)" matInput class="table-input" placeholder="Damenfahrrad P2" type="text" name="inputP2" [(ngModel)]="period.inputs.P2">
@@ -21,7 +21,7 @@
       </td>
     </tr>
     <tr class="table-row">
-      <th class="col-xs-2">P3</th>      
+      <th class="col-xs-2">P3</th>
       <td *ngFor="let period of forecastPeriod; let i = index">
         <mat-form-field>
           <input (blur)="checkSum()" (keypress)="onlyNumbers($event)" matInput class="table-input" placeholder="Kinderfahrrad P3" type="text" name="inputP3" [(ngModel)]="period.inputs.P3">
@@ -30,12 +30,13 @@
     </tr>
     <tr class="sum-row">
       <th class="col-xs-2">Summe</th>
-      <td class="sum-row-content">{{sumFirst}}</td>    
-      <td class="sum-row-content">{{sumSecond}}</td>  
-      <td class="sum-row-content">{{sumThird}}</td>  
-      <td class="sum-row-content">{{sumFourth}}</td>     
+      <td class="sum-row-content">{{sumFirst}}</td>
+      <td class="sum-row-content">{{sumSecond}}</td>
+      <td class="sum-row-content">{{sumThird}}</td>
+      <td class="sum-row-content">{{sumFourth}}</td>
     </tr>
   </table>
+  <button mat-button matStepperNext class="pull-right">Weiter</button>
 </div>
 
-<button mat-button matStepperNext>Weiter</button>
+

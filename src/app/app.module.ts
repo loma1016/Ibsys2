@@ -9,6 +9,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { XmlUploadService } from './shared/xml-upload/xml-upload.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
@@ -18,16 +19,21 @@ import { MatListModule } from '@angular/material/list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { ToastyModule } from 'ng2-toasty';
 
 import { AppComponent } from './app.component';
-import { WorkspacePlanningComponent } from './planning/workplace-planning/workplace-planning.component';
 import { routes } from './app.routes';
-import { PlanningComponent } from './planning/planning.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DispositionComponent } from './planning/disposition/disposition.component';
 import { ForecastComponent } from './planning/forecast/forecast.component';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { PlanningComponent } from './planning/planning.component';
+import { WorkspacePlanningComponent } from './planning/workplace-planning/workplace-planning.component';
+
+
+
+
 import {ProductionPlanningComponent} from "./planning/production-planning/production-planning.component";
 
 
@@ -62,7 +68,9 @@ import {ProductionPlanningComponent} from "./planning/production-planning/produc
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
-    ChartsModule
+    ChartsModule,
+    MatTabsModule,
+    ToastyModule.forRoot()
   ],
   providers: [XmlUploadService],
   bootstrap: [AppComponent]

@@ -1,1 +1,9 @@
-<input type='file' accept='text/xml' (change)='changeListener($event)' accept="text/xml">
+<div id="uploadModal" (click)="closeXml()">
+    <div id="uploadPopUp" (click)="$event.stopPropagation()">
+        <div class="upload-img-container">
+            <span class="glyphicon glyphicon-download-alt upload-img"></span>
+        </div>
+        <input type="file" name="xmlUpload" id="xmlUpload" accept='text/xml' (change)='changeListener($event)' accept="text/xml" class="inputfile"/>
+        <label for="xmlUpload">Choose a file</label>
+    </div>
+</div>
