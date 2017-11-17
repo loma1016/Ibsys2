@@ -1,5 +1,174 @@
-<div> FAGGOT</div>
+<div> I LOVE JONAH</div>
 
+<div id="forecastContainer" class="container">
+  <table>
+    <tr>
+      <th id="TableHead"></th>
+      <th>Aufträge </th>
+      <th>gepl. Lagerendbestand </th>
+      <th>Lager </th>
+      <th>Warteschlange </th>
+      <th>in Bearbeitung </th>
+      <th>Aufträge </th>
+    </tr>
+
+    <tr id="P1">
+      <th>P1</th>
+      <th>{{finishedProducts[0].orders}}</th>
+      <th>
+        <input placeholder="Lagerendbestand" type="number" [(ngModel)]="finishedProducts[0].plannedWHEnd"
+                 (ngModelChange)="updateAmmountNeededForFinishedProducts(0); updateAmountNeededForSubProducts(0); updateAmountNeededForSubProducts(1);updateAmountNeededForSubProducts(2);updateAmountNeededForSubProducts(3)"></th>
+      <th>{{finishedProducts[0].inWarehouse}}</th>
+      <th>{{finishedProducts[0].inWaitlist}}</th>
+      <th>{{finishedProducts[0].inProduction}}</th>
+      <th>{{finishedProducts[0].amountneeded}}</th>
+    </tr>
+
+    <tr id="E26">
+      <th>E{{subProducts[0].id}} </th>
+      <th>{{subProducts[0].orders}}</th>
+      <th>
+        <input placeholder="Lagerendbestand" type="number" [(ngModel)]="subProducts[0].plannedWHEnd"
+               (ngModelChange)="updateAmountNeededForSubProducts(0)">
+      </th>
+      <th>{{subProducts[0].inWarehouse}}</th>
+      <th>{{subProducts[0].inWaitlist}}</th>
+      <th>{{subProducts[0].inProduction}}</th>
+      <th>{{subProducts[0].amountneeded}}</th>
+    </tr>
+
+    <tr id="E51">
+      <th>E{{subProducts[1].id}} </th>
+      <th>{{subProducts[1].orders}}</th>
+      <th>
+        <input placeholder="Lagerendbestand" type="number" [(ngModel)]="subProducts[1].plannedWHEnd"
+               (ngModelChange)="updateAmountNeededForSubProducts(1); updateAmountNeededForSubProducts(4)">
+      </th>
+      <th>{{subProducts[1].inWarehouse}}</th>
+      <th>{{subProducts[1].inWaitlist}}</th>
+      <th>{{subProducts[1].inProduction}}</th>
+      <th>{{subProducts[1].amountneeded}}</th>
+    </tr>
+
+    <tr id="E16">
+      <th>E{{subProducts[4].id}} </th>
+      <th>{{subProducts[4].orders}}</th>
+      <th>
+        <input placeholder="Lagerendbestand" type="number" [(ngModel)]="subProducts[4].plannedWHEnd"
+               (ngModelChange)="updateAmountNeededForSubProducts(2)">
+      </th>
+      <th>{{subProducts[4].inWarehouse}}</th>
+      <th>{{subProducts[4].inWaitlist}}</th>
+      <th>{{subProducts[4].inProduction}}</th>
+      <th>{{subProducts[4].amountneeded}}</th>
+    </tr>
+
+    <tr id="E17">
+      <th>E{{subProducts[5].id}} </th>
+      <th>{{subProducts[5].orders}}</th>
+      <th>
+        <input placeholder="Lagerendbestand" type="number" [(ngModel)]="subProducts[5].plannedWHEnd"
+               (ngModelChange)="updateAmountNeededForSubProducts(5)">
+      </th>
+      <th>{{subProducts[5].inWarehouse}}</th>
+      <th>{{subProducts[5].inWaitlist}}</th>
+      <th>{{subProducts[5].inProduction}}</th>
+      <th>{{subProducts[5].amountneeded}}</th>
+    </tr>
+
+    <tr id="E50">
+      <th>E{{subProducts[6].id}} </th>
+      <th>{{subProducts[6].orders}}</th>
+      <th>
+        <input placeholder="Lagerendbestand" type="number" [(ngModel)]="subProducts[6].plannedWHEnd"
+               (ngModelChange)="updateAmountNeededForSubProducts(6)">
+      </th>
+      <th>{{subProducts[6].inWarehouse}}</th>
+      <th>{{subProducts[6].inWaitlist}}</th>
+      <th>{{subProducts[6].inProduction}}</th>
+      <th>{{subProducts[6].amountneeded}}</th>
+    </tr>
+
+    <tr id="E4">
+      <th>E{{subProducts[9].id}} </th>
+      <th>{{subProducts[9].orders}}</th>
+      <th>
+        <input placeholder="Lagerendbestand" type="number" [(ngModel)]="subProducts[9].plannedWHEnd"
+               (ngModelChange)="updateAmountNeededForSubProducts(9)">
+      </th>
+      <th>{{subProducts[9].inWarehouse}}</th>
+      <th>{{subProducts[9].inWaitlist}}</th>
+      <th>{{subProducts[9].inProduction}}</th>
+      <th>{{subProducts[9].amountneeded}}</th>
+    </tr>
+
+    <tr id="E10">
+      <th>E{{subProducts[10].id}} </th>
+      <th>{{subProducts[10].orders}}</th>
+      <th>
+        <input placeholder="Lagerendbestand" type="number" [(ngModel)]="subProducts[10].plannedWHEnd"
+               (ngModelChange)="updateAmountNeededForSubProducts(10)">
+      </th>
+      <th>{{subProducts[10].inWarehouse}}</th>
+      <th>{{subProducts[10].inWaitlist}}</th>
+      <th>{{subProducts[10].inProduction}}</th>
+      <th>{{subProducts[10].amountneeded}}</th>
+    </tr>
+
+    <tr id="E49">
+      <th>E{{subProducts[11].id}} </th>
+      <th>{{subProducts[11].orders}}</th>
+      <th>
+        <input placeholder="Lagerendbestand" type="number" [(ngModel)]="subProducts[11].plannedWHEnd"
+               (ngModelChange)="updateAmountNeededForSubProducts(11)">
+      </th>
+      <th>{{subProducts[11].inWarehouse}}</th>
+      <th>{{subProducts[11].inWaitlist}}</th>
+      <th>{{subProducts[11].inProduction}}</th>
+      <th>{{subProducts[11].amountneeded}}</th>
+    </tr>
+
+    <tr id="E7">
+      <th>E{{subProducts[18].id}} </th>
+      <th>{{subProducts[18].orders}}</th>
+      <th>
+        <input placeholder="Lagerendbestand" type="number" [(ngModel)]="subProducts[18].plannedWHEnd"
+               (ngModelChange)="updateAmountNeededForSubProducts(18)">
+      </th>
+      <th>{{subProducts[18].inWarehouse}}</th>
+      <th>{{subProducts[18].inWaitlist}}</th>
+      <th>{{subProducts[18].inProduction}}</th>
+      <th>{{subProducts[18].amountneeded}}</th>
+    </tr>
+
+    <tr id="E13">
+      <th>E{{subProducts[19].id}} </th>
+      <th>{{subProducts[19].orders}}</th>
+      <th>
+        <input placeholder="Lagerendbestand" type="number" [(ngModel)]="subProducts[19].plannedWHEnd"
+               (ngModelChange)="updateAmountNeededForSubProducts(9)">
+      </th>
+      <th>{{subProducts[19].inWarehouse}}</th>
+      <th>{{subProducts[19].inWaitlist}}</th>
+      <th>{{subProducts[19].inProduction}}</th>
+      <th>{{subProducts[19].amountneeded}}</th>
+    </tr>
+    <tr id="E18">
+      <th>E{{subProducts[20].id}} </th>
+      <th>{{subProducts[20].orders}}</th>
+      <th>
+        <input placeholder="Lagerendbestand" type="number" [(ngModel)]="subProducts[20].plannedWHEnd"
+               (ngModelChange)="updateAmountNeededForSubProducts(20)">
+      </th>
+      <th>{{subProducts[20].inWarehouse}}</th>
+      <th>{{subProducts[20].inWaitlist}}</th>
+      <th>{{subProducts[20].inProduction}}</th>
+      <th>{{subProducts[20].amountneeded}}</th>
+    </tr>
+  </table>
+</div>
+
+<!--
 <div>
   <label>P1</label>
   <input placeholder="Lagerendbestand" type="number" [(ngModel)]="finishedProducts[0].plannedWHEnd"
@@ -9,7 +178,8 @@
 
 <div>
   <label>E26</label>
-  <input placeholder="Lagerendbestand" type="number" [(ngModel)]="subProducts[0].plannedWHEnd" (ngModelChange)="updateAmountNeededForSubProducts(0)">
+  <input placeholder="Lagerendbestand" type="number" [(ngModel)]="subProducts[0].plannedWHEnd"
+         (ngModelChange)="updateAmountNeededForSubProducts(0)">
   <div>Benötigt: {{subProducts[0].amountneeded}}</div>
 </div>
 
@@ -26,8 +196,9 @@
          (ngModelChange)="updateAmmountNeededForFinishedProducts(2); updateAmountNeededForSubProducts(0)">
   <div>Benötigt: {{finishedProducts[2].amountneeded}}</div>
 </div>
+-->
 
 
-<button mat-button matStepperPrevious>Zurück</button>
+<button matStepperPrevious>Zurück</button>
 
-<button mat-button matStepperNext>Weiter</button>
+<button matStepperNext>Weiter</button>
