@@ -35,8 +35,8 @@
       <td><input type="text" [(ngModel)]="extraTime[14]" (ngModelChange)="onExtraTimeChange()"/></td>
     </tr>
   </table>
-  <button mat-button matStepperPrevious>Zurück</button>
-  <button mat-button class="pull-right" matStepperNext (click)="saveWorkplacePlan()">Weiter</button>
+  <button mat-raised-button style="margin-top: 2%" color="warn" matStepperPrevious>Zurück</button>
+  <button mat-raised-button style="margin-top: 2%" class="pull-right" color="primary" matStepperNext (click)="saveWorkplacePlan()">Weiter</button>
 </div>
 
 
