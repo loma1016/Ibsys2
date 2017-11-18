@@ -5,3 +5,8 @@ input {
 th {
   text-align: center;
 }
+
+input {
+  width: 100%;
+  text-align: center;
+}
