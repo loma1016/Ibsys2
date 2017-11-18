@@ -1,31 +1,12 @@
-#forecastContainer {
-  padding: 30px 50px;
-  margin-top: 10px;
-  border: 1px solid rgba(0,0,0,0.37);
-  border-radius: 6px;
-  width: 100%;
-  -webkit-box-shadow: 0 0 10px 2px rgba(0,0,0,0.5);
-  -moz-box-shadow: 0 0 10px 2px rgba(0,0,0,0.5);
-  box-shadow: 0 0 10px 2px rgba(0,0,0,0.5);
-  position: relative;
-}
-
-.table-header {
+th{
+  border-right: solid grey 1px;
   text-align: center;
 }
 
-.head-row {
-  height: 58px;
-}
-
-th{
-  border-right: solid grey 1px;
-}
 tr{
   border-bottom: solid grey 1px;
 }
 
-.pull-right {
-  position: absolute;
-  right: 0px;
+input {
+  width: 100%;
 }
