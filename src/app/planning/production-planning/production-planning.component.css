@@ -7,11 +7,11 @@ tr{
   border-bottom: solid grey 1px;
 }
 
-.smallTh {
-  width: 10%;
-}
-
 input {
   width: 100%;
   text-align: center;
+}
+
+.planningTable th {
+  width: 10%;
 }
