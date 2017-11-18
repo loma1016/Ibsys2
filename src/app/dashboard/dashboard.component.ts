@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   // Total Stock Value Graph
   public allTotalStockValues: Array<any> = [];
   public lineChartData: any[] = [{ data: [] }, { data: [] }];
-  public lineChartType:string = 'line';  
+  public lineChartType: string = 'line';
   public lineChartLabels: Array<any> = [];
   public lineChartTarget: Array<any> = [];
   public lineChartDiff: Array<any> = [];
@@ -21,12 +21,12 @@ export class DashboardComponent implements OnInit {
     maintainAspectRatio: true,
     scales: {
       yAxes: [{
-        ticks: {min: 200000, max: 300000}
+        ticks: { min: 200000, max: 300000 }
       }]
     }
   };
-  
-  public lineChartColors:Array<any> = [
+
+  public lineChartColors: Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: 'rgba(148,159,177,1)',
@@ -39,16 +39,16 @@ export class DashboardComponent implements OnInit {
       backgroundColor: 'rgba(77,83,96,0.0)',
       borderColor: 'rgba(77,83,96,1)',
       pointBackgroundColor: 'rgba(77,83,96,1)'
-      },
-  ]
+    },
+  ];
 
 
   // All Stock Values Graph
-  public allStockValues: Array<any> = [];  
-  public startValues: Array<any> = [];    
+  public allStockValues: Array<any> = [];
+  public startValues: Array<any> = [];
   public barChartData: any[] = [{ data: [] }, { data: [] }];
-  public barChartType:string = 'bar';  
-  public barChartLabels: Array<any> = [];  
+  public barChartType: string = 'bar';
+  public barChartLabels: Array<any> = [];
   public barChartOptions = {
     responsive: true,
     maintainAspectRatio: true,
@@ -56,8 +56,8 @@ export class DashboardComponent implements OnInit {
 
 
   // Profit Graph
-  public allProfits: Array<any> = [];  
-  public cumProfits: Array<any> = [];  
+  public allProfits: Array<any> = [];
+  public cumProfits: Array<any> = [];
   public summaryChartData: any[] = [{ data: [] }, { data: [] }];
   public profitChartLabels: Array<any> = [];
   public profitChartOptions = {
@@ -65,7 +65,7 @@ export class DashboardComponent implements OnInit {
     maintainAspectRatio: true
   };
 
-  public profitChartColors:Array<any> = [
+  public profitChartColors: Array<any> = [
     { // dark grey
       backgroundColor: 'rgba(77,83,96,0.0)',
       borderColor: 'rgba(77,83,96,1)',
@@ -88,10 +88,10 @@ export class DashboardComponent implements OnInit {
     var context = this;
 
     // draw Total Stock Value line graph
-    var drawTotalStockValue = function(periods) {
+    var drawTotalStockValue = function (periods) {
       for (var period in periods) {
         if (period) {
-          context.lineChartLabels.push("Periode " + period);
+          context.lineChartLabels.push('Periode ' + period);
           context.allTotalStockValues.push(Number(periods[period].warehousestock[0].totalstockvalue[0]));
           context.lineChartTarget.push(250000);
           context.lineChartDiff.push(Math.round((Number(periods[period].warehousestock[0].totalstockvalue[0]) - 250000) * 100) / 100);
@@ -99,13 +99,13 @@ export class DashboardComponent implements OnInit {
       }
 
       context.lineChartData = [
-        {data: context.allTotalStockValues, label: 'Gesamter Lagerwert'},
-        {data: context.lineChartTarget, label: 'Zielwert'},        
-      ] 
+        { data: context.allTotalStockValues, label: 'Gesamter Lagerwert' },
+        { data: context.lineChartTarget, label: 'Zielwert' },
+      ]
     }
 
     // draw all Stock Values bar chart
-    var drawAllStockValues = function(periods) {
+    var drawAllStockValues = function (periods) {
       var period = periods[periods.length - 1];
       for (var item in period.warehousestock[0].article) {
         context.allStockValues.push(period.warehousestock[0].article[item].item.stockvalue);
@@ -114,13 +114,13 @@ export class DashboardComponent implements OnInit {
       }
 
       context.barChartData = [
-        {data: context.allStockValues, label: 'Alle Lagerwerte'},
-        {data: context.startValues, label: 'Start Werte'}
+        { data: context.allStockValues, label: 'Alle Lagerwerte' },
+        { data: context.startValues, label: 'Start Werte' }
       ]
     }
 
     // draw Profit line graph
-    var drawProfitSummary = function(periods) {
+    var drawProfitSummary = function (periods) {
       for (var period in periods) {
         if (period) {
           context.allProfits.push(Number(periods[period].result[0].summary[0].profit[0].item.current));
@@ -129,9 +129,9 @@ export class DashboardComponent implements OnInit {
       }
 
       context.summaryChartData = [
-        {data: context.allProfits, label: 'Profit'},
-        {data: context.cumProfits, label: 'Kumulierter Profit'},               
-      ] 
+        { data: context.allProfits, label: 'Profit' },
+        { data: context.cumProfits, label: 'Kumulierter Profit' },
+      ]
     }
 
     this.db.object('periods').valueChanges().subscribe(periods => {

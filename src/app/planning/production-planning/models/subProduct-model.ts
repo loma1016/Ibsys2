@@ -1,7 +1,7 @@
 /**
  * Created by marvinlott on 13.11.17.
  */
-export interface SbProduct{
+export interface SbProduct {
   id: number;
   dependency: number[];
   orders: number;
@@ -21,5 +21,5 @@ export class SubProduct implements SbProduct {
   inWaitlist: number;
   inProduction: number;
   amountneeded:  number;
-  constructor(){}
+  constructor() {}
 }

@@ -2,42 +2,69 @@
   <table class="planningTable table-striped table-bordered">
     <tr class="table-row head-row">
       <th class="col-xs-2">Arbeitsplatz</th>
-    <th *ngFor="let totalTime of workplacePlan.totalTime; let i = index">{{i+1}}</th>
+      <th *ngFor="let totalTime of workplacePlan.totalTime; let i = index">{{i+1}}</th>
     </tr>
     <tr class="table-row">
-        <th class="col-xs-2">Gesamtzeit</th>
+      <th class="col-xs-2">Gesamtzeit</th>
       <th *ngFor="let totalTime of workplacePlan.totalTime">{{totalTime}}</th>
     </tr>
     <tr class="table-row">
-        <th class="col-xs-2">Schichten</th>
+      <th class="col-xs-2">Schichten</th>
       <th *ngFor="let shift of workplacePlan.shift">{{shift}}</th>
     </tr>
     <tr class="table-row">
-        <th class="col-xs-2">Überstunden</th>
+      <th class="col-xs-2">Überstunden</th>
       <th *ngFor="let overtime of workplacePlan.overtime">{{overtime}}</th>
     </tr>
     <tr class="table-row extra-row">
-        <th class="col-xs-2">Extrazeit</th>
-      <td><input type="number" [(ngModel)]="extraTime[0]" (ngModelChange)="onExtraTimeChange()"/></td>
-      <td><input type="number" [(ngModel)]="extraTime[1]" (ngModelChange)="onExtraTimeChange()"/></td>
-      <td><input type="number" [(ngModel)]="extraTime[2]" (ngModelChange)="onExtraTimeChange()"/></td>
-      <td><input type="number" [(ngModel)]="extraTime[3]" (ngModelChange)="onExtraTimeChange()"/></td>
-      <td><input type="number" [(ngModel)]="extraTime[4]" (ngModelChange)="onExtraTimeChange()"/></td>
-      <td><input type="number" [(ngModel)]="extraTime[5]" (ngModelChange)="onExtraTimeChange()"/></td>
-      <td><input type="number" [(ngModel)]="extraTime[6]" (ngModelChange)="onExtraTimeChange()"/></td>
-      <td><input type="number" [(ngModel)]="extraTime[7]" (ngModelChange)="onExtraTimeChange()"/></td>
-      <td><input type="number" [(ngModel)]="extraTime[8]" (ngModelChange)="onExtraTimeChange()"/></td>
-      <td><input type="number" [(ngModel)]="extraTime[9]" (ngModelChange)="onExtraTimeChange()"/></td>
-      <td><input type="number" [(ngModel)]="extraTime[10]" (ngModelChange)="onExtraTimeChange()"/></td>
-      <td><input type="number" [(ngModel)]="extraTime[11]" (ngModelChange)="onExtraTimeChange()"/></td>
-      <td><input type="number" [(ngModel)]="extraTime[12]" (ngModelChange)="onExtraTimeChange()"/></td>
-      <td><input type="number" [(ngModel)]="extraTime[13]" (ngModelChange)="onExtraTimeChange()"/></td>
-      <td><input type="number" [(ngModel)]="extraTime[14]" (ngModelChange)="onExtraTimeChange()"/></td>
+      <th class="col-xs-2">Extrazeit</th>
+      <td>
+        <input type="number" [(ngModel)]="extraTime[0]" (ngModelChange)="onExtraTimeChange()" />
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="extraTime[1]" (ngModelChange)="onExtraTimeChange()" />
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="extraTime[2]" (ngModelChange)="onExtraTimeChange()" />
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="extraTime[3]" (ngModelChange)="onExtraTimeChange()" />
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="extraTime[4]" (ngModelChange)="onExtraTimeChange()" />
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="extraTime[5]" (ngModelChange)="onExtraTimeChange()" />
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="extraTime[6]" (ngModelChange)="onExtraTimeChange()" />
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="extraTime[7]" (ngModelChange)="onExtraTimeChange()" />
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="extraTime[8]" (ngModelChange)="onExtraTimeChange()" />
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="extraTime[9]" (ngModelChange)="onExtraTimeChange()" />
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="extraTime[10]" (ngModelChange)="onExtraTimeChange()" />
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="extraTime[11]" (ngModelChange)="onExtraTimeChange()" />
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="extraTime[12]" (ngModelChange)="onExtraTimeChange()" />
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="extraTime[13]" (ngModelChange)="onExtraTimeChange()" />
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="extraTime[14]" (ngModelChange)="onExtraTimeChange()" />
+      </td>
     </tr>
   </table>
   <button mat-raised-button style="margin-top: 2%" color="warn" matStepperPrevious>Zurück</button>
   <button mat-raised-button style="margin-top: 2%" class="pull-right" color="primary" matStepperNext (click)="saveWorkplacePlan()">Weiter</button>
 </div>
-
-
-

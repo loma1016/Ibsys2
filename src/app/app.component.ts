@@ -20,6 +20,6 @@ export class AppComponent {
   }
 
   closeXmlUpload() {
-    this.showXmlUpload = false;    
+    this.showXmlUpload = false;
   }
 }

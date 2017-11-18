@@ -7,7 +7,6 @@
       <mat-list-item class="link" (click)="sidenav.close(); openXmlUpload()"> XML Input </mat-list-item>
     </mat-list>
   </mat-sidenav>
-
   <div class="example-sidenav-content">
     <mat-icon class="more_icon" (click)="sidenav.open()">more_vert</mat-icon>
     <mat-toolbar color="primary">
@@ -16,13 +15,9 @@
         <a href="/#/planning">Planung</a>
       </mat-toolbar-row>
     </mat-toolbar>
-
-
-
   </div>
   <div class="page-content">
     <router-outlet></router-outlet>
     <app-xml-upload *ngIf="showXmlUpload" (hideXmlUpload)="closeXmlUpload()"></app-xml-upload>
   </div>
-
 </mat-sidenav-container>

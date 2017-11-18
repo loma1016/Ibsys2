@@ -30,11 +30,7 @@ import { DispositionComponent } from './planning/disposition/disposition.compone
 import { ForecastComponent } from './planning/forecast/forecast.component';
 import { PlanningComponent } from './planning/planning.component';
 import { WorkspacePlanningComponent } from './planning/workplace-planning/workplace-planning.component';
-
-
-
-
-import {ProductionPlanningComponent} from "./planning/production-planning/production-planning.component";
+import { ProductionPlanningComponent } from './planning/production-planning/production-planning.component';
 
 
 @NgModule({

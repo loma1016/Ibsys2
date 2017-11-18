@@ -20,5 +20,5 @@ export class FinishedProduct implements Product {
   inWaitlist: number;
   inProduction: number;
   amountneeded: number;
-  constructor(){}
+  constructor() {}
 }
