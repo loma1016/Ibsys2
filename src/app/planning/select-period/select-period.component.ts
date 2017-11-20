@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
   selector: 'app-select-period',
@@ -9,14 +10,11 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class SelectPeriodComponent implements OnInit {
   @Output() closeSelectPeriod = new EventEmitter();  
   public possiblePeriods = 7;
+  public currPeriod = 1;
 
-  constructor() { }
+  constructor(private db: AngularFireDatabase) { }
 
   ngOnInit() {
-  }
-
-  periodIsSet() {
-    this.closeSelectPeriod.emit();
   }
 
   createRange() {
@@ -27,4 +25,14 @@ export class SelectPeriodComponent implements OnInit {
     return items;
   }
 
+  submitPeriod(period) {
+    this.db.object('periods/' + (period - 1).toString()).valueChanges().subscribe(per => {
+      if (per) {
+        this.db.object('/').update({currentPeriod: period});        
+        this.closeSelectPeriod.emit();        
+      } else {
+        console.log("error");
+      }
+    });    
+  }
 }
