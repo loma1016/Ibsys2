@@ -31,6 +31,7 @@ import { ForecastComponent } from './planning/forecast/forecast.component';
 import { PlanningComponent } from './planning/planning.component';
 import { WorkspacePlanningComponent } from './planning/workplace-planning/workplace-planning.component';
 import { ProductionPlanningComponent } from './planning/production-planning/production-planning.component';
+import { SelectPeriodComponent } from './planning/select-period/select-period.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { ProductionPlanningComponent } from './planning/production-planning/prod
     DashboardComponent,
     DispositionComponent,
     DashboardComponent,
-    ForecastComponent
+    ForecastComponent,
+    SelectPeriodComponent
   ],
   imports: [
     BrowserModule,
