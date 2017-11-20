@@ -118,15 +118,17 @@ export class DispositionComponent implements OnInit {
 
     });
 
-    let result = {};
+    let result = [];
 
     this.ordersData.index.forEach(index => {
-      if (this.ordersData[index].result.normalOrder || this.ordersData[index].result.expressOrder) {
-        result[index] = { normalOrder: this.ordersData[index].result.normalOrder, expressOrder: this.ordersData[index].result.expressOrder }
-      }
+      if (this.ordersData[index].result.normalOrder) {
+        result.push({ article: index, quantity: this.ordersData[index].result.normalOrder, modus: 5 });
+      } else if (this.ordersData[index].result.expressOrder) {
+        result.push({ article: index, quantity: this.ordersData[index].result.expressOrder, modus: 4 });
+     }
     });
 
-    this.db.object('/result/disposition').update(result);
+    this.db.object('/result/disposition').set(result);
 
 
   }

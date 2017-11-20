@@ -310,7 +310,11 @@ export class WorkspacePlanningComponent implements OnInit {
   }
 
   saveWorkplacePlan() {
-    this.db.object('/result/workplace').update(this.workplacePlan);
+    let result = [];
+    this.workplacePlan.shift.forEach((shift, index) => {
+      result.push({station: index+1, shift: shift, overtime: this.workplacePlan.overtime[index]});
+    });
+    this.db.object('/result/workingtimelist').set(result);
   }
 
 }
