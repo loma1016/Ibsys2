@@ -5,7 +5,7 @@
       <div id="selector">
         <mat-form-field id="periodSelector">              
           <mat-select placeholder="Periode" #selectedPeriod>
-            <mat-option *ngFor="let period of createRange(); let i = index" [value]="period">
+            <mat-option *ngFor="let period of possiblePeriods; let i = index" [value]="period">
               {{period}}
             </mat-option>
           </mat-select>

@@ -11,8 +11,9 @@ import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 
 export class SelectPeriodComponent implements OnInit {
   @Output() closeSelectPeriod = new EventEmitter();  
-  public possiblePeriods: number;
+  public possiblePeriods = [];
   public currPeriod = 1;
+  public periods: any[]
   toastOptions: ToastOptions = {
     title: 'Warnung!',
     msg: 'Planung wurde abgebrochen!',
@@ -27,16 +28,11 @@ export class SelectPeriodComponent implements OnInit {
 
   ngOnInit() {
     this.db.object('periods').valueChanges().subscribe(count => {
-      this.possiblePeriods = Object.keys(count).length + 1;
+      var periods = Object.keys(count);
+      periods.forEach(per => {
+        this.possiblePeriods.push(Number(per) + 1);
+      });
     });      
-  }
-
-  createRange() {
-    var items: number[] = [];
-    for(var i = 1; i <= this.possiblePeriods; i++) {
-      items.push(i)
-    }
-    return items;
   }
 
   submitPeriod(period) {
