@@ -21,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ToastyModule } from 'ng2-toasty';
 
 import { AppComponent } from './app.component';
@@ -32,6 +33,7 @@ import { PlanningComponent } from './planning/planning.component';
 import { WorkspacePlanningComponent } from './planning/workplace-planning/workplace-planning.component';
 import { ProductionPlanningComponent } from './planning/production-planning/production-planning.component';
 import { ResultComponent } from './planning/result/result.component';
+import { ModalComponent } from './util/modal/modal.component';
 
 
 @NgModule({
@@ -45,7 +47,8 @@ import { ResultComponent } from './planning/result/result.component';
     DispositionComponent,
     DashboardComponent,
     ForecastComponent,
-    ResultComponent
+    ResultComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +63,7 @@ import { ResultComponent } from './planning/result/result.component';
     MatStepperModule,
     MatButtonModule,
     MatTableModule,
+    MatSlideToggleModule,
     FormsModule,
     HttpModule,
     routes,

@@ -20,6 +20,8 @@ export class DispositionComponent implements OnInit {
 
   forecastData: Observable<any>;
 
+  newOrderData = {item:0, amount:0, mode:5, modeLabel: 'normal'};
+
   constructor(private db: AngularFireDatabase) { }
 
   ngOnInit() {
@@ -117,6 +119,35 @@ export class DispositionComponent implements OnInit {
       }
 
     });
+    this.saveResult();
+  }
+
+  sliderChangeEvent(event) {
+    if (event.checked) {
+      this.newOrderData.modeLabel = 'express';
+      this.newOrderData.mode = 4;
+    } else {
+      this.newOrderData.modeLabel = 'normal';
+      this.newOrderData.mode = 5;
+    }
+  }
+
+  newOrder(){
+    if (this.ordersData.index.indexOf(Number(this.newOrderData.item)) >= 0) {
+      this.ordersData[Number(this.newOrderData.item)].result.normalOrder = 0;
+      this.ordersData[Number(this.newOrderData.item)].result.expressOrder = 0;
+      if (this.newOrderData.mode === 4) {
+        this.ordersData[Number(this.newOrderData.item)].result.expressOrder = this.newOrderData.amount;
+      } else if (this.newOrderData.mode === 5) {
+        this.ordersData[Number(this.newOrderData.item)].result.normalOrder = this.newOrderData.amount;
+      }
+      this.saveResult();
+    } else {
+
+    }
+  }
+
+  saveResult() {
 
     let result = [];
 
@@ -125,12 +156,9 @@ export class DispositionComponent implements OnInit {
         result.push({ article: index, quantity: this.ordersData[index].result.normalOrder, modus: 5 });
       } else if (this.ordersData[index].result.expressOrder) {
         result.push({ article: index, quantity: this.ordersData[index].result.expressOrder, modus: 4 });
-     }
+      }
     });
-
     this.db.object('/result/disposition').set(result);
-
-
   }
 }
 

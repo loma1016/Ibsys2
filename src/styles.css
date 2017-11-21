@@ -37,3 +37,8 @@ body {
   position: absolute;
   right: 0px;
 }
+
+.pull-left {
+  position: absolute;
+  left: 0px;
+}

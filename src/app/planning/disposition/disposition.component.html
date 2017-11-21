@@ -27,6 +27,35 @@
       </th>
     </tr>
   </table>
-  <button mat-raised-button style="margin-top: 2%" color="warn" matStepperPrevious>Zurück</button>
-  <button mat-raised-button style="margin-top: 2%" class="pull-right" color="primary" matStepperNext>Weiter</button>
+
+
+    <button mat-raised-button class="back-btn" color="warn" matStepperPrevious>Zurück</button>
+
+
+    <button mat-raised-button class="new-btn" color="primary" (click)="newOrderModal.show()" >Bestellung verändern</button>
+
+
+    <button mat-raised-button class="pull-right next-btn" color="primary" matStepperNext>Weiter</button>
+
+
+  <app-modal #newOrderModal>
+    <div class="app-modal-header">
+      Bestellung eines Kaufteils abändern?
+    </div>
+    <div class="app-modal-body">
+      <label class="newOrderLabel"> Kaufteilnummer</label>
+      <input type="number" class="newOrderInput" name="newOrderItem" [(ngModel)]="newOrderData.item"><br>
+      <label class="newOrderLabel">Anzahl</label>
+      <input type="number" class="newOrderInput" name="newOrderAmount" [(ngModel)]="newOrderData.amount"><br>
+      <label class="newOrderLabel">Bestellmodus</label>
+      <mat-slide-toggle (change)="sliderChangeEvent($event)">{{newOrderData.modeLabel}}</mat-slide-toggle>
+    </div>
+    <div class="app-modal-footer">
+      <button mat-raised-button class="pull-left" color="warn" (click)="newOrderModal.hide()">Abbrechen</button>
+      <button mat-raised-button class="pull-right" color="primary" (click)="newOrderModal.hide(); newOrder()">Ok</button>
+    </div>
+  </app-modal>
+
+
+
 </div>

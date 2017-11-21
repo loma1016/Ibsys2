@@ -2,7 +2,42 @@
   width: auto;
 }
 
+.delete-btn {
+  position: absolute;
+  right: 0px;
+  margin-right: 1%;
+  margin-top: 2%;
+}
+
+.back-btn {
+  margin-top: 15px;
+}
+
+.new-btn {
+  margin-top: 15px;
+  width: 160px;
+  position: absolute;
+  left: 50%;
+  margin-left: -80px;
+}
+
+.next-btn {
+  margin-top: 15px;
+}
+
+.newOrderLabel {
+  width: 25%;
+  margin-top: 10px;
+}
+
+.newOrderInput {
+  width: 17%;
+  margin-top: 10px;
+}
+
 th {
   width: 1%;
   text-align: center;
 }
+
+
