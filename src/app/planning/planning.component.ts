@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./planning.component.css']
 })
 export class PlanningComponent implements OnInit {
-
+  public periodIsSet = false;
   constructor() { }
 
   ngOnInit() {
   }
 
+  setPeriod() {
+    this.periodIsSet = true;
+  }
 }

@@ -129,8 +129,6 @@ export class DispositionComponent implements OnInit {
     });
 
     this.db.object('/result/disposition').set(result);
-
-
   }
 }
 

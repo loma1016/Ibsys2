@@ -1,11 +1,2 @@
-<div id="uploadModal" (click)="closeXml()">
-    <div id="uploadPopUp" (click)="$event.stopPropagation()">
-        <div class="upload-img-container">
-            <span class="glyphicon glyphicon-download-alt upload-img"></span>
-        </div>
-        <div class="spacer"></div>
-        <span>Bitte wählen Sie eine XML-Datei aus, indem Sie auf den Upload-Button klicken.</span>
-        <input type="file" name="xmlUpload" id="xmlUpload" accept='text/xml' (change)='changeListener($event)' accept="text/xml" class="inputfile"/>
-        <label for="xmlUpload">Upload</label>
-    </div>
-</div>
+<input type="file" name="xmlUpload" id="xmlUpload" accept='text/xml' (change)='changeListener($event)' accept="text/xml" class="inputfile"/>
+<label for="xmlUpload">Xml - Upload</label>

@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
 export class AppComponent {
   items: Observable<any[]>;
   showXmlUpload = false;
+  public setPeriod = false;
 
   constructor(db: AngularFirestore) {
     this.items = db.collection('article').valueChanges();

@@ -12,7 +12,7 @@ export class ForecastComponent implements OnInit {
   sumSecond: number;
   sumThird: number;
   sumFourth: number;
-  curPeriod = 3;
+  currPeriod = 1;
 
   constructor(private db: AngularFireDatabase) {
     this.forecastPeriod = [
@@ -24,6 +24,9 @@ export class ForecastComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.db.object('currentPeriod').valueChanges().subscribe(currentPeriod => {
+      this.currPeriod =  + currentPeriod;
+    })
   }
 
   onlyNumbers(e) {

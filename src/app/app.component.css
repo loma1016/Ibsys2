@@ -28,10 +28,71 @@ mat-toolbar {
 }
 .link {
   cursor: pointer;
+  border: 1px solid #ffffff
+}
+
+.link:hover {
+  border: 1px solid rgb(166, 199, 255);
+}
+
+.link:focus {
+  outline: #ffffff auto 5px;  
 }
 
 a {
   text-decoration: none;
   color: rgba(255,255,255,.87);
   padding: 10px;
+}
+
+
+#uploadModal {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  display: block;
+  z-index: 3;
+  background-color: rgba(0,0,0,.6);
+}
+
+#uploadPopUp {
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  height: 340px;
+  background: white;
+  width: 540px;
+  margin-left: -270px;
+  border-radius: 5px;
+  text-align: center;
+  -webkit-box-shadow: 0 0 25px 5px rgba(0,0,0,0.65);
+  -moz-box-shadow: 0 0 25px 5px rgba(0,0,0,0.65);
+  box-shadow: 0 0 25px 5px rgba(0,0,0,0.65);  
+}
+
+.upload-img-container {
+  margin-top: 40px;
+}
+
+.upload-img {
+  font-size: 100px;
+  color: #8a8a8a;
+}
+
+.spacer {
+  margin-top: 30px;
+}
+
+.upload-text {
+  margin: 15px auto -10px auto;
+  background: #f1f1f154;
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: 1px solid #e0dede;    
+  width: 85%;  
+  -webkit-box-shadow: 0 0 5px 1px rgba(0,0,0,0.4);
+  -moz-box-shadow: 0 0 5px 1px rgba(0,0,0,0.4);
+  box-shadow: 0 0 5px 1px rgba(0,0,0,0.4);  
 }
