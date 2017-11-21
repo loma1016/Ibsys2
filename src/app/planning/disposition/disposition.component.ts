@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ordersData } from './disposition.data';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
+import { ToastyServiceInt } from "../../util/toasty.service";
 
 @Component({
   selector: 'app-disposition',
@@ -22,7 +23,7 @@ export class DispositionComponent implements OnInit {
 
   newOrderData = {item:0, amount:0, mode:5, modeLabel: 'normal'};
 
-  constructor(private db: AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase,  private toastyService: ToastyServiceInt) { }
 
   ngOnInit() {
     this.db.object('currentPeriod').valueChanges().subscribe(currentPeriod => {
@@ -143,7 +144,7 @@ export class DispositionComponent implements OnInit {
       }
       this.saveResult();
     } else {
-
+      this.toastyService.setToastyDefaultError('Fehler', 'Bitte geben Sie eine korrekte Kaufteilnummer ein!');
     }
   }
 

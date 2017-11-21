@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Router } from "@angular/router";
-import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import { ToastyServiceInt } from "../../util/toasty.service";
 
 @Component({
   selector: 'app-select-period',
@@ -10,23 +10,14 @@ import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 })
 
 export class SelectPeriodComponent implements OnInit {
-  @Output() closeSelectPeriod = new EventEmitter();  
+  @Output() closeSelectPeriod = new EventEmitter();
   public possiblePeriods = [];
   public currPeriod = 1;
   public periods: any[];
   public setPeriod: true;
   public butDisabled = true;
 
-  toastOptions: ToastOptions = {
-    title: 'Warnung!',
-    msg: 'Planung wurde abgebrochen!',
-    timeout: 3000,
-    theme: 'material'
-  }
-
-  constructor(private db: AngularFireDatabase, private router: Router, private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
-    this.toastyConfig.theme = 'material';
-    
+  constructor(private db: AngularFireDatabase, private router: Router, private toastyServiceInt: ToastyServiceInt) {
   }
 
   ngOnInit() {
@@ -35,27 +26,27 @@ export class SelectPeriodComponent implements OnInit {
       periods.forEach(per => {
         this.possiblePeriods.push(Number(per) + 1);
       });
-    });      
+    });
   }
 
   submitPeriod(period) {
     this.db.object('periods/' + (period - 1).toString()).valueChanges().subscribe(per => {
       if (per) {
-        this.db.object('/').update({currentPeriod: period});        
-        this.closeSelectPeriod.emit();        
+        this.db.object('/').update({currentPeriod: period});
+        this.closeSelectPeriod.emit();
       } else {
         console.log("error");
       }
-    });    
+    });
   }
 
   closeModal() {
     this.router.navigate(['/']);
-    this.toastyService.warning(this.toastOptions);    
+    this.toastyServiceInt.setToastyDefaultError('Warnung!', 'Planung wurde abgebrochen!')
   }
 
   startPlanning() {
-    this.closeSelectPeriod.emit();            
+    this.closeSelectPeriod.emit();
   }
 
   enableBtn() {

@@ -1,4 +1,4 @@
-<ng2-toasty></ng2-toasty>
+<ng2-toasty [position]="'top-center'"></ng2-toasty>
 <mat-sidenav-container class="example-container">
   <mat-sidenav #sidenav class="example-sidenav">
     <mat-list>
@@ -25,7 +25,7 @@
           </div>
           <div class="spacer"></div>
           <div class="upload-text">Bitte wählen Sie eine XML-Datei aus, indem Sie auf den Upload-Button klicken.</div>
-          <app-xml-upload *ngIf="showXmlUpload" [setPeriod]="setPeriod" (hideXmlUpload)="closeXmlUpload()"></app-xml-upload>          
+          <app-xml-upload *ngIf="showXmlUpload" [setPeriod]="setPeriod" (hideXmlUpload)="closeXmlUpload()"></app-xml-upload>
       </div>
     </div>
   </div>

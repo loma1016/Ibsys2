@@ -36,6 +36,7 @@ import { ProductionPlanningComponent } from './planning/production-planning/prod
 import { ResultComponent } from './planning/result/result.component';
 import { ModalComponent } from './util/modal/modal.component';
 import { SelectPeriodComponent } from './planning/select-period/select-period.component';
+import { ToastyServiceInt } from './util/toasty.service';
 
 
 @NgModule({
@@ -50,7 +51,7 @@ import { SelectPeriodComponent } from './planning/select-period/select-period.co
     DashboardComponent,
     ForecastComponent,
     ResultComponent,
-    ModalComponent
+    ModalComponent,
     ResultComponent,
     SelectPeriodComponent
   ],
@@ -79,7 +80,7 @@ import { SelectPeriodComponent } from './planning/select-period/select-period.co
     MatTabsModule,
     ToastyModule.forRoot()
   ],
-  providers: [XmlUploadService],
+  providers: [XmlUploadService,ToastyServiceInt],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
