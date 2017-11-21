@@ -22,6 +22,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
 import { ToastyModule } from 'ng2-toasty';
 
 import { AppComponent } from './app.component';
@@ -34,6 +35,7 @@ import { WorkspacePlanningComponent } from './planning/workplace-planning/workpl
 import { ProductionPlanningComponent } from './planning/production-planning/production-planning.component';
 import { ResultComponent } from './planning/result/result.component';
 import { ModalComponent } from './util/modal/modal.component';
+import { SelectPeriodComponent } from './planning/select-period/select-period.component';
 
 
 @NgModule({
@@ -49,6 +51,8 @@ import { ModalComponent } from './util/modal/modal.component';
     ForecastComponent,
     ResultComponent,
     ModalComponent
+    ResultComponent,
+    SelectPeriodComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +64,7 @@ import { ModalComponent } from './util/modal/modal.component';
     MatSidenavModule,
     MatListModule,
     MatGridListModule,
+    MatSelectModule,
     MatStepperModule,
     MatButtonModule,
     MatTableModule,

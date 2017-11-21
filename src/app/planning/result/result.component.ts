@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from "angularfire2/database";
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-result',
@@ -20,7 +21,6 @@ export class ResultComponent implements OnInit {
 
   ngOnInit() {
     this.db.object('result').valueChanges().subscribe(result=> {
-      console.log(result);
       this.result.sellwish = [
         {article:1, quantity:Number((result as any).forecast[0].inputs.P1)},
         {article:2, quantity: Number((result as any).forecast[0].inputs.P2)},
@@ -43,7 +43,9 @@ export class ResultComponent implements OnInit {
 
 
   exportToXml() {
-
+    var js2xmlparser = require("js2xmlparser");   
+    var xmlInput = js2xmlparser.parse("input", this.result);
+    var blob = new Blob([xmlInput], { type: 'text/xml' });
+    FileSaver.saveAs(blob, "export.xml");    
   }
-
 }
