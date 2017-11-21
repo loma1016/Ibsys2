@@ -37,11 +37,7 @@ export class XmlUploadComponent {
 
     resultJson.then(val => {
       this.xmlUploadService.uploadPeriod(val);
-      this.closeXml();
+      this.hideXmlUpload.emit();
     });
-  }
-
-  closeXml() {
-    this.hideXmlUpload.emit();
   }
 }

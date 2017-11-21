@@ -21,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSelectModule } from '@angular/material/select';
 import { ToastyModule } from 'ng2-toasty';
 
 import { AppComponent } from './app.component';
@@ -57,6 +58,7 @@ import { SelectPeriodComponent } from './planning/select-period/select-period.co
     MatSidenavModule,
     MatListModule,
     MatGridListModule,
+    MatSelectModule,
     MatStepperModule,
     MatButtonModule,
     MatTableModule,

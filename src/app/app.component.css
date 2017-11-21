@@ -35,3 +35,40 @@ a {
   color: rgba(255,255,255,.87);
   padding: 10px;
 }
+
+
+#uploadModal {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  display: block;
+  z-index: 3;
+  background-color: rgba(0,0,0,.6);
+}
+
+#uploadPopUp {
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  height: 300px;
+  background: white;
+  width: 500px;
+  margin-left: -250px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.upload-img-container {
+  margin-top: 40px;
+}
+
+.upload-img {
+  font-size: 100px;
+  color: #8a8a8a;
+}
+
+.spacer {
+  margin-top: 30px;
+}
