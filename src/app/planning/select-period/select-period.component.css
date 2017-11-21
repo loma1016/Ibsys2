@@ -19,6 +19,9 @@
     margin-left: -300px;
     border-radius: 5px;
     text-align: center;
+    -webkit-box-shadow: 0 0 25px 5px rgba(0,0,0,0.65);
+    -moz-box-shadow: 0 0 25px 5px rgba(0,0,0,0.65);
+    box-shadow: 0 0 25px 5px rgba(0,0,0,0.65);    
 }
 
 .submit-btn {
@@ -59,7 +62,10 @@
     padding: 8px 10px;
     border-radius: 5px;
     border: 1px solid #e0dede;    
-    width: 65%
+    width: 65%;
+    -webkit-box-shadow: 0 0 5px 1px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0 0 5px 1px rgba(0,0,0,0.4);
+    box-shadow: 0 0 5px 1px rgba(0,0,0,0.4);    
 }
 
 #selector {
