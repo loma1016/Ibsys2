@@ -22,7 +22,6 @@ export class ResultComponent implements OnInit {
 
   ngOnInit() {
     this.db.object('result').valueChanges().subscribe(result=> {
-      console.log(result);
       this.result.sellwish.item = [
         {"@": {article:1, quantity:Number((result as any).forecast[0].inputs.P1)}},
         {"@": {article:2, quantity: Number((result as any).forecast[0].inputs.P2)}},

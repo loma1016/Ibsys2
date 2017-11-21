@@ -27,17 +27,9 @@
       </th>
     </tr>
   </table>
-
-
     <button mat-raised-button class="back-btn" color="warn" matStepperPrevious>Zurück</button>
-
-
     <button mat-raised-button class="new-btn" color="primary" (click)="newOrderModal.show()" >Bestellung verändern</button>
-
-
     <button mat-raised-button class="pull-right next-btn" color="primary" matStepperNext>Weiter</button>
-
-
   <app-modal #newOrderModal>
     <div class="app-modal-header">
       Bestellung eines Kaufteils abändern?
@@ -55,7 +47,4 @@
       <button mat-raised-button class="pull-right" color="primary" (click)="newOrderModal.hide(); newOrder()">Ok</button>
     </div>
   </app-modal>
-
-
-
 </div>
