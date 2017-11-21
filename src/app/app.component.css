@@ -28,6 +28,15 @@ mat-toolbar {
 }
 .link {
   cursor: pointer;
+  border: 1px solid #ffffff
+}
+
+.link:hover {
+  border: 1px solid rgb(166, 199, 255);
+}
+
+.link:focus {
+  outline: #ffffff auto 5px;  
 }
 
 a {

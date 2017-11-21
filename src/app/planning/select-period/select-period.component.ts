@@ -15,6 +15,8 @@ export class SelectPeriodComponent implements OnInit {
   public currPeriod = 1;
   public periods: any[];
   public setPeriod: true;
+  public butDisabled = true;
+
   toastOptions: ToastOptions = {
     title: 'Warnung!',
     msg: 'Planung wurde abgebrochen!',
@@ -54,5 +56,9 @@ export class SelectPeriodComponent implements OnInit {
 
   startPlanning() {
     this.closeSelectPeriod.emit();            
+  }
+
+  enableBtn() {
+    this.butDisabled = false;
   }
 }

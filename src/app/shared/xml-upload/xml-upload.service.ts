@@ -32,7 +32,8 @@ export class XmlUploadService {
             var jsonStrRep = jsonStr.replace(/\$/g , 'item');
             var jsonObj = JSON.parse(jsonStrRep);
             this.db.list('/periods').update(period, jsonObj).then(resolve => {
-                this.db.object('/').update({currentPeriod: period});        
+                var currPeriod = Number(period) + 1;
+                this.db.object('/').update({currentPeriod: currPeriod});        
                 this.toastyService.success(this.toastOptions);
             }, reject => {
                 this.toastyService.error(this.toastOptionsError);

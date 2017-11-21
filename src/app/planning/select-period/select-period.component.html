@@ -4,13 +4,13 @@
       <div class="select-text">Wählen Sie eine verfügbare Periode aus.</div>
       <div id="selector">
         <mat-form-field id="periodSelector">              
-          <mat-select placeholder="Periode" #selectedPeriod>
+          <mat-select placeholder="Periode" #selectedPeriod (change)="enableBtn()">
             <mat-option *ngFor="let period of possiblePeriods; let i = index" [value]="period">
               {{period}}
             </mat-option>
           </mat-select>
         </mat-form-field>    
-        <button class="submit-btn" (click)="submitPeriod(selectedPeriod.value)" color="primary">Planen</button>        
+        <button class="submit-btn" (click)="submitPeriod(selectedPeriod.value)" color="primary" [disabled]="butDisabled">Planen</button>        
       </div>    
     </div>
     <div id="middleContainer">
