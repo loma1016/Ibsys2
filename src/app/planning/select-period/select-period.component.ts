@@ -13,7 +13,8 @@ export class SelectPeriodComponent implements OnInit {
   @Output() closeSelectPeriod = new EventEmitter();  
   public possiblePeriods = [];
   public currPeriod = 1;
-  public periods: any[]
+  public periods: any[];
+  public setPeriod: true;
   toastOptions: ToastOptions = {
     title: 'Warnung!',
     msg: 'Planung wurde abgebrochen!',
@@ -49,5 +50,9 @@ export class SelectPeriodComponent implements OnInit {
   closeModal() {
     this.router.navigate(['/']);
     this.toastyService.warning(this.toastOptions);    
+  }
+
+  startPlanning() {
+    this.closeSelectPeriod.emit();            
   }
 }

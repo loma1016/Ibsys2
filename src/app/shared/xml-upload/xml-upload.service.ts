@@ -23,7 +23,7 @@ export class XmlUploadService {
         this.toastyConfig.theme = 'material';
     }
 
-    uploadPeriod(val): any {
+    uploadPeriod(val, setPeriod): any {
         var period = val.$.period;
         var group = val.$.group;
         if (period && group == this.group) {
@@ -32,6 +32,7 @@ export class XmlUploadService {
             var jsonStrRep = jsonStr.replace(/\$/g , 'item');
             var jsonObj = JSON.parse(jsonStrRep);
             this.db.list('/periods').update(period, jsonObj).then(resolve => {
+                this.db.object('/').update({currentPeriod: period});        
                 this.toastyService.success(this.toastOptions);
             }, reject => {
                 this.toastyService.error(this.toastOptionsError);

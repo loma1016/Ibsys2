@@ -24,8 +24,8 @@
               <span class="glyphicon glyphicon-download-alt upload-img"></span>
           </div>
           <div class="spacer"></div>
-          <span>Bitte wählen Sie eine XML-Datei aus, indem Sie auf den Upload-Button klicken.</span>
-          <app-xml-upload *ngIf="showXmlUpload" (hideXmlUpload)="closeXmlUpload()"></app-xml-upload>          
+          <div class="upload-text">Bitte wählen Sie eine XML-Datei aus, indem Sie auf den Upload-Button klicken.</div>
+          <app-xml-upload *ngIf="showXmlUpload" [setPeriod]="setPeriod" (hideXmlUpload)="closeXmlUpload()"></app-xml-upload>          
       </div>
     </div>
   </div>

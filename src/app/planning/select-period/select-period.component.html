@@ -20,7 +20,7 @@
     </div>
     <div id="xmlUploadContainer" class="select-container">
       <div class="select-text">Laden Sie die Ergebnisse der Vorperiode hoch.</div>
-      <app-xml-upload></app-xml-upload>                       
+      <app-xml-upload (hideXmlUpload)="startPlanning()" [setPeriod]="setPeriod"></app-xml-upload>                       
     </div>
   </div>
 </div>
