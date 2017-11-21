@@ -17,7 +17,7 @@
       <th *ngFor="let overtime of workplacePlan.overtime">{{overtime}}</th>
     </tr>
     <tr class="table-row extra-row">
-      <th class="col-xs-2">Extrazeit</th>
+      <th class="col-xs-2">Zeitanpassung (+/-)</th>
       <td>
         <input type="number" [(ngModel)]="extraTime[0]" (ngModelChange)="onExtraTimeChange()" />
       </td>
