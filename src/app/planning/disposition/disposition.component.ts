@@ -106,12 +106,12 @@ export class DispositionComponent implements OnInit {
         }
 
         if (startAmount < 0) {
-          if (orderData.deliveryTime.normal + 5 < i) {
+          if (orderData.deliveryTime.normal + 5 <= i+1) {
             break;
-          } else if (orderData.deliveryTime.normal < i) {
+          } else if (orderData.deliveryTime.normal <= i+1) {
             this.ordersData[index].result.normalOrder = orderData.discontAmount;
             break;
-          } else if (orderData.deliveryTime.express < i) {
+          } else if (orderData.deliveryTime.express <= i+1) {
             this.ordersData[index].result.expressOrder = orderData.discontAmount;
             break;
           } else {
