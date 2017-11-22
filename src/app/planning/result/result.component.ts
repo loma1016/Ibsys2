@@ -22,6 +22,8 @@ export class ResultComponent implements OnInit {
 
   ngOnInit() {
     this.db.object('result').valueChanges().subscribe(result=> {
+      this.resetResult();
+
       this.result.sellwish.item = [
         {"@": {article:1, quantity:Number((result as any).forecast[0].inputs.P1)}},
         {"@": {article:2, quantity: Number((result as any).forecast[0].inputs.P2)}},
@@ -54,9 +56,19 @@ export class ResultComponent implements OnInit {
     });
   }
 
+  resetResult(){
+    this.result =  {
+      qualitycontrol: {"@": {type:"no", losequantity: "0", delay:"0"}},
+      sellwish: {item:[]},
+      selldirect: {item:[]},
+      orderlist: {order:[]},
+      productionlist: {production:[]},
+      workingtimelist: {workingtime:[]},
+    };
+  }
+
 
   exportToXml() {
-    console.log(this.result);
     var js2xmlparser = require("js2xmlparser");
     var xmlInput = js2xmlparser.parse("input", this.result);
     var blob = new Blob([xmlInput], { type: 'text/xml' });

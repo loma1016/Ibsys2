@@ -36,13 +36,16 @@ export class DispositionComponent implements OnInit {
             this.ordersData[article.item.id].inStock = Number(article.item.amount);
           }
         });
-        _.futureinwardstockmovement[0].order.forEach(item => {
-          if (this.ordersData.index.indexOf(Number(item.item.article)) >= 0) {
-            this.ordersData[item.item.article].futureInwardStockMovement.amount = Number(item.item.amount);
-            this.ordersData[item.item.article].futureInwardStockMovement.orderPeriod = Number(item.item.orderperiod);
-            this.ordersData[item.item.article].futureInwardStockMovement.mode = Number(item.item.mode);
-          }
-        });
+
+        if(_.futureinwardstockmovement[0]) {
+          _.futureinwardstockmovement[0].order.forEach(item => {
+            if (this.ordersData.index.indexOf(Number(item.item.article)) >= 0) {
+              this.ordersData[item.item.article].futureInwardStockMovement.amount = Number(item.item.amount);
+              this.ordersData[item.item.article].futureInwardStockMovement.orderPeriod = Number(item.item.orderperiod);
+              this.ordersData[item.item.article].futureInwardStockMovement.mode = Number(item.item.mode);
+            }
+          });
+        }
         this.forecastData = this.db.object('result/forecast').valueChanges();
         this.forecastData.subscribe(forecast => {
           this.forecast = forecast;
