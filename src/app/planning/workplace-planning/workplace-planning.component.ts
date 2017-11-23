@@ -288,9 +288,12 @@ export class WorkspacePlanningComponent implements OnInit {
         this.workplacePlan.shift[i] = 2;
       } else if (this.workplacePlan.totalTime[i] > 6000 && this.workplacePlan.totalTime[i] <= 7200) {
         this.workplacePlan.shift[i] = 3;
+      } else {
+        this.workplacePlan.shift[i] = 3;
+        console.log("Warning, not enough capacity")
       }
 
-      if ((this.workplacePlan.totalTime[i] - (2400 * this.workplacePlan.shift[i]) > 0)) {
+      if ((this.workplacePlan.totalTime[i] - (2400 * this.workplacePlan.shift[i]) > 0) && this.workplacePlan.shift[i] != 3) {
         this.workplacePlan.overtime[i] = (this.workplacePlan.totalTime[i] - (2400 * this.workplacePlan.shift[i])) / 5
       }
     }
