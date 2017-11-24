@@ -16,10 +16,10 @@
       <th class="col-xs-2">Preis:</th>
       <th *ngFor="let index of ordersData.index">
         <div *ngIf="ordersData[index].result.normalOrder">
-          {{ordersData[index].result.normalOrder * ordersData[index].price + ordersData[index].oderCost }}
+          {{ordersData[index].result.normalOrder * ordersData[index].price + ordersData[index].orderCost }}
         </div>
         <div *ngIf="ordersData[index].result.expressOrder">
-          {{ordersData[index].result.expressOrder * ordersData[index].price + ordersData[index].oderCost*10 }}
+          {{ordersData[index].result.expressOrder * ordersData[index].price + ordersData[index].orderCost*10 }}
         </div>
         <div *ngIf="!ordersData[index].result.expressOrder && !ordersData[index].result.normalOrder">
           0

@@ -17,7 +17,7 @@ export let ordersData =
       },
       price: 5,
       discontAmount: 300,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -41,7 +41,7 @@ export let ordersData =
       },
       price: 6.5,
       discontAmount: 300,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -65,7 +65,7 @@ export let ordersData =
       },
       price: 6.5,
       discontAmount: 300,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -89,7 +89,7 @@ export let ordersData =
       },
       price: 0.06,
       discontAmount: 6100,
-      oderCost: 100,
+      orderCost: 100,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -113,7 +113,7 @@ export let ordersData =
       },
       price: 0.06,
       discontAmount: 3600,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -137,7 +137,7 @@ export let ordersData =
       },
       price: 0.1,
       discontAmount: 1900,
-      oderCost: 75,
+      orderCost: 75,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -161,7 +161,7 @@ export let ordersData =
       },
       price: 1.2,
       discontAmount: 4500,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -185,7 +185,7 @@ export let ordersData =
       },
       price: 0.75,
       discontAmount: 2700,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -209,7 +209,7 @@ export let ordersData =
       },
       price: 22,
       discontAmount: 900,
-      oderCost: 75,
+      orderCost: 75,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -233,7 +233,7 @@ export let ordersData =
       },
       price: 0.1,
       discontAmount: 22000,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -257,7 +257,7 @@ export let ordersData =
       },
       price: 1,
       discontAmount: 3600,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -281,7 +281,7 @@ export let ordersData =
       },
       price: 8,
       discontAmount: 900,
-      oderCost: 100,
+      orderCost: 100,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -305,7 +305,7 @@ export let ordersData =
       },
       price: 1.5,
       discontAmount: 900,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -329,7 +329,7 @@ export let ordersData =
       },
       price: 1.5,
       discontAmount: 300,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -353,7 +353,7 @@ export let ordersData =
       },
       price: 1.5,
       discontAmount: 1800,
-      oderCost: 75,
+      orderCost: 75,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -377,7 +377,7 @@ export let ordersData =
       },
       price: 2.5,
       discontAmount: 900,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -401,7 +401,7 @@ export let ordersData =
       },
       price: 0.06,
       discontAmount: 900,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -425,7 +425,7 @@ export let ordersData =
       },
       price: 0.1,
       discontAmount: 1800,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -449,7 +449,7 @@ export let ordersData =
       },
       price: 5,
       discontAmount: 2700,
-      oderCost: 75,
+      orderCost: 75,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -473,7 +473,7 @@ export let ordersData =
       },
       price: 0.5,
       discontAmount: 900,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -497,7 +497,7 @@ export let ordersData =
       },
       price: 0.06,
       discontAmount: 900,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -521,7 +521,7 @@ export let ordersData =
       },
       price: 0.1,
       discontAmount: 900,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -545,7 +545,7 @@ export let ordersData =
       },
       price: 3.5,
       discontAmount: 900,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -569,7 +569,7 @@ export let ordersData =
       },
       price: 1.5,
       discontAmount: 1800,
-      oderCost: 75,
+      orderCost: 75,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -593,7 +593,7 @@ export let ordersData =
       },
       price: 22,
       discontAmount: 600,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -617,7 +617,7 @@ export let ordersData =
       },
       price: 0.1,
       discontAmount: 22000,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -641,7 +641,7 @@ export let ordersData =
       },
       price: 22,
       discontAmount: 600,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -665,7 +665,7 @@ export let ordersData =
       },
       price: 0.1,
       discontAmount: 22000,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
@@ -689,7 +689,7 @@ export let ordersData =
       },
       price: 0.15,
       discontAmount: 1800,
-      oderCost: 50,
+      orderCost: 50,
       inStock: 0,
       result: {
         normalOrder: 0,
