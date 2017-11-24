@@ -17,6 +17,8 @@ export class DispositionComponent implements OnInit {
 
   forecast: any;
 
+  previousStockValue = 0;
+
   previousPeriodData: Observable<any>;
 
   forecastData: Observable<any>;
@@ -46,6 +48,10 @@ export class DispositionComponent implements OnInit {
             }
           });
         }
+        if(_.warehousestock[0]) {
+          this.previousStockValue = Number(_.warehousestock[0].totalstockvalue[0]);
+        }
+
         this.forecastData = this.db.object('result/forecast').valueChanges();
         this.forecastData.subscribe(forecast => {
           this.forecast = forecast;
@@ -153,16 +159,88 @@ export class DispositionComponent implements OnInit {
 
   saveResult() {
 
-    let result = [];
+    let disposition = [];
+    let inwardStockMovement = [];
 
     this.ordersData.index.forEach(index => {
-      if (this.ordersData[index].result.normalOrder) {
-        result.push({ article: index, quantity: this.ordersData[index].result.normalOrder, modus: 5 });
-      } else if (this.ordersData[index].result.expressOrder) {
-        result.push({ article: index, quantity: this.ordersData[index].result.expressOrder, modus: 4 });
+      let orderData = this.ordersData[index];
+      let stockMovement = null;
+      if (orderData.futureInwardStockMovement.amount) {
+        stockMovement = orderData.futureInwardStockMovement;
+      }
+
+      if (orderData.result.normalOrder) {
+        disposition.push({
+          article: index,
+          quantity: orderData.result.normalOrder,
+          modus: 5
+        });
+
+        if (orderData.deliveryTime.normal <= 5) {
+          inwardStockMovement.push({
+            article: index,
+            quantity:  orderData.result.normalOrder,
+            orderPeriod: this.currentPeriod,
+            deliveryTime: orderData.deliveryTime.normal,
+            price: orderData.price,
+            discontAmount: orderData.discontAmount,
+            orderCost: orderData.orderCost,
+            modus: 5
+          });
+        }
+
+      } else if (orderData.result.expressOrder) {
+        disposition.push({
+          article: index,
+          quantity: orderData.result.expressOrder,
+          modus: 4
+        });
+
+        if (orderData.deliveryTime.express <= 5) {
+          inwardStockMovement.push({
+            article: index,
+            quantity:  orderData.result.expressOrder,
+            orderPeriod: this.currentPeriod,
+            deliveryTime: orderData.deliveryTime.express,
+            price: orderData.price,
+            discontAmount: orderData.discontAmount,
+            orderCost: orderData.orderCost,
+            modus: 4
+          });
+        }
+
+      }
+
+      if (stockMovement && stockMovement.mode === 5 && (orderData.deliveryTime.normal - ((this.currentPeriod - stockMovement.orderPeriod) * 5)) <= 5) {
+        inwardStockMovement.push({
+          article: index,
+          quantity: stockMovement.amount,
+          orderPeriod: stockMovement.orderPeriod,
+          deliveryTime: orderData.deliveryTime.normal,
+          price: orderData.price,
+          discontAmount: orderData.discontAmount,
+          orderCost: orderData.orderCost,
+          modus: 5
+        });
+      } else if (stockMovement && stockMovement.mode === 4 && (orderData.deliveryTime.express - ((this.currentPeriod - stockMovement.orderPeriod) * 5)) <= 5) {
+        inwardStockMovement.push({
+          article: index,
+          quantity: stockMovement.amount,
+          orderPeriod: stockMovement.orderPeriod,
+          deliveryTime: orderData.deliveryTime.express,
+          price: orderData.price,
+          discontAmount: orderData.discontAmount,
+          orderCost: orderData.orderCost,
+          modus: 4
+        });
       }
     });
-    this.db.object('/result/disposition').set(result);
+
+    this.db.object('/result/disposition').set({
+      orders: disposition,
+      inwardstockmovement: inwardStockMovement,
+      priveousstockvalue: this.previousStockValue
+    });
   }
 }
 
