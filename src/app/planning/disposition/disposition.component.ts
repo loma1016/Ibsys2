@@ -28,6 +28,9 @@ export class DispositionComponent implements OnInit {
   constructor(private db: AngularFireDatabase,  private toastyService: ToastyServiceInt) { }
 
   ngOnInit() {
+
+    this.calculateDeliveryTime();
+
     this.db.object('currentPeriod').valueChanges().subscribe(currentPeriod => {
       this.currentPeriod = Number(currentPeriod);
       this.previousPeriodData = this.db.object('periods/' + (this.currentPeriod - 1).toString()).valueChanges();
@@ -56,12 +59,8 @@ export class DispositionComponent implements OnInit {
         this.forecastData.subscribe(forecast => {
           this.forecast = forecast;
           this.calculateDisposition()
-
         });
-
       });
-
-
     });
   }
 
@@ -176,12 +175,12 @@ export class DispositionComponent implements OnInit {
           modus: 5
         });
 
-        if (orderData.deliveryTime.normal <= 5) {
+        if (orderData.deliveryTime.mean <= 5) {
           inwardStockMovement.push({
             article: index,
             quantity:  orderData.result.normalOrder,
             orderPeriod: this.currentPeriod,
-            deliveryTime: orderData.deliveryTime.normal,
+            deliveryTime: orderData.deliveryTime.mean+1,
             price: orderData.price,
             discontAmount: orderData.discontAmount,
             orderCost: orderData.orderCost,
@@ -211,12 +210,12 @@ export class DispositionComponent implements OnInit {
 
       }
 
-      if (stockMovement && stockMovement.mode === 5 && (orderData.deliveryTime.normal - ((this.currentPeriod - stockMovement.orderPeriod) * 5)) <= 5) {
+      if (stockMovement && stockMovement.mode === 5 && (orderData.deliveryTime.mean - ((this.currentPeriod - stockMovement.orderPeriod) * 5)) <= 5) {
         inwardStockMovement.push({
           article: index,
           quantity: stockMovement.amount,
           orderPeriod: stockMovement.orderPeriod,
-          deliveryTime: orderData.deliveryTime.normal,
+          deliveryTime: orderData.deliveryTime.mean+1,
           price: orderData.price,
           discontAmount: orderData.discontAmount,
           orderCost: orderData.orderCost,
@@ -240,6 +239,13 @@ export class DispositionComponent implements OnInit {
       orders: disposition,
       inwardstockmovement: inwardStockMovement,
       priveousstockvalue: this.previousStockValue
+    });
+  }
+
+  calculateDeliveryTime() {
+    this.ordersData.index.forEach(index => {
+      this.ordersData[index].deliveryTime.express = Math.trunc(this.ordersData[index].deliveryTime.mean / 2 +1);
+      this.ordersData[index].deliveryTime.normal = Math.trunc(this.ordersData[index].deliveryTime.mean + this.ordersData[index].deliveryTime.dev  + 2);
     });
   }
 }

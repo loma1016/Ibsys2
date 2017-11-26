@@ -2,8 +2,10 @@ export let ordersData =
   {
     21: {
       deliveryTime: {
-        normal: 13,
-        express: 7
+        mean: 9,
+        dev: 2,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 1,
@@ -26,8 +28,10 @@ export let ordersData =
     },
     22: {
       deliveryTime: {
-        normal: 13,
-        express: 7
+        mean: 8.5,
+        dev: 2,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 0,
@@ -50,8 +54,10 @@ export let ordersData =
     },
     23: {
       deliveryTime: {
-        normal: 9,
-        express: 5
+        mean: 6,
+        dev: 1,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 0,
@@ -74,8 +80,10 @@ export let ordersData =
     },
     24: {
       deliveryTime: {
-        normal: 20,
-        express: 10
+        mean: 16,
+        dev: 1.5,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 7,
@@ -98,8 +106,10 @@ export let ordersData =
     },
     25: {
       deliveryTime: {
-        normal: 8,
-        express: 5
+        mean: 4.5,
+        dev: 1,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 4,
@@ -122,8 +132,10 @@ export let ordersData =
     },
     27: {
       deliveryTime: {
-        normal: 8,
-        express: 5
+        mean: 4.5,
+        dev: 1,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 2,
@@ -146,8 +158,10 @@ export let ordersData =
     },
     28: {
       deliveryTime: {
-        normal: 13,
-        express: 7
+        mean: 8.5,
+        dev: 2,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 4,
@@ -170,8 +184,10 @@ export let ordersData =
     },
     32: {
       deliveryTime: {
-        normal: 15,
-        express: 8
+        mean: 10.5,
+        dev: 2.5,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 3,
@@ -194,8 +210,10 @@ export let ordersData =
     },
     33: {
       deliveryTime: {
-        normal: 14,
-        express: 7
+        mean: 9.5,
+        dev: 2.5,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 0,
@@ -218,8 +236,10 @@ export let ordersData =
     },
     34: {
       deliveryTime: {
-        normal: 12,
-        express: 6
+        mean:8,
+        dev: 1.5,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 0,
@@ -242,8 +262,10 @@ export let ordersData =
     },
     35: {
       deliveryTime: {
-        normal: 15,
-        express: 8
+        mean: 11,
+        dev: 2,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 4,
@@ -266,8 +288,10 @@ export let ordersData =
     },
     36: {
       deliveryTime: {
-        normal: 9,
-        express: 5
+        mean: 6,
+        dev: 0.5,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 1,
@@ -290,8 +314,10 @@ export let ordersData =
     },
     37: {
       deliveryTime: {
-        normal: 11,
-        express: 6
+        mean: 7.5,
+        dev: 1.5,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 1,
@@ -314,8 +340,10 @@ export let ordersData =
     },
     38: {
       deliveryTime: {
-        normal: 13,
-        express: 7
+        mean: 8.5,
+        dev: 2,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 1,
@@ -338,8 +366,10 @@ export let ordersData =
     },
     39: {
       deliveryTime: {
-        normal: 11,
-        express: 6
+        mean: 7.5,
+        dev: 1.5,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 2,
@@ -362,8 +392,10 @@ export let ordersData =
     },
     40: {
       deliveryTime: {
-        normal: 12,
-        express: 7
+        mean: 8.5,
+        dev: 1,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 1,
@@ -386,8 +418,10 @@ export let ordersData =
     },
     41: {
       deliveryTime: {
-        normal: 8,
-        express: 5
+        mean: 4.5,
+        dev: 1,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 0,
@@ -410,8 +444,10 @@ export let ordersData =
     },
     42: {
       deliveryTime: {
-        normal: 10,
-        express: 5
+        mean: 6,
+        dev: 1.5,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 2,
@@ -434,8 +470,10 @@ export let ordersData =
     },
     43: {
       deliveryTime: {
-        normal: 16,
-        express: 7
+        mean: 10,
+        dev: 2.5,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 1,
@@ -458,8 +496,10 @@ export let ordersData =
     },
     44: {
       deliveryTime: {
-        normal: 8,
-        express: 5
+        mean: 5,
+        dev: 1,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 3,
@@ -482,8 +522,10 @@ export let ordersData =
     },
     45: {
       deliveryTime: {
-        normal: 12,
-        express: 7
+        mean: 8.5,
+        dev: 1.5,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 1,
@@ -506,8 +548,10 @@ export let ordersData =
     },
     46: {
       deliveryTime: {
-        normal: 8,
-        express: 5
+        mean: 4.5,
+        dev: 1.5,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 1,
@@ -530,8 +574,10 @@ export let ordersData =
     },
     47: {
       deliveryTime: {
-        normal: 8,
-        express: 5
+        mean: 7,
+        dev: 0.5,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 1,
@@ -554,8 +600,10 @@ export let ordersData =
     },
     48: {
       deliveryTime: {
-        normal: 8,
-        express: 5
+        mean: 5,
+        dev: 1,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 2,
@@ -578,8 +626,10 @@ export let ordersData =
     },
     52: {
       deliveryTime: {
-        normal: 12,
-        express: 6
+        mean: 8,
+        dev: 2,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 2,
@@ -602,8 +652,10 @@ export let ordersData =
     },
     53: {
       deliveryTime: {
-        normal: 11,
-        express: 6
+        mean: 8,
+        dev: 1,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 72,
@@ -626,8 +678,10 @@ export let ordersData =
     },
     57: {
       deliveryTime: {
-        normal: 12,
-        express: 7
+        mean: 8.5,
+        dev: 1.5,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 0,
@@ -650,8 +704,10 @@ export let ordersData =
     },
     58: {
       deliveryTime: {
-        normal: 13,
-        express: 6
+        mean: 8,
+        dev: 2.5,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 0,
@@ -674,8 +730,10 @@ export let ordersData =
     },
     59: {
       deliveryTime: {
-        normal: 7,
-        express: 4
+        mean: 3.5,
+        dev: 1,
+        normal: 0,
+        express: 0
       },
       usedIn: {
         p1: 2,
