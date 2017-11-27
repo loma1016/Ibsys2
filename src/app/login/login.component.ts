@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {LoginService} from "../shared/login-service";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ToastyServiceInt} from "../util/toasty.service";
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
   private loginService: LoginService,
+  private toastyService: ToastyServiceInt,
   private formbuilder: FormBuilder) {
     this.loginForm = this.formbuilder.group({
       username: [null, [<any>Validators.required]],
@@ -34,8 +36,8 @@ export class LoginComponent implements OnInit {
       const redirect = this.loginService.redirectUrl ? this.loginService.redirectUrl : '/dashboard';
       console.log(redirect);
       this.router.navigate([redirect]);
+    } else{
+      this.toastyService.setToastyDefaultError('Login fehlgeschlagen', 'Ungültige Kombination aus Nutzername und Passwort');
     }
-
   }
-
 }

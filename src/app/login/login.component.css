@@ -1,6 +1,7 @@
 #bg {
-  width: 100%;
-  height: auto;
+  position: fixed;
+  width: auto;
+  height: 100%;
 }
 
 .my-backdrop {
