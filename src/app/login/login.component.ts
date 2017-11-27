@@ -11,7 +11,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  modal = false;
+
   username: string;
   password: string;
 
@@ -31,15 +31,11 @@ export class LoginComponent implements OnInit {
 
   login(){
     if(this.loginService.login(this.username, this.password)){
-      this.modal = false;
       const redirect = this.loginService.redirectUrl ? this.loginService.redirectUrl : '/dashboard';
       console.log(redirect);
       this.router.navigate([redirect]);
     }
-    this.modal = true;
+
   }
 
-  closeModal(){
-    this.modal = false;
-  }
 }
