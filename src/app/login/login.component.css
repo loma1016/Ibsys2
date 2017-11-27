@@ -1,6 +1,9 @@
 #bg {
   width: 100%;
-  height: auto;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 .my-backdrop {
@@ -14,3 +17,6 @@
   opacity: 0.6;
 }
 
+.modal-padding {
+  padding: 15px 30px;  
+}
