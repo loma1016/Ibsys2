@@ -3,23 +3,36 @@ import { RouterModule, Routes } from '@angular/router';
 import { XmlUploadComponent } from './xml-upload/xml-upload.component';
 import { PlanningComponent } from './planning/planning.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import {LoginComponent} from "./login/login.component";
+import {AuthGuard} from "./shared/auth-guard";
 
 
 
 const appRoutes: Routes = [
   {
     path: '',
-    component: DashboardComponent
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  {
+    path:'login',
+    component: LoginComponent
+  },
+  {
+    path:'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'planning',
-
-    component: PlanningComponent
+    component: PlanningComponent,
+    canActivate: [AuthGuard]
 
   },
   {
     path: 'xmlinput',
-    component: XmlUploadComponent
+    component: XmlUploadComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '**',

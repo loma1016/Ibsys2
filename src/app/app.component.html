@@ -2,7 +2,7 @@
 <mat-sidenav-container class="example-container">
   <mat-sidenav #sidenav class="example-sidenav">
     <mat-list>
-      <mat-list-item class="link" routerLink="/" (click)="sidenav.close()"> Übersicht </mat-list-item>
+      <mat-list-item class="link" routerLink="/dashboard" (click)="sidenav.close()"> Übersicht </mat-list-item>
       <mat-list-item class="link" routerLink="/planning" (click)="sidenav.close()"> Planen </mat-list-item>
       <mat-list-item class="link" (click)="sidenav.close(); openXmlUpload()"> XML Input </mat-list-item>
     </mat-list>
@@ -11,8 +11,10 @@
     <mat-icon class="more_icon" (click)="sidenav.open()">more_vert</mat-icon>
     <mat-toolbar color="primary">
       <mat-toolbar-row>
-        <a href="">SCM-Planungstool</a>
+        <span class="span-cursor">SCM - Planungstool</span>
+        <a href="/#/dashboard">Übersicht</a>
         <a href="/#/planning">Planung</a>
+        <span class="pull-right" (click)=logout() style="margin-right: 5px">Logout</span>
       </mat-toolbar-row>
     </mat-toolbar>
   </div>
