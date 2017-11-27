@@ -10,7 +10,10 @@ export let ordersData =
       usedIn: {
         p1: 1,
         p2: 0,
-        p3: 0
+        p3: 0,
+        details: [
+          { article: 1, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -36,7 +39,10 @@ export let ordersData =
       usedIn: {
         p1: 0,
         p2: 1,
-        p3: 0
+        p3: 0,
+        details: [
+          { article: 2, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -62,7 +68,10 @@ export let ordersData =
       usedIn: {
         p1: 0,
         p2: 0,
-        p3: 1
+        p3: 1,
+        details: [
+          { article: 3, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -88,7 +97,22 @@ export let ordersData =
       usedIn: {
         p1: 7,
         p2: 7,
-        p3: 7
+        p3: 7,
+        details: [
+          { article: 1, amount: 1 },
+          { article: 2, amount: 1 },
+          { article: 3, amount: 1 },
+          { article: 16, amount: 1 },
+          { article: 29, amount: 2 },
+          { article: 30, amount: 2 },
+          { article: 31, amount: 1 },
+          { article: 49, amount: 2 },
+          { article: 50, amount: 2 },
+          { article: 51, amount: 1 },
+          { article: 54, amount: 2 },
+          { article: 55, amount: 2 },
+          { article: 56, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -114,7 +138,15 @@ export let ordersData =
       usedIn: {
         p1: 4,
         p2: 4,
-        p3: 4
+        p3: 4,
+        details: [
+          { article: 29, amount: 2 },
+          { article: 30, amount: 2 },
+          { article: 49, amount: 2 },
+          { article: 50, amount: 2 },
+          { article: 54, amount: 2 },
+          { article: 55, amount: 2 },
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -140,7 +172,15 @@ export let ordersData =
       usedIn: {
         p1: 2,
         p2: 2,
-        p3: 2
+        p3: 2,
+        details: [
+          { article: 1, amount: 1 },
+          { article: 2, amount: 1 },
+          { article: 3, amount: 1 },
+          { article: 31, amount: 1 },
+          { article: 51, amount: 1 },
+          { article: 56, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -166,7 +206,13 @@ export let ordersData =
       usedIn: {
         p1: 4,
         p2: 5,
-        p3: 6
+        p3: 6,
+        details: [
+          { article: 16, amount: 1 },
+          { article: 18, amount: 3 },
+          { article: 19, amount: 4 },
+          { article: 20, amount: 5 },
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -192,7 +238,18 @@ export let ordersData =
       usedIn: {
         p1: 3,
         p2: 3,
-        p3: 3
+        p3: 3,
+        details: [
+          { article: 10, amount: 1 },
+          { article: 11, amount: 1 },
+          { article: 12, amount: 1 },
+          { article: 13, amount: 1 },
+          { article: 14, amount: 1 },
+          { article: 15, amount: 1 },
+          { article: 18, amount: 1 },
+          { article: 19, amount: 1 },
+          { article: 20, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -218,7 +275,11 @@ export let ordersData =
       usedIn: {
         p1: 0,
         p2: 0,
-        p3: 2
+        p3: 2,
+        details: [
+          { article: 6, amount: 1 },
+          { article: 9, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -244,7 +305,11 @@ export let ordersData =
       usedIn: {
         p1: 0,
         p2: 0,
-        p3: 72
+        p3: 72,
+        details: [
+          { article: 6, amount: 36 },
+          { article: 9, amount: 36 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -270,7 +335,15 @@ export let ordersData =
       usedIn: {
         p1: 4,
         p2: 4,
-        p3: 4
+        p3: 4,
+        details: [
+          { article: 4, amount: 2 },
+          { article: 5, amount: 2 },
+          { article: 6, amount: 2 },
+          { article: 7, amount: 2 },
+          { article: 8, amount: 2 },
+          { article: 9, amount: 2 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -296,7 +369,12 @@ export let ordersData =
       usedIn: {
         p1: 1,
         p2: 1,
-        p3: 1
+        p3: 1,
+        details: [
+          { article: 4, amount: 1 },
+          { article: 5, amount: 1 },
+          { article: 6, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -322,7 +400,12 @@ export let ordersData =
       usedIn: {
         p1: 1,
         p2: 1,
-        p3: 1
+        p3: 1,
+        details: [
+          { article: 7, amount: 1 },
+          { article: 8, amount: 1 },
+          { article: 9, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -348,7 +431,12 @@ export let ordersData =
       usedIn: {
         p1: 1,
         p2: 1,
-        p3: 1
+        p3: 1,
+        details: [
+          { article: 7, amount: 1 },
+          { article: 8, amount: 1 },
+          { article: 9, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -374,7 +462,15 @@ export let ordersData =
       usedIn: {
         p1: 2,
         p2: 2,
-        p3: 2
+        p3: 2,
+        details: [
+          { article: 10, amount: 1 },
+          { article: 11, amount: 1 },
+          { article: 12, amount: 1 },
+          { article: 13, amount: 1 },
+          { article: 14, amount: 1 },
+          { article: 15, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -400,7 +496,10 @@ export let ordersData =
       usedIn: {
         p1: 1,
         p2: 1,
-        p3: 1
+        p3: 1,
+        details: [
+          { article: 16, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -424,9 +523,12 @@ export let ordersData =
         express: 0
       },
       usedIn: {
-        p1: 0,
+        p1: 1,
         p2: 1,
-        p3: 0
+        p3: 1,
+        details: [
+          { article: 16, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -452,7 +554,10 @@ export let ordersData =
       usedIn: {
         p1: 2,
         p2: 2,
-        p3: 2
+        p3: 2,
+        details: [
+          { article: 16, amount: 2 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -478,7 +583,10 @@ export let ordersData =
       usedIn: {
         p1: 1,
         p2: 1,
-        p3: 1
+        p3: 1,
+        details: [
+          { article: 17, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -504,7 +612,11 @@ export let ordersData =
       usedIn: {
         p1: 3,
         p2: 3,
-        p3: 3
+        p3: 3,
+        details: [
+          { article: 17, amount: 1 },
+          { article: 26, amount: 2 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -530,7 +642,10 @@ export let ordersData =
       usedIn: {
         p1: 1,
         p2: 1,
-        p3: 1
+        p3: 1,
+        details: [
+          { article: 17, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -556,7 +671,10 @@ export let ordersData =
       usedIn: {
         p1: 1,
         p2: 1,
-        p3: 1
+        p3: 1,
+        details: [
+          { article: 17, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -582,7 +700,10 @@ export let ordersData =
       usedIn: {
         p1: 1,
         p2: 1,
-        p3: 1
+        p3: 1,
+        details: [
+          { article: 26, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -608,7 +729,10 @@ export let ordersData =
       usedIn: {
         p1: 2,
         p2: 2,
-        p3: 2
+        p3: 2,
+        details: [
+          { article: 26, amount: 2 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -634,7 +758,11 @@ export let ordersData =
       usedIn: {
         p1: 2,
         p2: 0,
-        p3: 0
+        p3: 0,
+        details: [
+          { article: 4, amount: 1 },
+          { article: 7, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -660,7 +788,11 @@ export let ordersData =
       usedIn: {
         p1: 72,
         p2: 0,
-        p3: 0
+        p3: 0,
+        details: [
+          { article: 4, amount: 36 },
+          { article: 7, amount: 36 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -686,7 +818,11 @@ export let ordersData =
       usedIn: {
         p1: 0,
         p2: 2,
-        p3: 0
+        p3: 0,
+        details: [
+          { article: 5, amount: 1 },
+          { article: 8, amount: 1 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -712,7 +848,11 @@ export let ordersData =
       usedIn: {
         p1: 0,
         p2: 72,
-        p3: 0
+        p3: 0,
+        details: [
+          { article: 5, amount: 36 },
+          { article: 8, amount: 36 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,
@@ -738,7 +878,12 @@ export let ordersData =
       usedIn: {
         p1: 2,
         p2: 2,
-        p3: 2
+        p3: 2,
+        details: [
+          { article: 18, amount: 2 },
+          { article: 19, amount: 2 },
+          { article: 20, amount: 2 }
+        ]
       },
       futureInwardStockMovement: {
         amount: 0,

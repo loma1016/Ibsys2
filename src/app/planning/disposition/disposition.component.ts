@@ -17,6 +17,8 @@ export class DispositionComponent implements OnInit {
 
   forecast: any;
 
+  productionPlan: any;
+
   previousStockValue = 0;
 
   previousPeriodData: Observable<any>;
@@ -55,9 +57,10 @@ export class DispositionComponent implements OnInit {
           this.previousStockValue = Number(_.warehousestock[0].totalstockvalue[0]);
         }
 
-        this.forecastData = this.db.object('result/forecast').valueChanges();
-        this.forecastData.subscribe(forecast => {
-          this.forecast = forecast;
+        this.forecastData = this.db.object('result').valueChanges();
+        this.forecastData.subscribe(result => {
+          this.forecast = result.forecast;
+          this.productionPlan = result.production;
           this.calculateDisposition()
         });
       });
@@ -93,7 +96,9 @@ export class DispositionComponent implements OnInit {
         }
 
         if (i < 5) {
-          startAmount -= (orderData.usedIn.p1 * Number(p1.P1) * 0.2) + (orderData.usedIn.p2 * Number(p1.P2) * 0.2) + (orderData.usedIn.p3 * Number(p1.P3) * 0.2);
+          orderData.usedIn.details.forEach(entry => {
+            startAmount -= (this.productionPlan.amount[this.productionPlan.item.indexOf(entry.article)] * entry.amount) *0.2;
+          });
 
         } else if (i < 10) {
           startAmount -= (orderData.usedIn.p1 * Number(p2.P1) * 0.2) + (orderData.usedIn.p2 * Number(p2.P2) * 0.2) + (orderData.usedIn.p3 * Number(p2.P3) * 0.2);

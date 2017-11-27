@@ -33,11 +33,11 @@ export class ProductionPlanningComponent implements OnInit {
     new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(),
     new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(),];
 
-  //Zwischen Vartiablen
-  runner = 0;
+
   previousPeriodData: Observable<any>;
   forecastData: Observable<any>;
   forecast: any;
+  plannedStock: Array<number>;
   workPlaceWithWaitList: Array<any> = [];
   values: any;
 
@@ -51,13 +51,14 @@ export class ProductionPlanningComponent implements OnInit {
       this.previousPeriodData.subscribe(values=>{
         this.values = values;
         this.workPlaceWithWaitList = this.getWorkPlaceWithWaitlist();
-        this.finishedProducts = [this.setFinishedProduct(1), this.setFinishedProduct(2), this.setFinishedProduct(3)];
-        this.subProductsIndex.forEach((subProductIndex, index) => {
-          this.subProducts[index] = this.setSubProduct(subProductIndex);
-        });
-        this.forecastData = this.db.object('result/forecast').valueChanges();
-        this.forecastData.subscribe(forecast=> {
-          this.forecast = forecast;
+        this.forecastData = this.db.object('result').valueChanges();
+        this.forecastData.subscribe(result=> {
+          this.forecast = result.forecast;
+          this.plannedStock = result.production.plannedStock;
+          this.finishedProducts = [this.setFinishedProduct(1), this.setFinishedProduct(2), this.setFinishedProduct(3)];
+          this.subProductsIndex.forEach((subProductIndex, index) => {
+            this.subProducts[index] = this.setSubProduct(subProductIndex);
+          });
           this.updateOrders();
           this.updateAmmountNeededForFinishedProducts();
         });
@@ -79,9 +80,10 @@ export class ProductionPlanningComponent implements OnInit {
     fP.orders = this.mockedOrders;
     fP.inWaitlist = this.getWaitlistSumByID(id);
     fP.inProduction = this.getOrdersInWorkByID(id);
-    fP.plannedWHEnd = 100;
+    fP.plannedWHEnd = this.plannedStock[id-1];
     fP.inWarehouse = this.getWarehouseAmountByID(id);
     fP.amountneeded = ProductionPlanningComponent.calculateAmountForProducts(fP);
+
     return fP;
   }
 
@@ -92,13 +94,10 @@ export class ProductionPlanningComponent implements OnInit {
     sP.orders = this.getOrdersForSubProduct(sP);
     sP.inWaitlist = this.getWaitlistSumByID(id);
     sP.inProduction = this.getOrdersInWorkByID(id);
-    if (id === 16 || id === 17 || id === 26) {
-      sP.plannedWHEnd = 300;
-    } else {
-      sP.plannedWHEnd = 100;
-    }
+    sP.plannedWHEnd = this.plannedStock[this.subProductsIndex.indexOf(id)+3];
     sP.inWarehouse = this.getWarehouseAmountByID(id);
     sP.amountneeded = ProductionPlanningComponent.calculateAmountForProducts(sP);
+
     return sP;
   }
 
@@ -108,6 +107,7 @@ export class ProductionPlanningComponent implements OnInit {
     this.finishedProducts.forEach((finishedProduct, index) => {
       this.finishedProducts[index].amountneeded = ProductionPlanningComponent.calculateAmountForProducts(finishedProduct);
     });
+
     this.updateAmountNeededForSubProducts();
   }
 
@@ -118,6 +118,7 @@ export class ProductionPlanningComponent implements OnInit {
       this.subProducts[index].orders = this.getOrdersForSubProduct(subProduct);
       this.subProducts[index].amountneeded = ProductionPlanningComponent.calculateAmountForProducts(subProduct);
     });
+
     this.saveResult();
   }
 
@@ -125,6 +126,7 @@ export class ProductionPlanningComponent implements OnInit {
 
   static calculateAmountForProducts(product: any): number {
     let result = (product.orders + product.plannedWHEnd - product.inWaitlist - product.inProduction - product.inWarehouse);
+
     if (result >= 0) {
       return result;
     } else {
@@ -136,57 +138,68 @@ export class ProductionPlanningComponent implements OnInit {
 
   getOrdersForSubProduct(product: SubProduct): number {
     let result = 0;
+
     product.dependency.forEach(dependency => {
       result += this.getAmountneededOfFinishedProductByID(dependency);
       result += this.getAmountneededOFSubProductByID(dependency);
     });
+
     return result;
   }
 
   getAmountneededOfFinishedProductByID(id: number): number {
     let result = 0;
+
     this.finishedProducts.forEach(product => {
       if (product.id === id) {
         result += product.amountneeded;
       }
     });
+
     return result;
   }
 
   getAmountneededOFSubProductByID(id: number): number {
     let result = 0;
+
     this.subProducts.forEach(subProduct => {
       if (subProduct.id === id) {
         result += subProduct.amountneeded
       }
     });
+
     return result;
   }
 
 
   getDependenciesByID(id: number): Array<number> {
     let resultlist = [];
+
     this.dependencyList.forEach(dependency => {
       if (dependency.id === id) {
         resultlist = dependency.dependencies;
       }
     });
+
     return resultlist;
   }
 
   getWorkPlaceWithWaitlist(): Array<any> {
     let workplacelist = this.values.waitinglistworkstations[0].workplace;
     let resultlist = [];
+
     workplacelist.forEach(workplace => {
       if (workplace.waitinglist) {
         resultlist.push(workplace)
       }
     });
+
     return resultlist;
   }
 
   getWaitlistSumByID(id: number) {
     let result = 0;
+
     this.workPlaceWithWaitList.forEach(workplace => {
       workplace.waitinglist.forEach(waitinglist => {
         if (Number(waitinglist.item.item) === id) {
@@ -194,13 +207,14 @@ export class ProductionPlanningComponent implements OnInit {
         }
       })
     });
-    //console.log('Waitlist ItemID: ' +id + 'Amount: ' + result)
+
     return result;
   }
 
   getOrdersInWorkByID(id: number): number {
     let result = 0;
     let workplaces = this.values.ordersinwork[0].workplace;
+
     if (workplaces) {
       workplaces.forEach(workplace => {
         if (Number(workplace.item.item) === id) {
@@ -208,31 +222,38 @@ export class ProductionPlanningComponent implements OnInit {
         }
       })
     }
+
     return result;
   }
 
   getWarehouseAmountByID(id: number): number {
     let result = 0;
     let warehouse = this.values.warehousestock[0].article;
+
     warehouse.forEach(thing => {
       if (Number(thing.item.id) === id) {
         result += Number(thing.item.amount);
       }
     });
+
     return result;
   }
 
   saveResult() {
-    let result = {item:[], amount:[]};
+    let result = {item:[], amount:[], plannedStock:[] };
 
     this.finishedProducts.forEach((finishedProduct) => {
       result.item.push(finishedProduct.id);
       result.amount.push(finishedProduct.amountneeded);
+      result.plannedStock.push(finishedProduct.plannedWHEnd);
     });
+
     this.subProducts.forEach((subProduct) => {
       result.item.push(subProduct.id);
       result.amount.push(subProduct.amountneeded);
+      result.plannedStock.push(subProduct.plannedWHEnd);
     });
+
     this.db.object('/result/production').update(result);
 
   }
