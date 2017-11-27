@@ -100,3 +100,8 @@ a {
 .span-cursor{
   cursor: default;
 }
+
+.logoutBtn {
+  position: fixed;
+  font-size: 20px;
+}
