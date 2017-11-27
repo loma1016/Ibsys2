@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate([redirect]);
     } else{
       this.toastyService.setToastyDefaultError('Login fehlgeschlagen', 'Ungültige Kombination aus Nutzername und Passwort');
+      this.password = null;
     }
   }
 }
