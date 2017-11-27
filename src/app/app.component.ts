@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
+import {Component} from '@angular/core';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {Observable} from 'rxjs/Observable';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ export class AppComponent {
   showXmlUpload = false;
   public setPeriod = false;
 
-  constructor(db: AngularFirestore) {
+  constructor(db: AngularFirestore,
+              private router: Router) {
     this.items = db.collection('article').valueChanges();
   }
 
@@ -22,5 +24,10 @@ export class AppComponent {
 
   closeXmlUpload() {
     this.showXmlUpload = false;
+  }
+
+  logout(){
+    localStorage.removeItem('user');
+    this.router.navigateByUrl('/login');
   }
 }

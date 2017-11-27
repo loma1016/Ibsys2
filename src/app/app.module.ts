@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { XmlUploadComponent } from './xml-upload/xml-upload.component';
 import { environment } from '../environments/environment';
@@ -24,7 +24,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { ToastyModule } from 'ng2-toasty';
-
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -37,6 +36,9 @@ import { ResultComponent } from './planning/result/result.component';
 import { ModalComponent } from './util/modal/modal.component';
 import { SelectPeriodComponent } from './planning/select-period/select-period.component';
 import { ToastyServiceInt } from './util/toasty.service';
+import { LoginComponent } from './login/login.component';
+import {LoginService} from "./shared/login-service";
+import {AuthGuard} from "./shared/auth-guard";
 
 
 @NgModule({
@@ -53,7 +55,8 @@ import { ToastyServiceInt } from './util/toasty.service';
     ResultComponent,
     ModalComponent,
     ResultComponent,
-    SelectPeriodComponent
+    SelectPeriodComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -71,6 +74,7 @@ import { ToastyServiceInt } from './util/toasty.service';
     MatTableModule,
     MatSlideToggleModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     routes,
     AngularFireModule.initializeApp(environment.firebase),
@@ -80,7 +84,7 @@ import { ToastyServiceInt } from './util/toasty.service';
     MatTabsModule,
     ToastyModule.forRoot()
   ],
-  providers: [XmlUploadService,ToastyServiceInt],
+  providers: [XmlUploadService,ToastyServiceInt, LoginService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

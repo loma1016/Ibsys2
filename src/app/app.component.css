@@ -36,7 +36,7 @@ mat-toolbar {
 }
 
 .link:focus {
-  outline: #ffffff auto 5px;  
+  outline: #ffffff auto 5px;
 }
 
 a {
@@ -69,7 +69,7 @@ a {
   text-align: center;
   -webkit-box-shadow: 0 0 25px 5px rgba(0,0,0,0.65);
   -moz-box-shadow: 0 0 25px 5px rgba(0,0,0,0.65);
-  box-shadow: 0 0 25px 5px rgba(0,0,0,0.65);  
+  box-shadow: 0 0 25px 5px rgba(0,0,0,0.65);
 }
 
 .upload-img-container {
@@ -90,9 +90,13 @@ a {
   background: #f1f1f154;
   padding: 8px 10px;
   border-radius: 5px;
-  border: 1px solid #e0dede;    
-  width: 85%;  
+  border: 1px solid #e0dede;
+  width: 85%;
   -webkit-box-shadow: 0 0 5px 1px rgba(0,0,0,0.4);
   -moz-box-shadow: 0 0 5px 1px rgba(0,0,0,0.4);
-  box-shadow: 0 0 5px 1px rgba(0,0,0,0.4);  
+  box-shadow: 0 0 5px 1px rgba(0,0,0,0.4);
+}
+
+.span-cursor{
+  cursor: default;
 }
