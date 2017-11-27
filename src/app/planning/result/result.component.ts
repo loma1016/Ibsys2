@@ -40,7 +40,9 @@ export class ResultComponent implements OnInit {
       third: 0.70,
       overtime: 0.90
     },
-    machine: [0.06,0.06,0.06,0.06,0,0.4,0.4,0.4,1.05,0.4,0.4,0.4,0.65,0.06,0.06],
+
+    machineVar: [0.05, 0.05, 0.05, 0.05, 0.00, 0.30, 0.30, 0.30, 0.80, 0.30, 0.30, 0.30, 0.50, 0.05, 0.05],
+    machineFix: [0.01, 0.01, 0.01, 0.01, 0.00, 0.10, 0.10, 0.10, 0.25, 0.10, 0.10, 0.10, 0.15, 0.01, 0.01],
     productValue: {
       p1: 156.13,
       p2: 163.33,
@@ -131,7 +133,7 @@ export class ResultComponent implements OnInit {
         wageCost += 2400*this.costsData.shifts.first + 2400*this.costsData.shifts.second +  2400*this.costsData.shifts.third;
       }
 
-      machineCost += (2400 * place.shift + place.overtime*5)*this.costsData.machine[index];
+      machineCost += (2400 * place.shift + place.overtime*5)*this.costsData.machineVar[index];
 
       this.costs.machine = Math.round(machineCost);
       this.costs.shifts = Math.round(wageCost);
