@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { ToastyServiceInt } from "../../util/toasty.service";
 
 @Component({
   selector: 'app-forecast',
@@ -7,6 +9,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
   styleUrls: ['./forecast.component.css']
 })
 export class ForecastComponent implements OnInit {
+  @Input() firstFormGroup: FormGroup;  
   forecastPeriod: any[] = [];
   sumFirst: number;
   sumSecond: number;
@@ -14,7 +17,7 @@ export class ForecastComponent implements OnInit {
   sumFourth: number;
   currPeriod = 1;
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase, private toastyServiceInt: ToastyServiceInt) {
     this.forecastPeriod = [
       { period: 'first', inputs: [] },
       { period: 'second', inputs: [] },
@@ -35,7 +38,7 @@ export class ForecastComponent implements OnInit {
 
   checkSum() {
     this.forecastPeriod.forEach((p, index) => {
-      if (p.inputs.P1 && p.inputs.P2 && p.inputs.P3) {
+      if (Number(p.inputs.P1) && Number(p.inputs.P2) && Number(p.inputs.P3)) {
         var sum = Number(p.inputs.P1) + Number(p.inputs.P2) + Number(p.inputs.P3);
         switch (index) {
           case 0: {
@@ -55,10 +58,44 @@ export class ForecastComponent implements OnInit {
             break;
           }
         }
+      } else {
+        switch (index) {
+          case 0: {
+            if (this.sumFirst) {
+              this.sumFirst = undefined;
+            }
+            break;
+          }
+          case 1: {
+            if (this.sumSecond) {
+              this.sumSecond = undefined;
+            }
+            break;
+          }
+          case 2: {
+            if (this.sumThird) {
+              this.sumThird = undefined;
+            }
+            break;
+          }
+          case 3: {
+            if (this.sumFourth) {
+              this.sumFourth = undefined;
+            }
+            break;
+          }
+        }
       }
+
       if (this.sumFirst && this.sumSecond && this.sumThird && this.sumFourth) {
         this.db.object('/result/forecast').set(this.forecastPeriod);
       }
     });
+  }
+
+  ifDisabled() {
+    if (this.firstFormGroup.status === "INVALID") {
+      this.toastyServiceInt.setToastyDefaultError('Warnung!', 'Bitte fülle Sie die erfolderlichen Inputs aus!')      
+    }
   }
 }

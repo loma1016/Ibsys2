@@ -1,8 +1,8 @@
 <app-select-period *ngIf="!periodIsSet" (closeSelectPeriod)="setPeriod()"></app-select-period>
 
-<mat-horizontal-stepper>
-  <mat-step label="Prognosen">
-    <app-forecast></app-forecast>
+<mat-horizontal-stepper [linear]="isLinear">
+  <mat-step label="Prognosen" [stepControl]="firstFormGroup">
+    <app-forecast [firstFormGroup]="firstFormGroup"></app-forecast>
   </mat-step>
   <mat-step label="Produktionsplanung">
     <app-production-planning></app-production-planning>

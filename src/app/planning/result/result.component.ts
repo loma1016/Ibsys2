@@ -55,8 +55,6 @@ export class ResultComponent implements OnInit {
   ngOnInit() {
     this.db.object('result').valueChanges().subscribe(result=> {
 
-      console.log(result);
-
       this.setResult(result);
 
       this.calculateSales(result);
@@ -70,11 +68,6 @@ export class ResultComponent implements OnInit {
       this.calculateWarehouseCosts();
 
       this.profit = this.sales - (this.costs.shifts + this.costs.machine + this.costs.disposition + this.costs.warehouse);
-      console.log(this.costs);
-      console.log(this.sales);
-      console.log(this.profit);
-      console.log(this.stockValue);
-
     });
   }
 

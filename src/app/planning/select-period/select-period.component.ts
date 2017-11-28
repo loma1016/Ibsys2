@@ -41,7 +41,7 @@ export class SelectPeriodComponent implements OnInit {
   }
 
   closeModal() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/dashboard']);
     this.toastyServiceInt.setToastyDefaultError('Warnung!', 'Planung wurde abgebrochen!')
   }
 

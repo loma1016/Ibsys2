@@ -28,13 +28,29 @@
         </mat-form-field>
       </td>
     </tr>
-    <tr class="sum-row">
+    <tr class="sum-row" [formGroup]="firstFormGroup">
       <th class="col-xs-2">Summe</th>
-      <td class="sum-row-content">{{sumFirst}}</td>
-      <td class="sum-row-content">{{sumSecond}}</td>
-      <td class="sum-row-content">{{sumThird}}</td>
-      <td class="sum-row-content">{{sumFourth}}</td>
+      <td class="sum-row-content">
+        <mat-form-field>
+            <input matInput formControlName="firstCtrl" required readonly [(ngModel)]="sumFirst">
+        </mat-form-field>
+      </td>
+      <td class="sum-row-content">
+        <mat-form-field>
+          <input matInput formControlName="secondCtrl" required readonly [(ngModel)]="sumSecond">
+        </mat-form-field>
+      </td>
+      <td class="sum-row-content">
+        <mat-form-field>
+          <input matInput formControlName="thirdCtrl" required readonly [(ngModel)]="sumThird">
+        </mat-form-field>
+      </td>
+      <td class="sum-row-content">
+        <mat-form-field>
+          <input matInput formControlName="fourthCtrl" required readonly [(ngModel)]="sumFourth">
+        </mat-form-field>
+      </td>
     </tr>
   </table>
-  <button mat-raised-button style="margin-top: 2%" class="pull-right" color="primary" matStepperNext>Weiter</button>
+  <button mat-raised-button style="margin-top: 2%" class="pull-right" color="primary" matStepperNext (click)="ifDisabled()">Weiter</button>
 </div>
