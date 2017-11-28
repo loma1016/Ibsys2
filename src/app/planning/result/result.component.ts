@@ -160,7 +160,7 @@ export class ResultComponent implements OnInit {
 
     if (result.workingtimelist) {
       result.workingtimelist.forEach(place => {
-        this.result.workingtimelist.workingtime.push({"@": {station: place.station, schift: place.shift, overtime: place.overtime}})
+        this.result.workingtimelist.workingtime.push({"@": {station: place.station, shift: place.shift, overtime: place.overtime}})
       });
     }
 
