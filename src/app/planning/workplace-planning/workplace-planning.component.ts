@@ -131,7 +131,8 @@ export class WorkspacePlanningComponent implements OnInit {
     item: [49, 54, 29, 50, 55, 30, 51, 56, 31, 1, 2, 3, 16, 18, 19, 20, 10, 11, 12, 13, 14, 15, 18, 19, 20, 26, 10, 11, 12, 13, 14, 15, 18, 19, 20, 10, 11, 12, 13, 14, 15, 18, 19, 20, 4, 5, 6, 7, 8, 9, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 10, 11, 12, 13, 14, 15, 16, 17, 26],
     time: [20, 20, 20, 30, 30, 30, 20, 20, 20, 30, 20, 30, 15, 15, 15, 15, 20, 20, 20, 20, 20, 20, 20, 20, 20, 30, 15, 15, 15, 15, 15, 15, 20, 25, 20, 15, 15, 15, 15, 15, 15, 15, 20, 15, 20, 20, 20, 20, 20, 20, 10, 10, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 15],
     mean: [20, 30, 20, 27, 0, 15, 21, 17.5, 15.5, 20, 17, 0, 0, 0, 15],
-    factor: [450, 600, 500, 500, 0, 80, 150, 200, 400, 300, 300, 300, 200, 300, 300]
+    factor: [450, 600, 500, 500, 0, 80, 150, 200, 400, 300, 300, 300, 200, 300, 300],
+    maxSetupTimes: [8, 6, 3, 3, 0, 4, 34, 38, 12, 6, 8, 6, 6, 1, 13]
   };
 
   workspaceOfItem = {
@@ -271,7 +272,7 @@ export class WorkspacePlanningComponent implements OnInit {
 
     for (let i = 0; i < this.workplacePlan.totalTime.length; i++) {
       if (this.setup.factor[i]) {
-        this.setupTime[i] = Math.round(this.workplacePlan.totalTime[i] / this.setup.factor[i]) * this.setup.mean[i];
+        this.setupTime[i] = Math.round(this.setup.maxSetupTimes[i]) * this.setup.mean[i];
       }
     }
 
