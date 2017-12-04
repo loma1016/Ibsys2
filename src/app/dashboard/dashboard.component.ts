@@ -114,8 +114,8 @@ export class DashboardComponent implements OnInit {
       }
 
       context.barChartData = [
-        { data: context.allStockValues, label: 'Alle Lagerwerte' },
-        { data: context.startValues, label: 'Start Werte' }
+        { data: context.allStockValues, label: 'Aktuelle Lagerwerte' },
+        { data: context.startValues, label: 'Startwerte' }
       ]
     }
 
