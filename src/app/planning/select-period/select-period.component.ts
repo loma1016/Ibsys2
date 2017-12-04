@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Router } from "@angular/router";
 import { ToastyServiceInt } from "../../util/toasty.service";
@@ -18,6 +18,11 @@ export class SelectPeriodComponent implements OnInit {
   public butDisabled = true;
 
   constructor(private db: AngularFireDatabase, private router: Router, private toastyServiceInt: ToastyServiceInt) {
+  }
+
+  @HostListener('document:keydown.escape', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) { 
+    this.closeModal();
   }
 
   ngOnInit() {

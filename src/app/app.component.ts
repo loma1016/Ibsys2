@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/Observable';
 import {Router} from "@angular/router";
@@ -24,6 +24,12 @@ export class AppComponent {
 
   closeXmlUpload() {
     this.showXmlUpload = false;
+  }
+
+  
+  @HostListener('document:keydown.escape', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) { 
+    this.closeXmlUpload();
   }
 
   logout(){
