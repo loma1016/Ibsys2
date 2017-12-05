@@ -169,7 +169,7 @@ export class ProductionPlanningComponent implements OnInit {
 
     this.subProducts.forEach(subProduct => {
       if (subProduct.id === id) {
-        result += subProduct.amountneeded
+        result += subProduct.amountneeded;
         if(subProduct.inWaitlist >0){
           result += subProduct.inWaitlist;
         }
