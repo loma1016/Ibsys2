@@ -41,18 +41,20 @@ export class ProductionPlanningComponent implements OnInit {
   workPlaceWithWaitList: Array<any> = [];
   values: any;
 
-  subProductsIndex = [26,51,56,31,16,17,50,55,30,4,10,49,5,11,54,6,12,29,7,13,18,8,14,19,9,15,20];
+  subProductsIndex = [26, 51, 56, 31, 16, 17, 50, 55, 30, 4, 10, 49, 5, 11, 54, 6, 12, 29, 7, 13, 18, 8, 14, 19, 9, 15, 20];
 
-  constructor(private db: AngularFireDatabase) {}
+  constructor(private db: AngularFireDatabase) {
+  }
 
   ngOnInit() {
     this.db.object('currentPeriod').valueChanges().subscribe(currentPeriod => {
-      this.previousPeriodData = this.db.object('periods/' + (Number(currentPeriod)-1).toString()).valueChanges();
-      this.previousPeriodData.subscribe(values=>{
+      this.previousPeriodData = this.db.object('periods/' + (Number(currentPeriod) - 1).toString()).valueChanges();
+      this.previousPeriodData.subscribe(values => {
         this.values = values;
+        console.info(this.values);
         this.workPlaceWithWaitList = this.getWorkPlaceWithWaitlist();
         this.forecastData = this.db.object('result').valueChanges();
-        this.forecastData.subscribe(result=> {
+        this.forecastData.subscribe(result => {
           this.forecast = result.forecast;
           this.plannedStock = result.production.plannedStock;
           this.finishedProducts = [this.setFinishedProduct(1), this.setFinishedProduct(2), this.setFinishedProduct(3)];
@@ -66,7 +68,7 @@ export class ProductionPlanningComponent implements OnInit {
     });
   }
 
-  updateOrders(){
+  updateOrders() {
     this.finishedProducts[0].orders = Number(this.forecast[0].inputs.P1);
     this.finishedProducts[1].orders = Number(this.forecast[0].inputs.P2);
     this.finishedProducts[2].orders = Number(this.forecast[0].inputs.P3);
@@ -80,7 +82,7 @@ export class ProductionPlanningComponent implements OnInit {
     fP.orders = this.mockedOrders;
     fP.inWaitlist = this.getWaitlistSumByID(id);
     fP.inProduction = this.getOrdersInWorkByID(id);
-    fP.plannedWHEnd = this.plannedStock[id-1];
+    fP.plannedWHEnd = this.plannedStock[id - 1];
     fP.inWarehouse = this.getWarehouseAmountByID(id);
     fP.amountneeded = ProductionPlanningComponent.calculateAmountForProducts(fP);
 
@@ -94,7 +96,7 @@ export class ProductionPlanningComponent implements OnInit {
     sP.orders = this.getOrdersForSubProduct(sP);
     sP.inWaitlist = this.getWaitlistSumByID(id);
     sP.inProduction = this.getOrdersInWorkByID(id);
-    sP.plannedWHEnd = this.plannedStock[this.subProductsIndex.indexOf(id)+3];
+    sP.plannedWHEnd = this.plannedStock[this.subProductsIndex.indexOf(id) + 3];
     sP.inWarehouse = this.getWarehouseAmountByID(id);
     sP.amountneeded = ProductionPlanningComponent.calculateAmountForProducts(sP);
 
@@ -110,7 +112,6 @@ export class ProductionPlanningComponent implements OnInit {
 
     this.updateAmountNeededForSubProducts();
   }
-
 
 
   updateAmountNeededForSubProducts() {
@@ -147,17 +148,21 @@ export class ProductionPlanningComponent implements OnInit {
     return result;
   }
 
+
   getAmountneededOfFinishedProductByID(id: number): number {
     let result = 0;
 
     this.finishedProducts.forEach(product => {
       if (product.id === id) {
         result += product.amountneeded;
+        if(product.inWaitlist > 0){
+          result += product.inWaitlist;
+        }
       }
     });
-
     return result;
   }
+
 
   getAmountneededOFSubProductByID(id: number): number {
     let result = 0;
@@ -165,9 +170,11 @@ export class ProductionPlanningComponent implements OnInit {
     this.subProducts.forEach(subProduct => {
       if (subProduct.id === id) {
         result += subProduct.amountneeded
+        if(subProduct.inWaitlist >0){
+          result += subProduct.inWaitlist;
+        }
       }
     });
-
     return result;
   }
 
@@ -184,6 +191,7 @@ export class ProductionPlanningComponent implements OnInit {
     return resultlist;
   }
 
+  // Gibt eine Liste zurück mit Arbeitsplätzen an denen eine Warteschlange besteht
   getWorkPlaceWithWaitlist(): Array<any> {
     let workplacelist = this.values.waitinglistworkstations[0].workplace;
     let resultlist = [];
@@ -197,7 +205,9 @@ export class ProductionPlanningComponent implements OnInit {
     return resultlist;
   }
 
-  getWaitlistSumByID(id: number) {
+
+
+  getWaitlistSumByID(id: number):number {
     let result = 0;
 
     this.workPlaceWithWaitList.forEach(workplace => {
@@ -240,7 +250,7 @@ export class ProductionPlanningComponent implements OnInit {
   }
 
   saveResult() {
-    let result = {item:[], amount:[], plannedStock:[] };
+    let result = {item: [], amount: [], plannedStock: []};
 
     this.finishedProducts.forEach((finishedProduct) => {
       result.item.push(finishedProduct.id);
