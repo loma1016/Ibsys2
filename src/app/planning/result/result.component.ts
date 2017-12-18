@@ -141,16 +141,20 @@ export class ResultComponent implements OnInit {
 
     this.resetResult();
 
+    console.log(result);
+
     this.result.sellwish.item = [
       {"@": {article:1, quantity: Number(result.forecast[0].inputs.P1)}},
       {"@": {article:2, quantity: Number(result.forecast[0].inputs.P2)}},
       {"@": {article:3, quantity: Number(result.forecast[0].inputs.P3)}}
     ];
-    this.result.selldirect.item = [
-      {"@": {article:1, quantity:0, price:0, penalty:0}},
-      {"@": {article:2, quantity:0, price:0, penalty:0}},
-      {"@": {article:2, quantity:0, price:0, penalty:0}}
-    ];
+
+
+    if (result.directsales) {
+      result.directsales.forEach(article => {
+        this.result.selldirect.item.push({"@": {article:article.id, quantity:article.amount, price:article.price, penalty:article.penalty}})
+      });
+    }
 
     if (result.production) {
       result.production.item.forEach((item, index) => {

@@ -15,7 +15,6 @@ export class AuthGuard implements CanActivate, OnDestroy {
               state: RouterStateSnapshot): boolean {
 
     const url: string = state.url;
-    console.log(this.checkLogin(url));
     return this.checkLogin(url);
   }
 

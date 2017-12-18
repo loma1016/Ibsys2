@@ -9,6 +9,7 @@ import {Dependency} from "./models/dependency-model";
   selector: 'app-production-planning',
   templateUrl: './production-planning.component.html',
   styleUrls: ['./production-planning.component.css']
+
 })
 export class ProductionPlanningComponent implements OnInit {
 
@@ -37,6 +38,7 @@ export class ProductionPlanningComponent implements OnInit {
   previousPeriodData: Observable<any>;
   forecastData: Observable<any>;
   forecast: any;
+  plannedStockData: Observable<any>;
   plannedStock: Array<number>;
   workPlaceWithWaitList: Array<any> = [];
   values: any;
@@ -51,18 +53,20 @@ export class ProductionPlanningComponent implements OnInit {
       this.previousPeriodData = this.db.object('periods/' + (Number(currentPeriod) - 1).toString()).valueChanges();
       this.previousPeriodData.subscribe(values => {
         this.values = values;
-        console.info(this.values);
         this.workPlaceWithWaitList = this.getWorkPlaceWithWaitlist();
-        this.forecastData = this.db.object('result').valueChanges();
+        this.forecastData = this.db.object('result/forecast').valueChanges();
         this.forecastData.subscribe(result => {
-          this.forecast = result.forecast;
-          this.plannedStock = result.production.plannedStock;
-          this.finishedProducts = [this.setFinishedProduct(1), this.setFinishedProduct(2), this.setFinishedProduct(3)];
-          this.subProductsIndex.forEach((subProductIndex, index) => {
-            this.subProducts[index] = this.setSubProduct(subProductIndex);
+          this.forecast = result;
+          this.plannedStockData = this.db.object('result/production/plannedStock').valueChanges();
+          this.plannedStockData.subscribe(result => {
+            this.plannedStock = result;
+            this.finishedProducts = [this.setFinishedProduct(1), this.setFinishedProduct(2), this.setFinishedProduct(3)];
+            this.subProductsIndex.forEach((subProductIndex, index) => {
+              this.subProducts[index] = this.setSubProduct(subProductIndex);
+            });
+            this.updateOrders();
+            this.updateAmmountNeededForFinishedProducts();
           });
-          this.updateOrders();
-          this.updateAmmountNeededForFinishedProducts();
         });
       });
     });
@@ -263,6 +267,8 @@ export class ProductionPlanningComponent implements OnInit {
       result.amount.push(subProduct.amountneeded);
       result.plannedStock.push(subProduct.plannedWHEnd);
     });
+
+
 
     this.db.object('/result/production').update(result);
 

@@ -1,0 +1,52 @@
+<div class="container planningContainer">
+  <table class="planningTable table-striped table-bordered">
+    <tr class="table-row head-row">
+      <th class="col-xs-2"></th>
+      <th class="table-header">Anzahl</th>
+      <th class="table-header">Preis</th>
+      <th class="table-header">Strafe</th>
+    </tr>
+    <tr class="table-row" *ngFor="let product of result; let i = index">
+      <th class="col-xs-2">P {{product.id}}</th>
+      <td>
+        <mat-form-field>
+          <input  (keypress)="onlyNumbers($event)" matInput class="table-input" placeholder="Anzahl" type="text" name="inputP1" [(ngModel)]="result[i].amount" (ngModelChange)="onChange($event)">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input  (keypress)="onlyNumbers($event)" matInput class="table-input" placeholder="Preis" type="text" name="inputP1" [(ngModel)]="result[i].price" (ngModelChange)="onChange($event)">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input  (keypress)="onlyNumbers($event)" matInput class="table-input" placeholder="Strafe" type="text" name="inputP1" [(ngModel)]="result[i].penalty" (ngModelChange)="onChange($event)">
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+  <button mat-raised-button style="margin-top: 2%" class="back-btn" color="warn" matStepperPrevious>Zurück</button>
+  <button mat-raised-button class="new-btn" color="primary" (click)="newOrderModal.show()" >Anderers Teil</button>
+  <button mat-raised-button style="margin-top: 2%" class="pull-right" color="primary" matStepperNext>Weiter</button>
+
+  <app-modal #newOrderModal>
+    <div class="app-modal-header">
+      Bestellung eines Kaufteils abändern?
+    </div>
+    <div class="app-modal-body">
+      <label class="newOrderLabel"> Teilnummer</label>
+      <input type="number" class="newOrderInput" name="newOrderItem" [(ngModel)]="otherProduct.id"><br>
+      <label class="newOrderLabel">Anzahl</label>
+      <input type="number" class="newOrderInput" name="newOrderAmount" [(ngModel)]="otherProduct.amount"><br>
+      <label class="newOrderLabel">Preis</label>
+      <input type="number" class="newOrderInput" name="newOrderAmount" [(ngModel)]="otherProduct.price"><br>
+      <label class="newOrderLabel"> Strafe</label>
+      <input type="number" class="newOrderInput" name="newOrderItem" [(ngModel)]="otherProduct.penalty"><br>
+
+    </div>
+    <div class="app-modal-footer">
+      <button mat-raised-button class="pull-left" color="warn" (click)="newOrderModal.hide()">Abbrechen</button>
+      <button mat-raised-button class="pull-right" color="primary" (click)="newOrderModal.hide(); newOtherProduct()">Ok</button>
+    </div>
+  </app-modal>
+</div>

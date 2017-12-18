@@ -3,11 +3,13 @@ import { ordersData } from './disposition.data';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { ToastyServiceInt } from "../../util/toasty.service";
+import {ProductionPlanningService} from "../production-planning/production-planning.service";
 
 @Component({
   selector: 'app-disposition',
   templateUrl: './disposition.component.html',
-  styleUrls: ['./disposition.component.css']
+  styleUrls: ['./disposition.component.css'],
+  providers: [ProductionPlanningService]
 })
 export class DispositionComponent implements OnInit {
 
@@ -23,11 +25,15 @@ export class DispositionComponent implements OnInit {
 
   previousPeriodData: Observable<any>;
 
+  previousPeriod: any;
+
   forecastData: Observable<any>;
+
+  plannedStockData: Observable<any>;
 
   newOrderData = {item:0, amount:0, mode:5, modeLabel: 'normal'};
 
-  constructor(private db: AngularFireDatabase,  private toastyService: ToastyServiceInt) { }
+  constructor(private db: AngularFireDatabase,  private toastyService: ToastyServiceInt, private productionPlanningService: ProductionPlanningService) { }
 
   ngOnInit() {
 
@@ -37,6 +43,8 @@ export class DispositionComponent implements OnInit {
       this.currentPeriod = Number(currentPeriod);
       this.previousPeriodData = this.db.object('periods/' + (this.currentPeriod - 1).toString()).valueChanges();
       this.previousPeriodData.subscribe(_ => {
+
+        this.previousPeriod = _;
 
         _.warehousestock[0].article.forEach(article => {
           if (this.ordersData.index.indexOf(Number(article.item.id)) >= 0) {
@@ -53,18 +61,22 @@ export class DispositionComponent implements OnInit {
             }
           });
         }
+
         if(_.warehousestock[0]) {
           this.previousStockValue = Number(_.warehousestock[0].totalstockvalue[0]);
         }
 
-        this.forecastData = this.db.object('result').valueChanges();
+        this.forecastData = this.db.object('result/forecast').valueChanges();
         this.forecastData.subscribe(result => {
-          this.forecast = result.forecast;
-          this.productionPlan = result.production;
-          this.calculateDisposition()
+          this.forecast = result;
+          this.plannedStockData = this.db.object('result/production').valueChanges();
+          this.plannedStockData.subscribe(result => {
+            this.productionPlan = result;
+            this.calculateDisposition()
         });
       });
     });
+  });
   }
 
   calculateDisposition() {
@@ -185,7 +197,7 @@ export class DispositionComponent implements OnInit {
             article: index,
             quantity:  orderData.result.normalOrder,
             orderPeriod: this.currentPeriod,
-            deliveryTime: orderData.deliveryTime.mean+1,
+            deliveryTime: orderData.deliveryTime.mean-1,
             price: orderData.price,
             discontAmount: orderData.discontAmount,
             orderCost: orderData.orderCost,
@@ -220,7 +232,7 @@ export class DispositionComponent implements OnInit {
           article: index,
           quantity: stockMovement.amount,
           orderPeriod: stockMovement.orderPeriod,
-          deliveryTime: orderData.deliveryTime.mean+1,
+          deliveryTime: orderData.deliveryTime.mean-1,
           price: orderData.price,
           discontAmount: orderData.discontAmount,
           orderCost: orderData.orderCost,
@@ -245,6 +257,9 @@ export class DispositionComponent implements OnInit {
       inwardstockmovement: inwardStockMovement,
       priveousstockvalue: this.previousStockValue
     });
+
+    this.productionPlanningService.plan(this.previousPeriod, this.productionPlan, inwardStockMovement, this.currentPeriod);
+
   }
 
   calculateDeliveryTime() {

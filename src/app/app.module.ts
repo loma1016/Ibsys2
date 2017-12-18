@@ -39,6 +39,7 @@ import { ToastyServiceInt } from './util/toasty.service';
 import { LoginComponent } from './login/login.component';
 import {LoginService} from "./shared/login-service";
 import {AuthGuard} from "./shared/auth-guard";
+import { DirectSalesComponent } from './planning/direct-sales/direct-sales.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import {AuthGuard} from "./shared/auth-guard";
     ModalComponent,
     ResultComponent,
     SelectPeriodComponent,
-    LoginComponent
+    LoginComponent,
+    DirectSalesComponent
   ],
   imports: [
     BrowserModule,
