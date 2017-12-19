@@ -32,6 +32,7 @@
     "firebase": "^4.6.1",
     "js2xmlparser": "^3.0.0",
     "ng2-charts": "^1.6.0",
+    "ng2-dnd": "^5.0.2",
     "ng2-toasty": "^4.0.3",
     "rxjs": "^5.1.0",
     "typescript": "^2.6.1",

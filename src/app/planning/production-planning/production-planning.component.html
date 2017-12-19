@@ -1,5 +1,5 @@
 <div class="container planningContainer">
-  <table class="planningTable table-striped table-bordered">
+  <table class="planningTable table-striped table-bordered" dnd-sortable-container [sortableData]="finishedProducts">
     <tr>
       <th>Erzeugnisse </th>
       <th>Kundenaufträge </th>
@@ -9,7 +9,7 @@
       <th>in Bearbeitung </th>
       <th>Produktionsaufträge </th>
     </tr>
-    <tr *ngFor="let item of finishedProducts, let i = index">
+    <tr *ngFor="let item of finishedProducts, let i = index" dnd-sortable [sortableIndex]="i">
       <th>P{{i+1}}</th>
       <th>{{item.orders}}</th>
       <th>

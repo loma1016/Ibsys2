@@ -8,10 +8,15 @@ import {Dependency} from "./models/dependency-model";
 @Component({
   selector: 'app-production-planning',
   templateUrl: './production-planning.component.html',
+<<<<<<< Updated upstream
   styleUrls: ['./production-planning.component.css']
+=======
+  styleUrls: ['./production-planning.component.css', '../../../../node_modules/ng2-dnd/bundles/style.css']
+
+>>>>>>> Stashed changes
 })
 export class ProductionPlanningComponent implements OnInit {
-
+ng 
   //Order, inWarehouse, inWaitlist, inProduction aus DB
   // plannedWHend 2 Way Databinding
 
