@@ -1,22 +1,25 @@
+/*
+TODO: bind rows to model --> dragulaModel
+      Data should be in one array
+      --> Array sortable
+
+      //Remove DeveloperMode in Planning.comp.html 
+*/
+
 import {Component, OnInit} from '@angular/core';
 import {AngularFireDatabase} from "angularfire2/database";
 import {Observable} from "rxjs";
 import {FinishedProduct} from "./models/finishedProduct-model";
 import {SubProduct} from "./models/subProduct-model";
 import {Dependency} from "./models/dependency-model";
+import { DragulaService } from 'ng2-dragula';
 
 @Component({
   selector: 'app-production-planning',
   templateUrl: './production-planning.component.html',
-<<<<<<< Updated upstream
-  styleUrls: ['./production-planning.component.css']
-=======
-  styleUrls: ['./production-planning.component.css', '../../../../node_modules/ng2-dnd/bundles/style.css']
-
->>>>>>> Stashed changes
+  styleUrls: ['./production-planning.component.css', '../../../../node_modules/dragula/dist/dragula.css']
 })
 export class ProductionPlanningComponent implements OnInit {
-ng 
   //Order, inWarehouse, inWaitlist, inProduction aus DB
   // plannedWHend 2 Way Databinding
 
@@ -48,7 +51,15 @@ ng
 
   subProductsIndex = [26, 51, 56, 31, 16, 17, 50, 55, 30, 4, 10, 49, 5, 11, 54, 6, 12, 29, 7, 13, 18, 8, 14, 19, 9, 15, 20];
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase, private dragulaService: DragulaService) {
+    dragulaService.setOptions('first-bag', {
+      moves: function (el, source, handle) {
+        return handle.className.indexOf("draggable") > -1;
+      },
+    });
+    dragulaService.drop.subscribe((value) => {
+        this.onDrop(value.slice(1));
+    });
   }
 
   ngOnInit() {
@@ -271,5 +282,12 @@ ng
 
     this.db.object('/result/production').update(result);
 
+  }
+
+  private onDrop(args) {
+    let [e] = args;
+    if (e.className.indexOf("pos-changed") === -1) {
+      e.className = e.className ? [e.className, "pos-changed"].join(' ') : "pos-changed";
+    }
   }
 }

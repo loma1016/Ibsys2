@@ -10,7 +10,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { XmlUploadService } from './shared/xml-upload/xml-upload.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-import { DndModule } from 'ng2-dnd';
+import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
@@ -84,7 +84,7 @@ import {AuthGuard} from "./shared/auth-guard";
     ChartsModule,
     MatTabsModule,
     ToastyModule.forRoot(),
-    DndModule.forRoot()
+    DragulaModule
   ],
   providers: [XmlUploadService,ToastyServiceInt, LoginService, AuthGuard],
   bootstrap: [AppComponent]
