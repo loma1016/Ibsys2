@@ -36,6 +36,7 @@ export class DirectSalesComponent implements OnInit {
   ];
 
   ngOnInit() {
+    this.onChange();
   }
 
   onlyNumbers(e) {
