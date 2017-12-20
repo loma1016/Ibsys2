@@ -504,7 +504,7 @@ export class ProductionPlanningService {
 
           if (this.result.data[this.workspaces.data[id].setupId]) {
             this.result.data[this.workspaces.data[id].setupId].push({
-              step: stepId,
+              step: stepId+1,
               time: this.ticksPassed,
               amount: this.workspaces.data[id].amount,
               workspace: id,
@@ -512,7 +512,7 @@ export class ProductionPlanningService {
             });
           } else {
             this.result.data[this.workspaces.data[id].setupId] = [{
-              step: stepId,
+              step: stepId+1,
               time: this.ticksPassed,
               amount: this.workspaces.data[id].amount,
               workspace: id,
@@ -536,7 +536,7 @@ export class ProductionPlanningService {
 
   checkInwardStockMovement() {
     this.inwardStockMovement.forEach(article => {
-      if (!article.deliverd &&(article.deliveryTime-((this.currentPeriod-article.orderPeriod)*5))*(this.time/5)<this.ticksPassed) {
+      if (!article.deliverd &&((article.deliveryTime-2)-((this.currentPeriod-article.orderPeriod)*5))*(this.time/5)<this.ticksPassed) {
         this.warehouseStock.data[article.article].amount += article.quantity;
         article.deliverd = true;
       }

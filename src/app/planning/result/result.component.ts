@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from "angularfire2/database";
 import * as FileSaver from 'file-saver';
+import {Observable} from "rxjs";
+import {ProductionPlanningService} from "../production-planning/production-planning.service";
 
 @Component({
   selector: 'app-result',
   templateUrl: './result.component.html',
-  styleUrls: ['./result.component.css']
+  styleUrls: ['./result.component.css'],
+  providers: [ProductionPlanningService]
 })
 export class ResultComponent implements OnInit {
 
@@ -50,25 +53,61 @@ export class ResultComponent implements OnInit {
     }
   };
 
-  constructor(private db: AngularFireDatabase) {}
+  currentPeriod: number;
+
+  previousPeriodData: Observable<any>;
+
+  previousPeriod: any;
+
+  resultData: Observable<any>;
+
+  resultRaw:any;
+
+  simulated = false;
+
+  constructor(private db: AngularFireDatabase,  private productionPlanningService: ProductionPlanningService) {}
 
   ngOnInit() {
-    this.db.object('result').valueChanges().subscribe(result=> {
+    this.db.object('currentPeriod').valueChanges().subscribe(currentPeriod => {
+      this.currentPeriod = Number(currentPeriod);
+      this.previousPeriodData = this.db.object('periods/' + (this.currentPeriod - 1).toString()).valueChanges();
+      this.previousPeriodData.subscribe(_ => {
 
-      this.setResult(result);
+        this.previousPeriod = _;
 
-      this.calculateSales(result);
 
-      this.calculateShiftAndMachineCosts(result);
+        this.resultData = this.db.object('result').valueChanges();
+        this.resultData.subscribe(result => {
+          this.resultRaw = result;
+          this.setResult(result);
 
-      this.calculateDispositionCosts(result);
+          this.calculateSales(result);
 
-      this.calculateStockValue(result);
+          this.calculateShiftAndMachineCosts(result);
 
-      this.calculateWarehouseCosts();
+          this.calculateDispositionCosts(result);
 
-      this.profit = this.sales - (this.costs.shifts + this.costs.machine + this.costs.disposition + this.costs.warehouse);
+          this.calculateStockValue(result);
+
+          this.calculateWarehouseCosts();
+
+          this.profit = this.sales - (this.costs.shifts + this.costs.machine + this.costs.disposition + this.costs.warehouse);
+
+        });
+      });
     });
+  }
+
+  simulatePeriod() {
+    this.productionPlanningService.plan(this.previousPeriod, this.resultRaw.production, this.resultRaw.disposition.inwardstockmovement, this.currentPeriod);
+  }
+
+  disableSimulation() {
+    this.simulated = true;
+  }
+
+  refresh() {
+    window.location.reload();
   }
 
   calculateStockValue(result: any) {
@@ -140,8 +179,7 @@ export class ResultComponent implements OnInit {
   setResult(result: any) {
 
     this.resetResult();
-
-    console.log(result);
+    
 
     this.result.sellwish.item = [
       {"@": {article:1, quantity: Number(result.forecast[0].inputs.P1)}},

@@ -8,8 +8,7 @@ import {ProductionPlanningService} from "../production-planning/production-plann
 @Component({
   selector: 'app-disposition',
   templateUrl: './disposition.component.html',
-  styleUrls: ['./disposition.component.css'],
-  providers: [ProductionPlanningService]
+  styleUrls: ['./disposition.component.css']
 })
 export class DispositionComponent implements OnInit {
 
@@ -33,7 +32,7 @@ export class DispositionComponent implements OnInit {
 
   newOrderData = {item:0, amount:0, mode:5, modeLabel: 'normal'};
 
-  constructor(private db: AngularFireDatabase,  private toastyService: ToastyServiceInt, private productionPlanningService: ProductionPlanningService) { }
+  constructor(private db: AngularFireDatabase,  private toastyService: ToastyServiceInt) { }
 
   ngOnInit() {
 
@@ -197,7 +196,7 @@ export class DispositionComponent implements OnInit {
             article: index,
             quantity:  orderData.result.normalOrder,
             orderPeriod: this.currentPeriod,
-            deliveryTime: orderData.deliveryTime.mean-1,
+            deliveryTime: orderData.deliveryTime.mean+1,
             price: orderData.price,
             discontAmount: orderData.discontAmount,
             orderCost: orderData.orderCost,
@@ -232,7 +231,7 @@ export class DispositionComponent implements OnInit {
           article: index,
           quantity: stockMovement.amount,
           orderPeriod: stockMovement.orderPeriod,
-          deliveryTime: orderData.deliveryTime.mean-1,
+          deliveryTime: orderData.deliveryTime.mean+1,
           price: orderData.price,
           discontAmount: orderData.discontAmount,
           orderCost: orderData.orderCost,
@@ -257,9 +256,6 @@ export class DispositionComponent implements OnInit {
       inwardstockmovement: inwardStockMovement,
       priveousstockvalue: this.previousStockValue
     });
-
-    this.productionPlanningService.plan(this.previousPeriod, this.productionPlan, inwardStockMovement, this.currentPeriod);
-
   }
 
   calculateDeliveryTime() {
