@@ -4,7 +4,32 @@
 <button mat-raised-button style="margin-top: 2%" class="pull-right" color="primary" (click)="exportToXml()">Als XML Exportieren</button><br>
 
 <div class="text-center">
-  <span *ngIf="simulated">Bitte Periode simulieren um Ergebnisse anzuzeigen!</span>
-  <div *ngIf="!simulated"></div>
+  <span *ngIf="!simulated">Bitte Periode simulieren um Ergebnisse anzuzeigen!</span>
+  <div *ngIf="simulated && simulationResult.workspaces">
+    <div class="container planningContainer">
+      <table class="planningTable table-striped table-bordered">
+        <tr class="table-row head-row">
+          <th class="col-xs-2">Arbeitsplatz</th>
+          <th *ngFor="let index of simulationResult.workspaces.index; ">{{index}}</th>
+        </tr>
+        <tr class="table-row">
+          <th class="col-xs-2">Gesamtzeit Eingegeben</th>
+          <th *ngFor="let timeNeed of workspacesCalculated">{{timeNeed}}</th>
+        </tr>
+        <tr class="table-row">
+          <th class="col-xs-2">Gesamtzeit Simuliert</th>
+          <th *ngFor="let index of simulationResult.workspaces.index">{{simulationResult.workspaces.data[index].lastProductFinished}}</th>
+        </tr>
+        <tr class="table-row">
+          <th class="col-xs-2">Leerzeit</th>
+          <th *ngFor="let index of simulationResult.workspaces.index">{{simulationResult.workspaces.data[index].notWorkingTime}}</th>
+        </tr>
+        <tr class="table-row">
+          <th class="col-xs-2">Rüstvorgänge</th>
+          <th *ngFor="let index of simulationResult.workspaces.index">{{simulationResult.workspaces.data[index].setupTimes}}</th>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>
 

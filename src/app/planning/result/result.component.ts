@@ -65,6 +65,10 @@ export class ResultComponent implements OnInit {
 
   simulated = false;
 
+  workspacesCalculated = [];
+
+  simulationResult: any;
+
   constructor(private db: AngularFireDatabase,  private productionPlanningService: SimulationService) {}
 
   ngOnInit() {
@@ -75,20 +79,16 @@ export class ResultComponent implements OnInit {
 
         this.previousPeriod = _;
 
-
         this.resultData = this.db.object('result').valueChanges();
         this.resultData.subscribe(result => {
+
           this.resultRaw = result;
+
           this.setResult(result);
-
           this.calculateSales(result);
-
           this.calculateShiftAndMachineCosts(result);
-
           this.calculateDispositionCosts(result);
-
           this.calculateStockValue(result);
-
           this.calculateWarehouseCosts();
 
           this.profit = this.sales - (this.costs.shifts + this.costs.machine + this.costs.disposition + this.costs.warehouse);
@@ -99,8 +99,10 @@ export class ResultComponent implements OnInit {
   }
 
   simulatePeriod() {
-    this.productionPlanningService.plan(this.previousPeriod, this.resultRaw.production, this.resultRaw.disposition.inwardstockmovement, this.currentPeriod);
+    this.simulationResult = this.productionPlanningService.simulate(this.previousPeriod, this.resultRaw.production, this.resultRaw.disposition.inwardstockmovement, this.currentPeriod);
+    console.log(this.simulationResult);
   }
+
 
   disableSimulation() {
     this.simulated = true;
@@ -202,8 +204,14 @@ export class ResultComponent implements OnInit {
 
     if (result.workingtimelist) {
       result.workingtimelist.forEach(place => {
-        this.result.workingtimelist.workingtime.push({"@": {station: place.station, shift: place.shift, overtime: place.overtime}})
+        this.result.workingtimelist.workingtime.push({"@": {station: place.station, shift: place.shift, overtime: place.overtime}});
+        
+        if ( place.station !==5) {
+          this.workspacesCalculated.push(place.shift * 2400 + place.overtime * 5)
+        }
+
       });
+
     }
 
     if (result.disposition) {
@@ -227,6 +235,8 @@ export class ResultComponent implements OnInit {
       productionlist: {production:[]},
       workingtimelist: {workingtime:[]},
     };
+
+    this.workspacesCalculated = [];
   }
 
   exportToXml() {

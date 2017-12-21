@@ -6,7 +6,7 @@ export class SimulationService {
   warehouseStock = {data:{},index:[]};
   productionPlan = {data:{},index:[]};
   workTime = {data:{},index:[]};
-  result = {data:{},index:[]};
+  simulation = {data:{},index:[]};
   inwardStockMovement: any;
   currentPeriod: number;
 
@@ -312,7 +312,7 @@ export class SimulationService {
 
   constructor() { }
 
-  plan(periodData: any, productionPlan: any, inwardStockMovement: any, currentPeriod: any){
+  simulate(periodData: any, productionPlan: any, inwardStockMovement: any, currentPeriod: any): any {
     this.setData(periodData, productionPlan, inwardStockMovement, currentPeriod);
 
     let inProgress = true;
@@ -390,8 +390,8 @@ export class SimulationService {
     }
 
 
-    this.result.index.forEach(index => {
-      this.result.data[index].forEach(entry => {
+    this.simulation.index.forEach(index => {
+      this.simulation.data[index].forEach(entry => {
         if(!this.workspaces.data[entry.workspace].lastProductFinished || this.workspaces.data[entry.workspace].lastProductFinished<entry.time) {
           this.workspaces.data[entry.workspace].lastProductFinished = entry.time;
         }
@@ -419,8 +419,12 @@ export class SimulationService {
    // console.log(this.productionPlan);
 
 
-    console.log(this.result);
+    //console.log(this.simulation);
 
+    let result = {simulation: this.simulation,
+                  workspaces: this.workspaces}
+
+    return result;
 
   }
 
@@ -502,8 +506,8 @@ export class SimulationService {
 
           });
 
-          if (this.result.data[this.workspaces.data[id].setupId]) {
-            this.result.data[this.workspaces.data[id].setupId].push({
+          if (this.simulation.data[this.workspaces.data[id].setupId]) {
+            this.simulation.data[this.workspaces.data[id].setupId].push({
               step: stepId+1,
               time: this.ticksPassed,
               amount: this.workspaces.data[id].amount,
@@ -511,14 +515,14 @@ export class SimulationService {
               material: materialArry
             });
           } else {
-            this.result.data[this.workspaces.data[id].setupId] = [{
+            this.simulation.data[this.workspaces.data[id].setupId] = [{
               step: stepId+1,
               time: this.ticksPassed,
               amount: this.workspaces.data[id].amount,
               workspace: id,
               material: materialArry
             }];
-            this.result.index.push(this.workspaces.data[id].setupId);
+            this.simulation.index.push(this.workspaces.data[id].setupId);
           }
 
           if (Object.keys(this.workTime.data[this.workspaces.data[id].setupId]).length === stepId + 1) {
