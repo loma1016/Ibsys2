@@ -3,7 +3,7 @@ import { ordersData } from './disposition.data';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { ToastyServiceInt } from "../../util/toasty.service";
-import {ProductionPlanningService} from "../production-planning/production-planning.service";
+import {SimulationService} from "../simulation/simulation.service";
 
 @Component({
   selector: 'app-disposition',

@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from "angularfire2/database";
 import * as FileSaver from 'file-saver';
 import {Observable} from "rxjs";
-import {ProductionPlanningService} from "../production-planning/production-planning.service";
+import {SimulationService} from "../simulation/simulation.service";
 
 @Component({
   selector: 'app-result',
   templateUrl: './result.component.html',
   styleUrls: ['./result.component.css'],
-  providers: [ProductionPlanningService]
+  providers: [SimulationService]
 })
 export class ResultComponent implements OnInit {
 
@@ -65,7 +65,7 @@ export class ResultComponent implements OnInit {
 
   simulated = false;
 
-  constructor(private db: AngularFireDatabase,  private productionPlanningService: ProductionPlanningService) {}
+  constructor(private db: AngularFireDatabase,  private productionPlanningService: SimulationService) {}
 
   ngOnInit() {
     this.db.object('currentPeriod').valueChanges().subscribe(currentPeriod => {
@@ -179,7 +179,7 @@ export class ResultComponent implements OnInit {
   setResult(result: any) {
 
     this.resetResult();
-    
+
 
     this.result.sellwish.item = [
       {"@": {article:1, quantity: Number(result.forecast[0].inputs.P1)}},

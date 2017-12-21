@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class ProductionPlanningService {
+export class SimulationService {
 
   warehouseStock = {data:{},index:[]};
   productionPlan = {data:{},index:[]};

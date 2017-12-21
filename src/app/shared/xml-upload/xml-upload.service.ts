@@ -1,25 +1,13 @@
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Inject, Injectable } from '@angular/core';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import {ToastyServiceInt} from "../../util/toasty.service";
 
 @Injectable()
 export class XmlUploadService {
     group = 11;
-    toastOptions: ToastOptions = {
-        title: 'Erfolgreich!',
-        msg: 'Die Daten wurden erfolgreich hochgeladen',
-        timeout: 3000,
-        theme: 'material'
-    }
 
-    toastOptionsError:ToastOptions = {
-        title: 'Fehler!',
-        msg: 'Fehler beim Hochladen der Daten',
-        timeout: 3000,
-        theme: 'material'
-    }
-
-    constructor(private db: AngularFireDatabase, private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
+    constructor(private db: AngularFireDatabase, private toastyService: ToastyServiceInt, private toastyConfig: ToastyConfig) {
         this.toastyConfig.theme = 'material';
     }
 
@@ -33,13 +21,13 @@ export class XmlUploadService {
             var jsonObj = JSON.parse(jsonStrRep);
             this.db.list('/periods').update(period, jsonObj).then(resolve => {
                 var currPeriod = Number(period) + 1;
-                this.db.object('/').update({currentPeriod: currPeriod});        
-                this.toastyService.success(this.toastOptions);
+                this.db.object('/').update({currentPeriod: currPeriod});
+                this.toastyService.setToastyDefaultSuccess('Erfolgreich!','Die Daten wurden erfolgreich hochgeladen');
             }, reject => {
-                this.toastyService.error(this.toastOptionsError);
+                this.toastyService.setToastyDefaultError('Fehler!', 'Fehler beim Hochladen der Daten',);
             })
         } else {
-            this.toastyService.error(this.toastOptionsError);
+          this.toastyService.setToastyDefaultError('Fehler!', 'Fehler beim Hochladen der Daten',);
         }
     }
 }
