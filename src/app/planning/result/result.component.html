@@ -29,6 +29,34 @@
           <th *ngFor="let index of simulationResult.workspaces.index">{{simulationResult.workspaces.data[index].setupTimes}}</th>
         </tr>
       </table>
+
+    </div>
+
+    <div class="container planningContainer"  *ngFor="let index of getArrayOf(simulationResult.simulation.byWorkspace.data)">
+      Arbeitsplatz {{index}} <br><br>
+      <table class="planningTable table-striped table-bordered">
+        <tr class="table-row head-row">
+          <th class="col-xs-2">Zeit</th>
+          <th *ngFor="let entry of getArrayOf(simulationResult.simulation.byWorkspace.data[index])">{{simulationResult.simulation.byWorkspace.data[index][entry].time}}</th>
+        </tr>
+        <tr class="table-row">
+          <th class="col-xs-2">Teil</th>
+          <th *ngFor="let entry of getArrayOf(simulationResult.simulation.byWorkspace.data[index])">{{simulationResult.simulation.byWorkspace.data[index][entry].item}}</th>
+        </tr>
+        <tr class="table-row">
+          <th class="col-xs-2">Schrit</th>
+          <th *ngFor="let entry of getArrayOf(simulationResult.simulation.byWorkspace.data[index])">{{simulationResult.simulation.byWorkspace.data[index][entry].step}}</th>
+        </tr>
+        <tr class="table-row">
+          <th class="col-xs-2">Anzahl</th>
+          <th *ngFor="let entry of getArrayOf(simulationResult.simulation.byWorkspace.data[index])">{{simulationResult.simulation.byWorkspace.data[index][entry].amount}}</th>
+        </tr>
+        <tr class="table-row">
+          <th class="col-xs-2">Fehlende Teile</th>
+          <th *ngFor="let entry of getArrayOf(simulationResult.simulation.byWorkspace.data[index])">{{getMissingMaterial(simulationResult.simulation.byWorkspace.data[index][entry].material)}}</th>
+        </tr>
+      </table>
+
     </div>
   </div>
 </div>

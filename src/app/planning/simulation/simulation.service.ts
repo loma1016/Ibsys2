@@ -6,7 +6,7 @@ export class SimulationService {
   warehouseStock = {data:{},index:[]};
   productionPlan = {data:{},index:[]};
   workTime = {data:{},index:[]};
-  simulation = {data:{},index:[]};
+  simulation = {byItem:{data:{},index:[]}, byWorkspace:{data:{},index:[]}};
   inwardStockMovement: any;
   currentPeriod: number;
 
@@ -389,9 +389,11 @@ export class SimulationService {
 
     }
 
+    console.log(this.simulation);
 
-    this.simulation.index.forEach(index => {
-      this.simulation.data[index].forEach(entry => {
+
+    this.simulation.byItem.index.forEach(index => {
+      this.simulation.byItem.data[index].forEach(entry => {
         if(!this.workspaces.data[entry.workspace].lastProductFinished || this.workspaces.data[entry.workspace].lastProductFinished<entry.time) {
           this.workspaces.data[entry.workspace].lastProductFinished = entry.time;
         }
@@ -422,7 +424,7 @@ export class SimulationService {
     //console.log(this.simulation);
 
     let result = {simulation: this.simulation,
-                  workspaces: this.workspaces}
+                  workspaces: this.workspaces};
 
     return result;
 
@@ -506,8 +508,8 @@ export class SimulationService {
 
           });
 
-          if (this.simulation.data[this.workspaces.data[id].setupId]) {
-            this.simulation.data[this.workspaces.data[id].setupId].push({
+          if (this.simulation.byItem.data[this.workspaces.data[id].setupId]) {
+            this.simulation.byItem.data[this.workspaces.data[id].setupId].push({
               step: stepId+1,
               time: this.ticksPassed,
               amount: this.workspaces.data[id].amount,
@@ -515,14 +517,33 @@ export class SimulationService {
               material: materialArry
             });
           } else {
-            this.simulation.data[this.workspaces.data[id].setupId] = [{
+            this.simulation.byItem.data[this.workspaces.data[id].setupId] = [{
               step: stepId+1,
               time: this.ticksPassed,
               amount: this.workspaces.data[id].amount,
               workspace: id,
               material: materialArry
             }];
-            this.simulation.index.push(this.workspaces.data[id].setupId);
+            this.simulation.byItem.index.push(this.workspaces.data[id].setupId);
+          }
+
+          if (this.simulation.byWorkspace.data[id]) {
+            this.simulation.byWorkspace.data[id].push({
+              item: this.workspaces.data[id].setupId,
+              step: stepId+1,
+              time: this.ticksPassed,
+              amount: this.workspaces.data[id].amount,
+              material: materialArry
+            });
+          } else {
+            this.simulation.byWorkspace.data[id] = [{
+              item: this.workspaces.data[id].setupId,
+              step: stepId+1,
+              time: this.ticksPassed,
+              amount: this.workspaces.data[id].amount,
+              material: materialArry
+            }];
+            this.simulation.byWorkspace.index.push(id);
           }
 
           if (Object.keys(this.workTime.data[this.workspaces.data[id].setupId]).length === stepId + 1) {

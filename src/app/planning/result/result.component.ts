@@ -101,6 +101,22 @@ export class ResultComponent implements OnInit {
   simulatePeriod() {
     this.simulationResult = this.productionPlanningService.simulate(this.previousPeriod, this.resultRaw.production, this.resultRaw.disposition.inwardstockmovement, this.currentPeriod);
     console.log(this.simulationResult);
+
+  }
+
+  getArrayOf(obj): Array<any> {
+    return Object.keys(obj);
+  }
+
+  getMissingMaterial(material): string {
+    let result = '';
+    material.forEach( _ => {
+      if (_.amount === 0) {
+        result += _.material + ' ';
+      }
+    });
+
+    return result;
   }
 
 
@@ -205,7 +221,7 @@ export class ResultComponent implements OnInit {
     if (result.workingtimelist) {
       result.workingtimelist.forEach(place => {
         this.result.workingtimelist.workingtime.push({"@": {station: place.station, shift: place.shift, overtime: place.overtime}});
-        
+
         if ( place.station !==5) {
           this.workspacesCalculated.push(place.shift * 2400 + place.overtime * 5)
         }
