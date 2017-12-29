@@ -1,11 +1,3 @@
-/*
-TODO: bind rows to model --> dragulaModel
-      Data should be in one array
-      --> Array sortable
-
-      //Remove DeveloperMode in Planning.comp.html 
-*/
-
 import {Component, OnInit} from '@angular/core';
 import {AngularFireDatabase} from "angularfire2/database";
 import {Observable} from "rxjs";
@@ -49,6 +41,9 @@ export class ProductionPlanningComponent implements OnInit {
   workPlaceWithWaitList: Array<any> = [];
   values: any;
 
+  productOrder: Array<any> = [];
+  changesBySameComp = false;
+
   subProductsIndex = [26, 51, 56, 31, 16, 17, 50, 55, 30, 4, 10, 49, 5, 11, 54, 6, 12, 29, 7, 13, 18, 8, 14, 19, 9, 15, 20];
 
   constructor(private db: AngularFireDatabase, private dragulaService: DragulaService) {
@@ -57,8 +52,9 @@ export class ProductionPlanningComponent implements OnInit {
         return handle.className.indexOf("draggable") > -1;
       },
     });
-    dragulaService.drop.subscribe((value) => {
-        this.onDrop(value.slice(1));
+    dragulaService.dropModel.subscribe((value) => {
+      this.onDrop(value.slice(1));
+      this.saveResult();
     });
   }
 
@@ -71,14 +67,19 @@ export class ProductionPlanningComponent implements OnInit {
         this.workPlaceWithWaitList = this.getWorkPlaceWithWaitlist();
         this.forecastData = this.db.object('result').valueChanges();
         this.forecastData.subscribe(result => {
-          this.forecast = result.forecast;
-          this.plannedStock = result.production.plannedStock;
-          this.finishedProducts = [this.setFinishedProduct(1), this.setFinishedProduct(2), this.setFinishedProduct(3)];
-          this.subProductsIndex.forEach((subProductIndex, index) => {
-            this.subProducts[index] = this.setSubProduct(subProductIndex);
-          });
-          this.updateOrders();
-          this.updateAmmountNeededForFinishedProducts();
+          if ( !this.changesBySameComp ) {
+            this.forecast = result.forecast;
+            this.plannedStock = result.production.plannedStock;
+            this.productOrder = [];
+            this.finishedProducts = [this.setFinishedProduct(1), this.setFinishedProduct(2), this.setFinishedProduct(3)];
+            this.subProductsIndex.forEach((subProductIndex, index) => {
+              this.subProducts[index] = this.setSubProduct(subProductIndex);
+            });
+            this.updateOrders();
+            this.updateAmmountNeededForFinishedProducts();
+          } else {
+            this.changesBySameComp = false;
+          }
         });
       });
     });
@@ -102,6 +103,8 @@ export class ProductionPlanningComponent implements OnInit {
     fP.inWarehouse = this.getWarehouseAmountByID(id);
     fP.amountneeded = ProductionPlanningComponent.calculateAmountForProducts(fP);
 
+    this.productOrder.push(id);
+
     return fP;
   }
 
@@ -115,6 +118,8 @@ export class ProductionPlanningComponent implements OnInit {
     sP.plannedWHEnd = this.plannedStock[this.subProductsIndex.indexOf(id) + 3];
     sP.inWarehouse = this.getWarehouseAmountByID(id);
     sP.amountneeded = ProductionPlanningComponent.calculateAmountForProducts(sP);
+
+    this.productOrder.push(id);
 
     return sP;
   }
@@ -234,21 +239,6 @@ export class ProductionPlanningComponent implements OnInit {
       })
     });
 
-    if (this.values.waitingliststock && this.values.waitingliststock[0] &&this.values.waitingliststock[0].missingpart) {
-
-
-      this.values.waitingliststock[0].missingpart.forEach(item => {
-
-        if (item.waitinglist) {
-          item.waitinglist.forEach(article => {
-            if (Number(article.item.item) === id){
-              result += Number(article.item.amount);
-            }
-          })
-        }
-      });
-    }
-
     return result;
   }
 
@@ -295,7 +285,22 @@ export class ProductionPlanningComponent implements OnInit {
       result.plannedStock.push(subProduct.plannedWHEnd);
     });
 
-    this.db.object('/result/production').update(result);
+    let orderedResult = {item: [], amount: [], plannedStock: []};
+  
+    this.productOrder.forEach((id, index) => {
+      let i;
+      result.item.some(function (element, ind) {
+        i = ind;
+        return element === id;
+      });
+
+      orderedResult.item.push(result.item[i]);
+      orderedResult.amount.push(result.amount[i]);
+      orderedResult.plannedStock.push(result.plannedStock[i]);
+    });
+
+    this.changesBySameComp = true;
+    this.db.object('/result/production').update(orderedResult);
 
   }
 
