@@ -234,6 +234,21 @@ export class ProductionPlanningComponent implements OnInit {
       })
     });
 
+    if (this.values.waitingliststock && this.values.waitingliststock[0] &&this.values.waitingliststock[0].missingpart) {
+
+
+      this.values.waitingliststock[0].missingpart.forEach(item => {
+
+        if (item.waitinglist) {
+          item.waitinglist.forEach(article => {
+            if (Number(article.item.item) === id){
+              result += Number(article.item.amount);
+            }
+          })
+        }
+      });
+    }
+
     return result;
   }
 
