@@ -1,6 +1,7 @@
 <div class="container planningContainer">
   <table class="planningTable table-striped table-bordered">
-    <tr>
+    <thead>
+      <th class="draggable-col"></th>
       <th>Erzeugnisse </th>
       <th>Kundenaufträge </th>
       <th>gepl. Lagerendbestand</th>
@@ -8,29 +9,33 @@
       <th>Warteschlange </th>
       <th>in Bearbeitung </th>
       <th>Produktionsaufträge </th>
-    </tr>
-    <tr *ngFor="let item of finishedProducts, let i = index">
-      <th>P{{i+1}}</th>
-      <th>{{item.orders}}</th>
-      <th>
-        <input placeholder="Lagerendbestand" type="number" [(ngModel)]="item.plannedWHEnd" (ngModelChange)="updateAmmountNeededForFinishedProducts()">
-      </th>
-      <th>{{item.inWarehouse}}</th>
-      <th>{{item.inWaitlist}}</th>
-      <th>{{item.inProduction}}</th>
-      <th>{{item.amountneeded}}</th>
-    </tr>
-    <tr *ngFor="let item of subProducts, let i = index">
-      <th>E{{item.id}} </th>
-      <th>{{item.orders}}</th>
-      <th>
-        <input placeholder="Lagerendbestand" type="number" [(ngModel)]="item.plannedWHEnd" (ngModelChange)="updateAmountNeededForSubProducts()">
-      </th>
-      <th>{{item.inWarehouse}}</th>
-      <th>{{item.inWaitlist}}</th>
-      <th>{{item.inProduction}}</th>
-      <th>{{item.amountneeded}}</th>
-    </tr>
+    </thead>
+    <tbody [dragula]='"first-bag"' [dragulaModel]='productOrder'>
+      <tr *ngFor="let item of finishedProducts, let i = index">
+        <th class="draggable-col"><span class="draggable glyphicon glyphicon-align-justify"></span></th>
+        <th>P{{i+1}}</th>
+        <th>{{item.orders}}</th>
+        <th>
+          <input placeholder="Lagerendbestand" type="number" [(ngModel)]="item.plannedWHEnd" (ngModelChange)="updateAmmountNeededForFinishedProducts()">
+        </th>
+        <th>{{item.inWarehouse}}</th>
+        <th>{{item.inWaitlist}}</th>
+        <th>{{item.inProduction}}</th>
+        <th>{{item.amountneeded}}</th>
+      </tr>
+      <tr *ngFor="let item of subProducts, let i = index">
+        <th class="draggable-col"><span class="draggable glyphicon glyphicon-align-justify"></span></th>          
+        <th>E{{item.id}} </th>
+        <th>{{item.orders}}</th>
+        <th>
+          <input placeholder="Lagerendbestand" type="number" [(ngModel)]="item.plannedWHEnd" (ngModelChange)="updateAmountNeededForSubProducts()">
+        </th>
+        <th>{{item.inWarehouse}}</th>
+        <th>{{item.inWaitlist}}</th>
+        <th>{{item.inProduction}}</th>
+        <th>{{item.amountneeded}}</th>
+      </tr>
+    </tbody>
   </table>
   <button mat-raised-button style="margin-top: 2%" color="warn" matStepperPrevious>Zurück</button>
   <button mat-raised-button style="margin-top: 2%" class="pull-right" color="primary" matStepperNext>Weiter</button>
