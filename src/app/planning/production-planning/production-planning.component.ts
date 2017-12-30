@@ -102,7 +102,7 @@ export class ProductionPlanningComponent implements OnInit {
     fP.orders = this.mockedOrders;
     fP.inWaitlist = this.getWaitlistSumByID(id);
     fP.inProduction = this.getOrdersInWorkByID(id);
-    fP.plannedWHEnd = this.plannedStock[id - 1];
+    fP.plannedWHEnd = this.plannedStock[id];
     fP.inWarehouse = this.getWarehouseAmountByID(id);
     fP.amountneeded = ProductionPlanningComponent.calculateAmountForProducts(fP);
 
@@ -118,7 +118,7 @@ export class ProductionPlanningComponent implements OnInit {
     sP.orders = this.getOrdersForSubProduct(sP);
     sP.inWaitlist = this.getWaitlistSumByID(id);
     sP.inProduction = this.getOrdersInWorkByID(id);
-    sP.plannedWHEnd = this.plannedStock[this.subProductsIndex.indexOf(id) + 3];
+    sP.plannedWHEnd = this.plannedStock[id];
     sP.inWarehouse = this.getWarehouseAmountByID(id);
     sP.amountneeded = ProductionPlanningComponent.calculateAmountForProducts(sP);
 
@@ -294,16 +294,16 @@ export class ProductionPlanningComponent implements OnInit {
     this.finishedProducts.forEach((finishedProduct) => {
       result.item.push(finishedProduct.id);
       result.amount.push(finishedProduct.amountneeded);
-      result.plannedStock.push(finishedProduct.plannedWHEnd);
+      result.plannedStock[finishedProduct.id] = finishedProduct.plannedWHEnd;
     });
 
     this.subProducts.forEach((subProduct) => {
       result.item.push(subProduct.id);
       result.amount.push(subProduct.amountneeded);
-      result.plannedStock.push(subProduct.plannedWHEnd);
+      result.plannedStock[subProduct.id] = subProduct.plannedWHEnd;
     });
 
-    let orderedResult = {item: [], amount: [], plannedStock: []};
+    let orderedResult = {item: [], amount: [], plannedStock: {}};
 
     this.productOrder.forEach((id, index) => {
       let i;
@@ -314,7 +314,7 @@ export class ProductionPlanningComponent implements OnInit {
 
       orderedResult.item.push(result.item[i]);
       orderedResult.amount.push(result.amount[i]);
-      orderedResult.plannedStock.push(result.plannedStock[i]);
+      orderedResult.plannedStock[id] = result.plannedStock[id];
     });
 
     this.changesBySameComp = true;
