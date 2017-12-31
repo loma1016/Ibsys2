@@ -289,21 +289,23 @@ export class ProductionPlanningComponent implements OnInit {
   }
 
   saveResult() {
-    let result = {item: [], amount: [], plannedStock: []};
+    let result = {item: [], amount: [], waitlist: [], plannedStock: []};
 
     this.finishedProducts.forEach((finishedProduct) => {
       result.item.push(finishedProduct.id);
       result.amount.push(finishedProduct.amountneeded);
+      result.waitlist.push(finishedProduct.inWaitlist + finishedProduct.inProduction);
       result.plannedStock[finishedProduct.id] = finishedProduct.plannedWHEnd;
     });
 
     this.subProducts.forEach((subProduct) => {
       result.item.push(subProduct.id);
       result.amount.push(subProduct.amountneeded);
+      result.waitlist.push(subProduct.inWaitlist + subProduct.inProduction);
       result.plannedStock[subProduct.id] = subProduct.plannedWHEnd;
     });
 
-    let orderedResult = {item: [], amount: [], plannedStock: {}};
+    let orderedResult = {item: [], amount: [], waitlist: [], plannedStock: {}};
 
     this.productOrder.forEach((id, index) => {
       let i;
@@ -314,6 +316,7 @@ export class ProductionPlanningComponent implements OnInit {
 
       orderedResult.item.push(result.item[i]);
       orderedResult.amount.push(result.amount[i]);
+      orderedResult.waitlist.push(result.waitlist[i]);
       orderedResult.plannedStock[id] = result.plannedStock[id];
     });
 

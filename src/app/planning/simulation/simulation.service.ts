@@ -320,6 +320,29 @@ export class SimulationService {
     while(inProgress) {
 
       this.productionPlan.index.forEach(id => {
+        if (this.productionPlan.data[id].waitlist>0) {
+
+          let amount = 0;
+          if (this.productionPlan.data[id].waitlist > 10) {
+            amount = 10;
+          } else {
+            amount = this.productionPlan.data[id].waitlist;
+          }
+
+          let step = 0;
+
+          if (this.checkMaterial(amount, id, step)) {
+
+            if (this.checkWorkspace(id, step)) {
+
+              this.setWorkspace(id, step, amount, true);
+
+            }
+          }
+        }
+      });
+
+      this.productionPlan.index.forEach(id => {
 
         let steps = Object.keys(this.workTime.data[id]).length;
 
@@ -342,7 +365,7 @@ export class SimulationService {
 
                 if (this.checkWorkspace(id, step+1)) {
 
-                  this.setWorkspace(id, step+1, amount);
+                  this.setWorkspace(id, step+1, amount, false);
 
                 }
               }
@@ -350,7 +373,6 @@ export class SimulationService {
           }
         }
       });
-
 
       // take new products from Production plan
 
@@ -371,13 +393,12 @@ export class SimulationService {
 
             if (this.checkWorkspace(id, step)) {
 
-              this.setWorkspace(id, step, amount);
+              this.setWorkspace(id, step, amount, false);
 
             }
           }
         }
       });
-
 
       this.tick();
 
@@ -388,9 +409,6 @@ export class SimulationService {
       }
 
     }
-
-    console.log(this.simulation);
-
 
     this.simulation.byItem.index.forEach(index => {
       this.simulation.byItem.data[index].forEach(entry => {
@@ -404,30 +422,17 @@ export class SimulationService {
       this.workspaces.data[index].notWorkingTime = this.workspaces.data[index].notWorkingTime - (this.time-this.workspaces.data[index].lastProductFinished);
     });
 
-
-
-
     //console.log(inwardStockMovement);
-
     //console.log(this.leerZeit);
-
-
-
-
     //console.log(this.workspaces);
-
-
-   // console.log(this.warehouseStock);
-   // console.log(this.productionPlan);
-
-
+    //console.log(this.warehouseStock);
+    console.log(this.productionPlan);
     //console.log(this.simulation);
 
     let result = {simulation: this.simulation,
                   workspaces: this.workspaces};
 
     return result;
-
   }
 
   // check if enough material is in stock to produce amount of product with the id
@@ -452,7 +457,7 @@ export class SimulationService {
     }
   }
 
-  setWorkspace(id: number, step: number, amount: number) {
+  setWorkspace(id: number, step: number, amount: number, fromWaitlist: boolean) {
     let workspaceId = this.workTime.data[id][step].station;
     this.workspaces.data[workspaceId].amount = amount;
     if (this.workspaces.data[workspaceId].setupId !== id) {
@@ -463,10 +468,14 @@ export class SimulationService {
     }
     this.workspaces.data[workspaceId].setupId = id;
 
-    if (step === 0) {
-      this.productionPlan.data[id].amount -= amount;
+    if (fromWaitlist) {
+      this.productionPlan.data[id].waitlist -= amount;
     } else {
-      this.workTime.data[id][step-1].amount -= amount;
+      if (step === 0) {
+        this.productionPlan.data[id].amount -= amount;
+      } else {
+        this.workTime.data[id][step-1].amount -= amount;
+      }
     }
 
     this.workTime.data[id][step].material.forEach(material => {
@@ -561,7 +570,7 @@ export class SimulationService {
 
   checkInwardStockMovement() {
     this.inwardStockMovement.forEach(article => {
-      if (!article.deliverd &&((article.deliveryTime-2)-((this.currentPeriod-article.orderPeriod)*5))*(this.time/5)<this.ticksPassed) {
+      if (!article.deliverd &&((article.deliveryTime-4)-((this.currentPeriod-article.orderPeriod)*5))*(this.time/5)<this.ticksPassed) {
         this.warehouseStock.data[article.article].amount += article.quantity;
         article.deliverd = true;
       }
@@ -588,7 +597,7 @@ export class SimulationService {
     });
 
     productionPlan.item.forEach((id,index) => {
-      this.productionPlan.data[id] = {amount: productionPlan.amount[index]};
+      this.productionPlan.data[id] = {amount: productionPlan.amount[index], waitlist: productionPlan.waitlist[index] };
       this.productionPlan.index.push(id);
     });
 
