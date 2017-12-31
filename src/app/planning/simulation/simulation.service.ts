@@ -196,7 +196,6 @@ export class SimulationService {
     56: [3]
   };
 
-
   workspaces = {
     data: {
       1: {
@@ -301,14 +300,11 @@ export class SimulationService {
     index: [1,2,3,4,6,7,8,9,10,11,12,13,14,15]
   };
 
-
-
   ticksPassed = 0;
 
   leerZeit = 0;
 
   time = 7200;
-
 
   constructor() { }
 
@@ -318,6 +314,36 @@ export class SimulationService {
     let inProgress = true;
 
     while(inProgress) {
+
+      this.productionPlan.index.forEach(id => {
+
+        let steps = Object.keys(this.workTime.data[id]).length;
+
+        if(steps > 1) {
+
+          for ( let step = 0; step<steps-1; step++) {
+            if (this.workTime.data[id][step].waitlist > 0 ) {
+
+              let amount = 0;
+              if (this.workTime.data[id][step].waitlist > 10) {
+                amount = 10;
+              } else {
+                amount = this.workTime.data[id][step].waitlist;
+              }
+
+              if (this.checkMaterial(amount, id, step+1)) {
+
+
+                if (this.checkWorkspace(id, step+1)) {
+
+                  this.setWorkspace(id, step+1, amount, true);
+
+                }
+              }
+            }
+          }
+        }
+      });
 
       this.productionPlan.index.forEach(id => {
         if (this.productionPlan.data[id].waitlist>0) {
@@ -337,6 +363,7 @@ export class SimulationService {
 
               this.setWorkspace(id, step, amount, true);
 
+
             }
           }
         }
@@ -345,8 +372,6 @@ export class SimulationService {
       this.productionPlan.index.forEach(id => {
 
         let steps = Object.keys(this.workTime.data[id]).length;
-
-
 
         if(steps > 1) {
 
@@ -424,9 +449,10 @@ export class SimulationService {
 
     //console.log(inwardStockMovement);
     //console.log(this.leerZeit);
-    //console.log(this.workspaces);
-    //console.log(this.warehouseStock);
+    console.log(this.workspaces);
+    console.log(this.warehouseStock);
     console.log(this.productionPlan);
+    console.log(this.workTime);
     //console.log(this.simulation);
 
     let result = {simulation: this.simulation,
@@ -460,6 +486,7 @@ export class SimulationService {
   setWorkspace(id: number, step: number, amount: number, fromWaitlist: boolean) {
     let workspaceId = this.workTime.data[id][step].station;
     this.workspaces.data[workspaceId].amount = amount;
+    this.workspaces.data[workspaceId].fromWaitlist = fromWaitlist;
     if (this.workspaces.data[workspaceId].setupId !== id) {
       this.workspaces.data[workspaceId].time = this.workTime.data[id][step].setupTime + 10 * this.workTime.data[id][step].time
       this.workspaces.data[workspaceId].setupTimes +=1;
@@ -469,7 +496,11 @@ export class SimulationService {
     this.workspaces.data[workspaceId].setupId = id;
 
     if (fromWaitlist) {
-      this.productionPlan.data[id].waitlist -= amount;
+      if (step === 0) {
+        this.productionPlan.data[id].waitlist -= amount;
+      } else {
+        this.workTime.data[id][step-1].waitlist -= amount;
+      }
     } else {
       if (step === 0) {
         this.productionPlan.data[id].amount -= amount;
@@ -556,12 +587,14 @@ export class SimulationService {
           }
 
           if (Object.keys(this.workTime.data[this.workspaces.data[id].setupId]).length === stepId + 1) {
-
             this.warehouseStock.data[this.workspaces.data[id].setupId].amount += this.workspaces.data[id].amount;
-
           }
 
-          this.workTime.data[this.workspaces.data[id].setupId][stepId].amount += this.workspaces.data[id].amount;
+          if (this.workspaces.data[id].fromWaitlist) {
+            this.workTime.data[this.workspaces.data[id].setupId][stepId].waitlist += this.workspaces.data[id].amount;
+          } else {
+            this.workTime.data[this.workspaces.data[id].setupId][stepId].amount += this.workspaces.data[id].amount;
+          }
           this.workspaces.data[id].amount = 0;
         }
       }
@@ -615,6 +648,7 @@ export class SimulationService {
               time: this.workTimeList.time[index],
               setupTime: this.workTimeList.setupTime[index],
               amount: 0,
+              waitlist:0,
               material:this.workTimeList.material[index]
             };
           }
