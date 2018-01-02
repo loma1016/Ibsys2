@@ -445,10 +445,10 @@ export class SimulationService {
 
     //console.log(inwardStockMovement);
     //console.log(this.leerZeit);
-    console.log(this.workspaces);
-    console.log(this.warehouseStock);
-    console.log(this.productionPlan);
-    console.log(this.workTime);
+    //console.log(this.workspaces);
+    //console.log(this.warehouseStock);
+    //console.log(this.productionPlan);
+    //console.log(this.workTime);
     //console.log(this.simulation);
 
     let result = {simulation: this.simulation,

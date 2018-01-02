@@ -100,8 +100,6 @@ export class ResultComponent implements OnInit {
 
   simulatePeriod() {
     this.simulationResult = this.productionPlanningService.simulate(this.previousPeriod, this.resultRaw.production, this.resultRaw.disposition.inwardstockmovement, this.currentPeriod);
-    console.log(this.simulationResult);
-
   }
 
   getArrayOf(obj): Array<any> {
