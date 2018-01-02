@@ -9,7 +9,7 @@ import { ToastyServiceInt } from "../../util/toasty.service";
   styleUrls: ['./forecast.component.css']
 })
 export class ForecastComponent implements OnInit {
-  @Input() firstFormGroup: FormGroup;  
+  @Input() firstFormGroup: FormGroup;
   forecastPeriod: any[] = [];
   sumFirst: number;
   sumSecond: number;
@@ -38,7 +38,7 @@ export class ForecastComponent implements OnInit {
 
   checkSum() {
     this.forecastPeriod.forEach((p, index) => {
-      if (Number(p.inputs.P1) && Number(p.inputs.P2) && Number(p.inputs.P3)) {
+      if (Number(p.inputs.P1) >= 0 && Number(p.inputs.P2) >= 0 && Number(p.inputs.P3) >= 0) {
         var sum = Number(p.inputs.P1) + Number(p.inputs.P2) + Number(p.inputs.P3);
         switch (index) {
           case 0: {
@@ -95,7 +95,7 @@ export class ForecastComponent implements OnInit {
 
   ifDisabled() {
     if (this.firstFormGroup.status === "INVALID") {
-      this.toastyServiceInt.setToastyDefaultError('Warnung!', 'Bitte fülle Sie die erfolderlichen Inputs aus!')      
+      this.toastyServiceInt.setToastyDefaultError('Warnung!', 'Bitte fülle Sie die erfolderlichen Inputs aus!')
     }
   }
 }
