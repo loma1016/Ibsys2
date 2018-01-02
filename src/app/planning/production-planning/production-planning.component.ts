@@ -295,14 +295,23 @@ export class ProductionPlanningComponent implements OnInit {
       result.item.push(finishedProduct.id);
       result.amount.push(finishedProduct.amountneeded);
       result.waitlist.push(finishedProduct.inWaitlist + finishedProduct.inProduction);
-      result.plannedStock[finishedProduct.id] = finishedProduct.plannedWHEnd;
+      if(finishedProduct.plannedWHEnd) {
+        result.plannedStock[finishedProduct.id] = finishedProduct.plannedWHEnd;
+      } else {
+        result.plannedStock[finishedProduct.id] = 0;
+      }
+
     });
 
     this.subProducts.forEach((subProduct) => {
       result.item.push(subProduct.id);
       result.amount.push(subProduct.amountneeded);
       result.waitlist.push(subProduct.inWaitlist + subProduct.inProduction);
+      if (subProduct.plannedWHEnd) {
       result.plannedStock[subProduct.id] = subProduct.plannedWHEnd;
+      } else {
+        result.plannedStock[subProduct.id] = 0;
+      }
     });
 
     let orderedResult = {item: [], amount: [], waitlist: [], plannedStock: {}};
@@ -317,11 +326,12 @@ export class ProductionPlanningComponent implements OnInit {
       orderedResult.item.push(result.item[i]);
       orderedResult.amount.push(result.amount[i]);
       orderedResult.waitlist.push(result.waitlist[i]);
+
       orderedResult.plannedStock[id] = result.plannedStock[id];
     });
 
     this.changesBySameComp = true;
-    console.log(orderedResult);
+
     this.db.object('/result/production').update(orderedResult);
 
   }
