@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler  } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { XmlUploadComponent } from './xml-upload/xml-upload.component';
@@ -41,6 +41,7 @@ import { LoginComponent } from './login/login.component';
 import {LoginService} from "./shared/login-service";
 import {AuthGuard} from "./shared/auth-guard";
 import { DirectSalesComponent } from './planning/direct-sales/direct-sales.component';
+import MyErrorHandler from "./util/error.service";
 
 
 @NgModule({
@@ -88,7 +89,7 @@ import { DirectSalesComponent } from './planning/direct-sales/direct-sales.compo
     ToastyModule.forRoot(),
     DragulaModule
   ],
-  providers: [XmlUploadService,ToastyServiceInt, LoginService, AuthGuard],
+  providers: [XmlUploadService,ToastyServiceInt, LoginService, AuthGuard, { provide: ErrorHandler, useClass: MyErrorHandler }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

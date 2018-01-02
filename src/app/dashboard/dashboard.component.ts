@@ -9,6 +9,8 @@ import { Observable } from 'rxjs/Observable';
 })
 export class DashboardComponent implements OnInit {
 
+  loading = true;
+
   // Total Stock Value Graph
   public allTotalStockValues: Array<any> = [];
   public lineChartData: any[] = [{ data: [] }, { data: [] }];
@@ -138,6 +140,7 @@ export class DashboardComponent implements OnInit {
       drawTotalStockValue(periods);
       drawAllStockValues(periods);
       drawProfitSummary(periods);
+      this.loading = false;
     });
   }
 }
