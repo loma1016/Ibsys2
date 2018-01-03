@@ -10,3 +10,11 @@
   text-align: center;
   margin-top: 50px;
 }
+
+.planningContainer {
+  width: auto;
+}
+
+th {
+  text-align: center;
+}

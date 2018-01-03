@@ -7,7 +7,7 @@
       <th class="table-header">Strafe</th>
     </tr>
     <tr class="table-row" *ngFor="let product of result; let i = index">
-      <th class="col-xs-2">P {{product.id}}</th>
+      <th class="col-xs-2">P{{product.id}}</th>
       <td>
         <mat-form-field>
           <input  (keypress)="onlyNumbers($event)" matInput class="table-input" placeholder="Anzahl" type="text" name="inputP1" [(ngModel)]="result[i].amount" (ngModelChange)="onChange($event)">
