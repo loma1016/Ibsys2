@@ -92,7 +92,6 @@ export class ProductionPlanningComponent implements OnInit {
   }
 
   //ObjektKonstruktoren
-
   setFinishedProduct(id: number): FinishedProduct {
     let fP = new FinishedProduct();
     fP.id = id;
@@ -125,12 +124,10 @@ export class ProductionPlanningComponent implements OnInit {
   }
 
   //NgModelChange Methoden
-
   updateAmmountNeededForFinishedProducts() {
     this.finishedProducts.forEach((finishedProduct, index) => {
       this.finishedProducts[index].amountneeded = ProductionPlanningComponent.calculateAmountForProducts(finishedProduct);
     });
-    console.log("1");
     this.updateAmountNeededForSubProducts();
   }
 
@@ -140,12 +137,10 @@ export class ProductionPlanningComponent implements OnInit {
       this.subProducts[index].orders = this.getOrdersForSubProduct(subProduct);
       this.subProducts[index].amountneeded = ProductionPlanningComponent.calculateAmountForProducts(subProduct);
     });
-    console.log("2");
     this.saveResult();
   }
 
   //Rechnungen
-
   static calculateAmountForProducts(product: any): number {
     let result = (product.orders + Number(product.plannedWHEnd) - product.inWaitlist - product.inProduction - product.inWarehouse);
 
@@ -157,7 +152,6 @@ export class ProductionPlanningComponent implements OnInit {
   }
 
   //ExtractValues
-
   getOrdersForSubProduct(product: SubProduct): number {
     let result = 0;
 
@@ -181,6 +175,7 @@ export class ProductionPlanningComponent implements OnInit {
         }
       }
     });
+
     return result;
   }
 
@@ -196,6 +191,7 @@ export class ProductionPlanningComponent implements OnInit {
         }
       }
     });
+
     return result;
   }
 
@@ -240,7 +236,6 @@ export class ProductionPlanningComponent implements OnInit {
     });
 
     if (this.values.waitingliststock && this.values.waitingliststock[0] &&this.values.waitingliststock[0].missingpart) {
-
 
       this.values.waitingliststock[0].missingpart.forEach(item => {
 
@@ -297,7 +292,6 @@ export class ProductionPlanningComponent implements OnInit {
       } else {
         result.plannedStock[finishedProduct.id] = 0;
       }
-
     });
 
     this.subProducts.forEach((subProduct) => {
