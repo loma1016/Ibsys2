@@ -8,7 +8,7 @@
       <th class="col-xs-2">P1</th>
       <td *ngFor="let period of forecastPeriod; let i = index">
         <mat-form-field>
-          <input (blur)="checkSum()" (keypress)="onlyNumbers($event)" matInput class="table-input" placeholder="Herrenfahrrad P1" type="text" name="inputP1" [(ngModel)]="period.inputs.P1">
+          <input (blur)="checkSum()" (keypress)="onlyNumbers($event);checkSum()" matInput class="table-input" placeholder="Herrenfahrrad P1" type="text" name="inputP1" [(ngModel)]="period.inputs.P1">
         </mat-form-field>
       </td>
     </tr>
@@ -16,7 +16,7 @@
       <th class="col-xs-2">P2</th>
       <td *ngFor="let period of forecastPeriod; let i = index">
         <mat-form-field>
-          <input (blur)="checkSum()" (keypress)="onlyNumbers($event)" matInput class="table-input" placeholder="Damenfahrrad P2" type="text" name="inputP2" [(ngModel)]="period.inputs.P2">
+          <input (blur)="checkSum()" (keypress)="onlyNumbers($event);checkSum()" matInput class="table-input" placeholder="Damenfahrrad P2" type="text" name="inputP2" [(ngModel)]="period.inputs.P2">
         </mat-form-field>
       </td>
     </tr>
@@ -24,7 +24,7 @@
       <th class="col-xs-2">P3</th>
       <td *ngFor="let period of forecastPeriod; let i = index">
         <mat-form-field>
-          <input (blur)="checkSum()" (keypress)="onlyNumbers($event)" matInput class="table-input" placeholder="Kinderfahrrad P3" type="text" name="inputP3" [(ngModel)]="period.inputs.P3">
+          <input (blur)="checkSum()" (keypress)="onlyNumbers($event);checkSum()" matInput class="table-input" placeholder="Kinderfahrrad P3" type="text" name="inputP3" [(ngModel)]="period.inputs.P3">
         </mat-form-field>
       </td>
     </tr>
@@ -52,5 +52,5 @@
       </td>
     </tr>
   </table>
-  <button mat-raised-button style="margin-top: 2%" class="pull-right" color="primary" matStepperNext (click)="ifDisabled()">Weiter</button>
+  <button mat-raised-button style="margin-top: 2%" class="pull-right" color="primary" matStepperNext (click)="ifDisabled();checkSum()">Weiter</button>
 </div>
