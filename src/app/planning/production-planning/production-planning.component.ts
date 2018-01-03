@@ -102,7 +102,7 @@ export class ProductionPlanningComponent implements OnInit {
     fP.orders = this.mockedOrders;
     fP.inWaitlist = this.getWaitlistSumByID(id);
     fP.inProduction = this.getOrdersInWorkByID(id);
-    fP.plannedWHEnd = this.plannedStock[id];
+    fP.plannedWHEnd = Number(this.plannedStock[id]);
     fP.inWarehouse = this.getWarehouseAmountByID(id);
     fP.amountneeded = ProductionPlanningComponent.calculateAmountForProducts(fP);
 
@@ -118,7 +118,7 @@ export class ProductionPlanningComponent implements OnInit {
     sP.orders = this.getOrdersForSubProduct(sP);
     sP.inWaitlist = this.getWaitlistSumByID(id);
     sP.inProduction = this.getOrdersInWorkByID(id);
-    sP.plannedWHEnd = this.plannedStock[id];
+    sP.plannedWHEnd = Number(this.plannedStock[id]);
     sP.inWarehouse = this.getWarehouseAmountByID(id);
     sP.amountneeded = ProductionPlanningComponent.calculateAmountForProducts(sP);
 
@@ -150,7 +150,7 @@ export class ProductionPlanningComponent implements OnInit {
   //Rechnungen
 
   static calculateAmountForProducts(product: any): number {
-    let result = (product.orders + product.plannedWHEnd - product.inWaitlist - product.inProduction - product.inWarehouse);
+    let result = (product.orders + Number(product.plannedWHEnd) - product.inWaitlist - product.inProduction - product.inWarehouse);
 
     if (result >= 0) {
       return result;
@@ -296,7 +296,7 @@ export class ProductionPlanningComponent implements OnInit {
       result.amount.push(finishedProduct.amountneeded);
       result.waitlist.push(finishedProduct.inWaitlist + finishedProduct.inProduction);
       if(finishedProduct.plannedWHEnd) {
-        result.plannedStock[finishedProduct.id] = finishedProduct.plannedWHEnd;
+        result.plannedStock[finishedProduct.id] = Number(finishedProduct.plannedWHEnd);
       } else {
         result.plannedStock[finishedProduct.id] = 0;
       }
@@ -308,7 +308,7 @@ export class ProductionPlanningComponent implements OnInit {
       result.amount.push(subProduct.amountneeded);
       result.waitlist.push(subProduct.inWaitlist + subProduct.inProduction);
       if (subProduct.plannedWHEnd) {
-      result.plannedStock[subProduct.id] = subProduct.plannedWHEnd;
+      result.plannedStock[subProduct.id] = Number(subProduct.plannedWHEnd);
       } else {
         result.plannedStock[subProduct.id] = 0;
       }
@@ -341,5 +341,9 @@ export class ProductionPlanningComponent implements OnInit {
     if (e.className.indexOf("pos-changed") === -1) {
       e.className = e.className ? [e.className, "pos-changed"].join(' ') : "pos-changed";
     }
+  }
+
+  onlyNumbers(e) {
+    return e.charCode >= 48 && e.charCode <= 57;
   }
 }
