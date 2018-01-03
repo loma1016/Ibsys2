@@ -16,7 +16,7 @@
         <th>P{{i+1}}</th>
         <th>{{item.orders}}</th>
         <th>
-          <input placeholder="Lagerendbestand" type="number" [(ngModel)]="item.plannedWHEnd" (ngModelChange)="updateAmmountNeededForFinishedProducts()">
+          <input placeholder="Lagerendbestand" type="text" (keypress)="onlyNumbers($event)" [(ngModel)]="item.plannedWHEnd" (ngModelChange)="updateAmmountNeededForFinishedProducts()">
         </th>
         <th>{{item.inWarehouse}}</th>
         <th>{{item.inWaitlist}}</th>
@@ -24,11 +24,11 @@
         <th>{{item.amountneeded}}</th>
       </tr>
       <tr *ngFor="let item of subProducts, let i = index">
-        <th class="draggable-col"><span class="draggable glyphicon glyphicon-align-justify"></span></th>          
+        <th class="draggable-col"><span class="draggable glyphicon glyphicon-align-justify"></span></th>
         <th>E{{item.id}} </th>
         <th>{{item.orders}}</th>
         <th>
-          <input placeholder="Lagerendbestand" type="number" [(ngModel)]="item.plannedWHEnd" (ngModelChange)="updateAmountNeededForSubProducts()">
+          <input placeholder="Lagerendbestand" type="text" (keypress)="onlyNumbers($event)" [(ngModel)]="item.plannedWHEnd" (ngModelChange)="updateAmountNeededForSubProducts()">
         </th>
         <th>{{item.inWarehouse}}</th>
         <th>{{item.inWaitlist}}</th>
