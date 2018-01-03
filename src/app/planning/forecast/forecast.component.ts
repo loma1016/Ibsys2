@@ -58,36 +58,9 @@ export class ForecastComponent implements OnInit {
             break;
           }
         }
-      } else {
-        switch (index) {
-          case 0: {
-            if (this.sumFirst) {
-              this.sumFirst = undefined;
-            }
-            break;
-          }
-          case 1: {
-            if (this.sumSecond) {
-              this.sumSecond = undefined;
-            }
-            break;
-          }
-          case 2: {
-            if (this.sumThird) {
-              this.sumThird = undefined;
-            }
-            break;
-          }
-          case 3: {
-            if (this.sumFourth) {
-              this.sumFourth = undefined;
-            }
-            break;
-          }
-        }
       }
 
-      if (this.sumFirst && this.sumSecond && this.sumThird && this.sumFourth) {
+      if (this.sumFirst >= 0 && this.sumSecond >= 0 && this.sumThird >=0 && this.sumFourth >=0) {
         this.db.object('/result/forecast').set(this.forecastPeriod);
       }
     });
