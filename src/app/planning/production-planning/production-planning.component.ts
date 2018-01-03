@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularFireDatabase} from "angularfire2/database";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {FinishedProduct} from "./models/finishedProduct-model";
 import {SubProduct} from "./models/subProduct-model";
 import {Dependency} from "./models/dependency-model";
@@ -42,8 +42,9 @@ export class ProductionPlanningComponent implements OnInit {
   workPlaceWithWaitList: Array<any> = [];
   values: any;
 
+  plannedStockSubscription: Subscription;
+
   productOrder: Array<any> = [];
-  changesBySameComp = false;
 
   subProductsIndex = [26, 51, 56, 31, 16, 17, 50, 55, 30, 4, 10, 49, 5, 11, 54, 6, 12, 29, 7, 13, 18, 8, 14, 19, 9, 15, 20];
 
@@ -67,22 +68,18 @@ export class ProductionPlanningComponent implements OnInit {
         this.workPlaceWithWaitList = this.getWorkPlaceWithWaitlist();
         this.forecastData = this.db.object('result/forecast').valueChanges();
         this.forecastData.subscribe(result => {
-          if ( !this.changesBySameComp ) {
             this.forecast = result;
             this.plannedStockData = this.db.object('result/production/plannedStock').valueChanges();
-            this.plannedStockData.subscribe(result => {
-            this.plannedStock = result;
-            this.productOrder = [];
-            this.finishedProducts = [this.setFinishedProduct(1), this.setFinishedProduct(2), this.setFinishedProduct(3)];
-            this.subProductsIndex.forEach((subProductIndex, index) => {
-              this.subProducts[index] = this.setSubProduct(subProductIndex);
+            this.plannedStockSubscription = this.plannedStockData.subscribe(result => {
+              this.plannedStock = result;
+              this.productOrder = [];
+              this.finishedProducts = [this.setFinishedProduct(1), this.setFinishedProduct(2), this.setFinishedProduct(3)];
+              this.subProductsIndex.forEach((subProductIndex, index) => {
+                this.subProducts[index] = this.setSubProduct(subProductIndex);
+              });
+              this.updateOrders();
+              this.updateAmmountNeededForFinishedProducts();
             });
-            this.updateOrders();
-            this.updateAmmountNeededForFinishedProducts();
-            });
-          } else {
-            this.changesBySameComp = false;
-          }
         });
       });
     });
@@ -133,7 +130,7 @@ export class ProductionPlanningComponent implements OnInit {
     this.finishedProducts.forEach((finishedProduct, index) => {
       this.finishedProducts[index].amountneeded = ProductionPlanningComponent.calculateAmountForProducts(finishedProduct);
     });
-
+    console.log("1");
     this.updateAmountNeededForSubProducts();
   }
 
@@ -143,7 +140,7 @@ export class ProductionPlanningComponent implements OnInit {
       this.subProducts[index].orders = this.getOrdersForSubProduct(subProduct);
       this.subProducts[index].amountneeded = ProductionPlanningComponent.calculateAmountForProducts(subProduct);
     });
-
+    console.log("2");
     this.saveResult();
   }
 
@@ -330,8 +327,7 @@ export class ProductionPlanningComponent implements OnInit {
       orderedResult.plannedStock[id] = result.plannedStock[id];
     });
 
-    this.changesBySameComp = true;
-
+    this.plannedStockSubscription.unsubscribe();
     this.db.object('/result/production').update(orderedResult);
 
   }
