@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AngularFireDatabase} from "angularfire2/database";
+import {ToastyServiceInt} from "../../util/toasty.service";
 
 @Component({
   selector: 'app-direct-sales',
@@ -9,14 +10,14 @@ import {AngularFireDatabase} from "angularfire2/database";
 export class DirectSalesComponent implements OnInit {
 
   otherProduct = {
-    id: null,
-    amount:null,
-    price:null,
-    penalty:null
+    id: 0,
+    amount:0,
+    price:0,
+    penalty:0
   };
 
 
-  constructor(private db: AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase, private toastyServiceInt: ToastyServiceInt) { }
 
   result = [{
       id: 1,
@@ -43,9 +44,41 @@ export class DirectSalesComponent implements OnInit {
     return e.charCode >= 48 && e.charCode <= 57;
   }
 
+  alreadyExists(e) {
+
+    let alreadyExists = false;
+
+    this.result.forEach(entry => {
+      if (Number(e) === Number(entry.id)) {
+        alreadyExists = true;
+      }
+    });
+
+    if (e <= 0 || e > 59) {
+      alreadyExists = true;
+    }
+
+    return  alreadyExists;
+  }
+
   newOtherProduct() {
-    this.result.push(this.otherProduct);
+
+    if (!this.alreadyExists(this.otherProduct.id)) {
+      this.result.push(this.newObj(this.otherProduct));
+    } else {
+      this.toastyServiceInt.setToastyDefaultError("Produkt nicht verfügbar", "Das Produkt ist bereits vorhanden oder Sie haben kein gültiges Produkt eingegeben.")
+    }
+
     this.onChange();
+  }
+
+  newObj(otherProduct: any): any {
+    return {
+      id: otherProduct.id,
+      amount: otherProduct.amount,
+      price: otherProduct.price,
+      penalty: otherProduct.penalty
+    }
   }
 
   onChange() {
