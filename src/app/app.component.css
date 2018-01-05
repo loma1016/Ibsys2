@@ -102,6 +102,6 @@ a {
 }
 
 .logoutBtn {
-  position: fixed;
+  position: absolute;
   font-size: 20px;
 }
