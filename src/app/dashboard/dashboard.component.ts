@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-dashboard',
@@ -10,6 +11,7 @@ import { Observable } from 'rxjs/Observable';
 export class DashboardComponent implements OnInit {
 
   loading = true;
+  busy: Subscription;
 
   // Total Stock Value Graph
   public allTotalStockValues: Array<any> = [];
@@ -136,7 +138,7 @@ export class DashboardComponent implements OnInit {
       ]
     }
 
-    this.db.object('periods').valueChanges().subscribe(periods => {
+    this.busy = this.db.object('periods').valueChanges().subscribe(periods => {
       drawTotalStockValue(periods);
       drawAllStockValues(periods);
       drawProfitSummary(periods);

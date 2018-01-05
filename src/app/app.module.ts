@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ErrorHandler  } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { NgModule, ErrorHandler } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { XmlUploadComponent } from './xml-upload/xml-upload.component';
 import { environment } from '../environments/environment';
@@ -38,9 +38,10 @@ import { ModalComponent } from './util/modal/modal.component';
 import { SelectPeriodComponent } from './planning/select-period/select-period.component';
 import { ToastyServiceInt } from './util/toasty.service';
 import { LoginComponent } from './login/login.component';
-import {LoginService} from "./shared/login-service";
-import {AuthGuard} from "./shared/auth-guard";
+import { LoginService } from "./shared/login-service";
+import { AuthGuard } from "./shared/auth-guard";
 import { DirectSalesComponent } from './planning/direct-sales/direct-sales.component';
+import { BusyModule, BusyConfig } from 'angular2-busy';
 import MyErrorHandler from "./util/error.service";
 
 
@@ -65,6 +66,16 @@ import MyErrorHandler from "./util/error.service";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    BusyModule.forRoot(
+      new BusyConfig({
+        message: '',
+        backdrop: false,
+        template: '<div>{{message}}</div>',
+        delay: 200,
+        minDuration: 600,
+        wrapperClass: 'my-class'
+      })
+    ),
     MatInputModule,
     MatToolbarModule,
     MatMenuModule,
@@ -89,7 +100,7 @@ import MyErrorHandler from "./util/error.service";
     ToastyModule.forRoot(),
     DragulaModule
   ],
-  providers: [XmlUploadService,ToastyServiceInt, LoginService, AuthGuard, { provide: ErrorHandler, useClass: MyErrorHandler }],
+  providers: [XmlUploadService, ToastyServiceInt, LoginService, AuthGuard, { provide: ErrorHandler, useClass: MyErrorHandler }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

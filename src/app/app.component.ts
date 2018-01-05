@@ -26,9 +26,9 @@ export class AppComponent {
     this.showXmlUpload = false;
   }
 
-  
+
   @HostListener('document:keydown.escape', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) { 
+  handleKeyboardEvent(event: KeyboardEvent) {
     this.closeXmlUpload();
   }
 
