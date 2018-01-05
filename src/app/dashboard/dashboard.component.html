@@ -1,3 +1,5 @@
+<div class="loadingmodal" *ngIf="loading" [ngBusy]="{busy: busy, message: 'Loading...'}"></div>
+
 <mat-tab-group *ngIf="!loading">
   <mat-tab label="Profit">
     <div class="containers offset-top">

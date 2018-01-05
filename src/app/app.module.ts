@@ -41,6 +41,7 @@ import { LoginComponent } from './login/login.component';
 import {LoginService} from "./shared/login-service";
 import {AuthGuard} from "./shared/auth-guard";
 import { DirectSalesComponent } from './planning/direct-sales/direct-sales.component';
+import {BusyModule} from 'angular2-busy';
 import MyErrorHandler from "./util/error.service";
 
 
@@ -65,6 +66,7 @@ import MyErrorHandler from "./util/error.service";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    BusyModule,
     MatInputModule,
     MatToolbarModule,
     MatMenuModule,
