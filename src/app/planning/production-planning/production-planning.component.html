@@ -16,7 +16,7 @@
         <th>P{{i+1}}</th>
         <th>{{item.orders}}</th>
         <th>
-          <input placeholder="Lagerendbestand" type="text" (keypress)="onlyNumbers($event)" [(ngModel)]="item.plannedWHEnd" (ngModelChange)="updateAmmountNeededForFinishedProducts()">
+          <input placeholder="Lagerendbestand" type="text" (keypress)="onlyNumbers($event)" [(ngModel)]="item.plannedWHEnd">
         </th>
         <th>{{item.inWarehouse}}</th>
         <th>{{item.inWaitlist}}</th>
@@ -28,7 +28,7 @@
         <th>E{{item.id}} </th>
         <th>{{item.orders}}</th>
         <th>
-          <input placeholder="Lagerendbestand" type="text" (keypress)="onlyNumbers($event)" [(ngModel)]="item.plannedWHEnd" (ngModelChange)="updateAmountNeededForSubProducts()">
+          <input placeholder="Lagerendbestand" type="text" (keypress)="onlyNumbers($event)" [(ngModel)]="item.plannedWHEnd">
         </th>
         <th>{{item.inWarehouse}}</th>
         <th>{{item.inWaitlist}}</th>
@@ -38,5 +38,6 @@
     </tbody>
   </table>
   <button mat-raised-button style="margin-top: 2%" color="warn" matStepperPrevious>Zurück</button>
+  <button mat-raised-button class="calculate-btn" color="primary" (click)="updateAmmountNeededForFinishedProducts()">Berechnen</button>
   <button mat-raised-button style="margin-top: 2%" class="pull-right" color="primary" matStepperNext>Weiter</button>
 </div>

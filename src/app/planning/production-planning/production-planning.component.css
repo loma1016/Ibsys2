@@ -35,3 +35,11 @@ input {
 .table-striped>tbody>tr:nth-of-type(odd).pos-changed {
   background-color: #fddcb1bd;
 }
+
+.calculate-btn {
+  margin-top: 15px;
+  width: 160px;
+  position: absolute;
+  left: 50%;
+  margin-left: -80px;
+}

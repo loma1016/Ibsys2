@@ -79,6 +79,7 @@ export class ProductionPlanningComponent implements OnInit {
               });
               this.updateOrders();
               this.updateAmmountNeededForFinishedProducts();
+              this.plannedStockSubscription.unsubscribe();
             });
         });
       });
@@ -321,7 +322,6 @@ export class ProductionPlanningComponent implements OnInit {
       orderedResult.plannedStock[id] = result.plannedStock[id];
     });
 
-    this.plannedStockSubscription.unsubscribe();
     this.db.object('/result/production').update(orderedResult);
 
   }
