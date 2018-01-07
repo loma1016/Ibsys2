@@ -291,7 +291,6 @@ export class WorkspacePlanningComponent implements OnInit {
         this.workplacePlan.shift[i] = 3;
       } else {
         this.workplacePlan.shift[i] = 3;
-        console.log("Warning, not enough capacity")
       }
 
       if ((this.workplacePlan.totalTime[i] - (2400 * this.workplacePlan.shift[i]) > 0) && this.workplacePlan.shift[i] != 3) {
@@ -316,7 +315,7 @@ export class WorkspacePlanningComponent implements OnInit {
   saveWorkplacePlan() {
     let result = [];
     this.workplacePlan.shift.forEach((shift, index) => {
-      result.push({station: index+1, shift: shift, overtime: this.workplacePlan.overtime[index]});
+      result.push({station: index+1, shift: shift, overtime: Math.round(this.workplacePlan.overtime[index])});
     });
     this.db.object('/result/workingtimelist').set(result);
   }

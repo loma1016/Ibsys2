@@ -82,6 +82,18 @@ export class DirectSalesComponent implements OnInit {
   }
 
   onChange() {
+    this.result.forEach(entry => {
+      if (!entry.amount) {
+        entry.amount = 0;
+      }
+      if (!entry.price) {
+        entry.price = 0;
+      }
+      if (!entry.penalty) {
+        entry.penalty = 0;
+      }
+    });
+
     this.db.object('/result/directsales').set(this.result);
   }
 
