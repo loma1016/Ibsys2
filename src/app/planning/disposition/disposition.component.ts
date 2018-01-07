@@ -162,9 +162,9 @@ export class DispositionComponent implements OnInit {
       this.ordersData[Number(this.newOrderData.item)].result.normalOrder = 0;
       this.ordersData[Number(this.newOrderData.item)].result.expressOrder = 0;
       if (this.newOrderData.mode === 4) {
-        this.ordersData[Number(this.newOrderData.item)].result.expressOrder = this.newOrderData.amount;
+        this.ordersData[Number(this.newOrderData.item)].result.expressOrder = Number(this.newOrderData.amount);
       } else if (this.newOrderData.mode === 5) {
-        this.ordersData[Number(this.newOrderData.item)].result.normalOrder = this.newOrderData.amount;
+        this.ordersData[Number(this.newOrderData.item)].result.normalOrder = Number(this.newOrderData.amount);
       }
       this.saveResult();
     } else {
@@ -263,6 +263,10 @@ export class DispositionComponent implements OnInit {
       this.ordersData[index].deliveryTime.express = Math.trunc(this.ordersData[index].deliveryTime.mean / 2 +1);
       this.ordersData[index].deliveryTime.normal = Math.trunc(this.ordersData[index].deliveryTime.mean + this.ordersData[index].deliveryTime.dev  + 2);
     });
+  }
+
+  onlyNumbers(e) {
+    return e.charCode >= 48 && e.charCode <= 57;
   }
 }
 
