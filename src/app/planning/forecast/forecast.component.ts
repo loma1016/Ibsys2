@@ -33,7 +33,11 @@ export class ForecastComponent implements OnInit {
   }
 
   onlyNumbers(e) {
-    return e.charCode >= 48 && e.charCode <= 57;
+    if (e.charCode >= 48 && e.charCode <= 57) {
+      this.checkSum();
+    } else {
+      return e.charCode >= 48 && e.charCode <= 57;
+    }
   }
 
   checkSum() {
