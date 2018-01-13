@@ -10,17 +10,17 @@
       <th class="col-xs-2">P{{product.id}}</th>
       <td>
         <mat-form-field>
-          <input  (keypress)="onlyNumbers($event)" matInput class="table-input" placeholder="Anzahl" type="text" name="inputP1" [(ngModel)]="result[i].amount" (ngModelChange)="onChange($event)">
+          <input matInput class="table-input" type="number" min="0" name="inputP1" placeholder="Anzahl"  [(ngModel)]="result[i].amount" (ngModelChange)="onChange($event)">
         </mat-form-field>
       </td>
       <td>
         <mat-form-field>
-          <input  (keypress)="onlyNumbers($event)" matInput class="table-input" placeholder="Preis" type="text" name="inputP1" [(ngModel)]="result[i].price" (ngModelChange)="onChange($event)">
+          <input matInput class="table-input" type="number" min="0" name="inputP1" placeholder="Preis"  [(ngModel)]="result[i].price" (ngModelChange)="onChange($event)">
         </mat-form-field>
       </td>
       <td>
         <mat-form-field>
-          <input  (keypress)="onlyNumbers($event)" matInput class="table-input" placeholder="Strafe" type="text" name="inputP1" [(ngModel)]="result[i].penalty" (ngModelChange)="onChange($event)">
+          <input matInput class="table-input" type="number" min="0" name="inputP1" placeholder="Strafe"  [(ngModel)]="result[i].penalty" (ngModelChange)="onChange($event)">
         </mat-form-field>
       </td>
     </tr>

@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ToastyServiceInt } from "../../util/toasty.service";
+import {Observable, Subscription} from "rxjs";
+import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
   selector: 'app-forecast',
@@ -16,8 +18,12 @@ export class ForecastComponent implements OnInit {
   sumThird: number;
   sumFourth: number;
   currPeriod = 1;
+  forecastData: Observable<any>;
+  forecastSub: Subscription;
+  forecast: any;
 
-  constructor(private db: AngularFireDatabase, private toastyServiceInt: ToastyServiceInt) {
+  constructor(private db: AngularFireDatabase, private toastyServiceInt: ToastyServiceInt, private activatedRoute: ActivatedRoute) {
+
     this.forecastPeriod = [
       { period: 'first', inputs: [] },
       { period: 'second', inputs: [] },
@@ -29,6 +35,17 @@ export class ForecastComponent implements OnInit {
   ngOnInit() {
     this.db.object('currentPeriod').valueChanges().subscribe(currentPeriod => {
       this.currPeriod =  + currentPeriod;
+      this.forecastData = this.db.object('result/forecast').valueChanges();
+      this.forecastSub = this.forecastData.subscribe(result => {
+        this.forecastSub.unsubscribe();
+        this.forecast = result;
+        this.activatedRoute.queryParams.subscribe((params: Params) => {
+          let loadData = params['loadData'];
+          if (loadData) {
+            this.loadData();
+          }
+        });
+      })
     })
   }
 
@@ -65,6 +82,19 @@ export class ForecastComponent implements OnInit {
       }
 
       if (this.sumFirst >= 0 && this.sumSecond >= 0 && this.sumThird >=0 && this.sumFourth >=0) {
+        this.forecastPeriod.forEach(p => {
+          if (!p.inputs.P1) {
+            p.inputs.P1 = 0
+          }
+
+          if (!p.inputs.P2) {
+            p.inputs.P2 = 0
+          }
+          if (!p.inputs.P3) {
+            p.inputs.P3 = 0
+          }
+        });
+
         this.db.object('/result/forecast').set(this.forecastPeriod);
       }
     });
@@ -74,5 +104,10 @@ export class ForecastComponent implements OnInit {
     if (this.firstFormGroup.status === "INVALID") {
       this.toastyServiceInt.setToastyDefaultError('Warnung!', 'Bitte fülle Sie die erfolderlichen Inputs aus!')
     }
+  }
+
+  loadData() {
+    this.forecastPeriod =  this.forecast;
+    this.checkSum();
   }
 }

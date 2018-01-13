@@ -71,6 +71,7 @@ export class ProductionPlanningComponent implements OnInit {
             this.forecast = result;
             this.plannedStockData = this.db.object('result/production/plannedStock').valueChanges();
             this.plannedStockSubscription = this.plannedStockData.subscribe(result => {
+              this.plannedStockSubscription.unsubscribe();
               this.plannedStock = result;
               this.productOrder = [];
               this.finishedProducts = [this.setFinishedProduct(1), this.setFinishedProduct(2), this.setFinishedProduct(3)];
@@ -79,7 +80,6 @@ export class ProductionPlanningComponent implements OnInit {
               });
               this.updateOrders();
               this.updateAmmountNeededForFinishedProducts();
-              this.plannedStockSubscription.unsubscribe();
             });
         });
       });

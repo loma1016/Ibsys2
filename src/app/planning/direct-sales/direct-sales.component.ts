@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AngularFireDatabase} from "angularfire2/database";
 import {ToastyServiceInt} from "../../util/toasty.service";
+import {ActivatedRoute, Params} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-direct-sales',
@@ -17,7 +19,7 @@ export class DirectSalesComponent implements OnInit {
   };
 
 
-  constructor(private db: AngularFireDatabase, private toastyServiceInt: ToastyServiceInt) { }
+  constructor(private db: AngularFireDatabase, private toastyServiceInt: ToastyServiceInt, private activatedRoute: ActivatedRoute) { }
 
   result = [{
       id: 1,
@@ -36,8 +38,22 @@ export class DirectSalesComponent implements OnInit {
       penalty:0},
   ];
 
+  directSalesSub: Subscription;
+  directSales: any
+
   ngOnInit() {
-    this.onChange();
+    this.directSalesSub = this.db.object('/result/directsales').valueChanges().subscribe(result => {
+      this.directSalesSub.unsubscribe();
+      this.directSales = result;
+      this.activatedRoute.queryParams.subscribe((params: Params) => {
+        let loadData = params['loadData'];
+        if (loadData) {
+          this.loadData();
+        }
+        this.onChange();
+      });
+    });
+
   }
 
   onlyNumbers(e) {
@@ -95,6 +111,10 @@ export class DirectSalesComponent implements OnInit {
     });
 
     this.db.object('/result/directsales').set(this.result);
+  }
+
+  loadData() {
+   this.result = this.directSales;
   }
 
 

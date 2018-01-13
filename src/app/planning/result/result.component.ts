@@ -3,6 +3,7 @@ import { AngularFireDatabase } from "angularfire2/database";
 import * as FileSaver from 'file-saver';
 import {Observable} from "rxjs";
 import {SimulationService} from "../simulation/simulation.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-result',
@@ -69,7 +70,7 @@ export class ResultComponent implements OnInit {
 
   simulationResult: any;
 
-  constructor(private db: AngularFireDatabase,  private productionPlanningService: SimulationService) {}
+  constructor(private db: AngularFireDatabase,  private productionPlanningService: SimulationService, private router: Router) {}
 
   ngOnInit() {
     this.db.object('currentPeriod').valueChanges().subscribe(currentPeriod => {
@@ -123,7 +124,9 @@ export class ResultComponent implements OnInit {
   }
 
   refresh() {
-    window.location.reload();
+    this.router.navigate(['/planning'], { queryParams: { loadData: true } }).then( _ => {
+      window.location.reload();
+    });
   }
 
   calculateStockValue(result: any) {
