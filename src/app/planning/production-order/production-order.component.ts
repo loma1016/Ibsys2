@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DragulaService } from "ng2-dragula";
 import { AngularFireDatabase } from "angularfire2/database";
 import { Subscription } from "rxjs";
@@ -8,7 +8,7 @@ import { Subscription } from "rxjs";
   templateUrl: './production-order.component.html',
   styleUrls: ['./production-order.component.css', '../../../assets/css/dragula.css']
 })
-export class ProductionOrderComponent implements OnInit {
+export class ProductionOrderComponent implements OnInit, OnDestroy {
 
   productionSub: Subscription;
   production: any;
@@ -34,6 +34,10 @@ export class ProductionOrderComponent implements OnInit {
       this.sortProduction();
     });
   };
+
+  ngOnDestroy() {
+    this.dragulaService.destroy('first-bag');
+  }
 
   sortProduction() {
     this.db.object('/result/production/order').set(this.order);
