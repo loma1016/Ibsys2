@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {DragulaService} from "ng2-dragula";
-import {AngularFireDatabase} from "angularfire2/database";
-import {Subscription} from "rxjs";
+import { DragulaService } from "ng2-dragula";
+import { AngularFireDatabase } from "angularfire2/database";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-production-order',
   templateUrl: './production-order.component.html',
-  styleUrls: ['./production-order.component.css']
+  styleUrls: ['./production-order.component.css', '../../../assets/css/dragula.css']
 })
 export class ProductionOrderComponent implements OnInit {
 

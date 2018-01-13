@@ -2,7 +2,7 @@
  * Created by marvinlott on 27.11.17.
  */
 import {Injectable, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
+
 @Injectable()
 export class LoginService implements OnInit{
 

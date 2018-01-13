@@ -1,9 +1,10 @@
-import {Injectable, OnDestroy} from "@angular/core";
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
-import {LoginService} from "./login-service";
 /**
  * Created by marvinlott on 27.11.17.
  */
+import { Injectable, OnDestroy } from "@angular/core";
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
+import { LoginService } from "./login-service";
+
 @Injectable()
 export class AuthGuard implements CanActivate, OnDestroy {
 
@@ -11,9 +12,7 @@ export class AuthGuard implements CanActivate, OnDestroy {
 
   }
 
-  canActivate(route: ActivatedRouteSnapshot,
-              state: RouterStateSnapshot): boolean {
-
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const url: string = state.url;
     return this.checkLogin(url);
   }

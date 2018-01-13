@@ -5,8 +5,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ToastyServiceInt {
 
-  constructor(private toastyService: ToastyService) {
-  }
+  constructor(private toastyService: ToastyService) {}
 
   defaultTimeout = 4000;
   defaultShowClose = true;

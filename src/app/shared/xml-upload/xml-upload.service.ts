@@ -1,7 +1,7 @@
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Inject, Injectable } from '@angular/core';
-import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
-import {ToastyServiceInt} from "../../util/toasty.service";
+import { Injectable } from '@angular/core';
+import { ToastyConfig } from 'ng2-toasty';
+import { ToastyServiceInt } from "../../util/toasty.service";
 
 @Injectable()
 export class XmlUploadService {

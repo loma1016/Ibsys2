@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-planning',
@@ -16,7 +16,7 @@ export class PlanningComponent implements OnInit {
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required],
       secondCtrl: ['', Validators.required],
-      thirdCtrl: ['', Validators.required], 
+      thirdCtrl: ['', Validators.required],
       fourthCtrl: ['', Validators.required]
     });
   }

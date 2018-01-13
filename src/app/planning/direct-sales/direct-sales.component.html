@@ -7,7 +7,7 @@
       <th class="table-header">Strafe</th>
     </tr>
     <tr class="table-row" *ngFor="let product of result; let i = index">
-      <th class="col-xs-2">P{{product.id}}</th>
+      <th class="col-xs-2">P {{product.id}}</th>
       <td>
         <mat-form-field>
           <input matInput class="table-input" type="number" min="0" name="inputP1" placeholder="Anzahl"  [(ngModel)]="result[i].amount" (ngModelChange)="onChange($event)">
@@ -27,25 +27,4 @@
   </table>
   <button mat-raised-button style="margin-top: 2%" class="back-btn" color="warn" matStepperPrevious>Zurück</button>
   <button mat-raised-button style="margin-top: 2%" class="pull-right" color="primary" matStepperNext>Weiter</button>
-
-  <app-modal #newOrderModal>
-    <div class="app-modal-header">
-      Bestellung eines Kaufteils abändern?
-    </div>
-    <div class="app-modal-body">
-      <label class="newOrderLabel"> Teilnummer</label>
-      <input type="number" class="newOrderInput" name="newOrderItem" [(ngModel)]="otherProduct.id"><br>
-      <label class="newOrderLabel">Anzahl</label>
-      <input type="number" class="newOrderInput" name="newOrderAmount" [(ngModel)]="otherProduct.amount"><br>
-      <label class="newOrderLabel">Preis</label>
-      <input type="number" class="newOrderInput" name="newOrderAmount" [(ngModel)]="otherProduct.price"><br>
-      <label class="newOrderLabel"> Strafe</label>
-      <input type="number" class="newOrderInput" name="newOrderItem" [(ngModel)]="otherProduct.penalty"><br>
-
-    </div>
-    <div class="app-modal-footer">
-      <button mat-raised-button class="pull-left" color="warn" (click)="newOrderModal.hide()">Abbrechen</button>
-      <button mat-raised-button class="pull-right" color="primary" (click)="newOrderModal.hide(); newOtherProduct()">Ok</button>
-    </div>
-  </app-modal>
 </div>

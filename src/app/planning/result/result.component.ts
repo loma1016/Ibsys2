@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from "angularfire2/database";
 import * as FileSaver from 'file-saver';
-import {Observable} from "rxjs";
-import {SimulationService} from "../simulation/simulation.service";
-import {Router} from "@angular/router";
+import { Observable } from "rxjs";
+import { SimulationService } from "../simulation/simulation.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-result',
@@ -93,7 +93,6 @@ export class ResultComponent implements OnInit {
           this.calculateWarehouseCosts();
 
           this.profit = this.sales - (this.costs.shifts + this.costs.machine + this.costs.disposition + this.costs.warehouse);
-
         });
       });
     });

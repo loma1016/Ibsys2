@@ -443,14 +443,6 @@ export class SimulationService {
       this.workspaces.data[index].notWorkingTime = this.workspaces.data[index].notWorkingTime - (this.time-this.workspaces.data[index].lastProductFinished);
     });
 
-    //console.log(inwardStockMovement);
-    //console.log(this.leerZeit);
-    //console.log(this.workspaces);
-    //console.log(this.warehouseStock);
-    //console.log(this.productionPlan);
-    //console.log(this.workTime);
-    //console.log(this.simulation);
-
     let result = {simulation: this.simulation,
                   workspaces: this.workspaces};
 
@@ -643,11 +635,8 @@ export class SimulationService {
               material:this.workTimeList.material[index]
             };
           }
-
         });
-
       }
     }
   }
-
 }

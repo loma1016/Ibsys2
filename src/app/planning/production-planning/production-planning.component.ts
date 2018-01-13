@@ -1,24 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {AngularFireDatabase} from "angularfire2/database";
-import {Observable, Subscription} from "rxjs";
-import {FinishedProduct} from "./models/finishedProduct-model";
-import {SubProduct} from "./models/subProduct-model";
-import {Dependency} from "./models/dependency-model";
-import { DragulaService } from 'ng2-dragula';
+import { Component, OnInit } from '@angular/core';
+import { AngularFireDatabase } from "angularfire2/database";
+import { Observable, Subscription } from "rxjs";
+import { FinishedProduct } from "./models/finishedProduct-model";
+import { SubProduct }  from "./models/subProduct-model";
+import { Dependency } from "./models/dependency-model";
 
 @Component({
   selector: 'app-production-planning',
   templateUrl: './production-planning.component.html',
-  styleUrls: ['./production-planning.component.css', '../../../../node_modules/dragula/dist/dragula.css']
+  styleUrls: ['./production-planning.component.css']
 })
 export class ProductionPlanningComponent implements OnInit {
-  //Order, inWarehouse, inWaitlist, inProduction aus DB
-  // plannedWHend 2 Way Databinding
 
-  //MOCKDATA
-  mockedPeriod = 3;
   mockedOrders = 100;
-  //Hardcoded Shit
+
   dependencyList: Array<Dependency> = [
     new Dependency(26, [1, 2, 3]), new Dependency(51, [1]), new Dependency(56, [2]), new Dependency(31, [3]),
     new Dependency(16, [51, 56, 31]), new Dependency(17, [51, 56, 31]), new Dependency(50, [51]), new Dependency(55, [56]), new Dependency(30, [31]),
@@ -26,13 +21,11 @@ export class ProductionPlanningComponent implements OnInit {
     new Dependency(7, [49]), new Dependency(13, [49]), new Dependency(18, [49]), new Dependency(8, [54]), new Dependency(14, [54]), new Dependency(19, [54]), new Dependency(9, [29]), new Dependency(15, [29]), new Dependency(20, [29])
   ];
 
-  //Initialisierung für 2 Way DataBinding
   finishedProducts: Array<FinishedProduct> = [new FinishedProduct(), new FinishedProduct(), new FinishedProduct()];
   subProducts: Array<SubProduct> = [new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(),
     new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(),
     new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(),
     new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(), new SubProduct(),];
-
 
   previousPeriodData: Observable<any>;
   forecastData: Observable<any>;
@@ -41,12 +34,10 @@ export class ProductionPlanningComponent implements OnInit {
   plannedStock: Array<number>;
   workPlaceWithWaitList: Array<any> = [];
   values: any;
-
   plannedStockSubscription: Subscription;
   subProductsIndex = [26, 51, 56, 31, 16, 17, 50, 55, 30, 4, 10, 49, 5, 11, 54, 6, 12, 29, 7, 13, 18, 8, 14, 19, 9, 15, 20];
 
-  constructor(private db: AngularFireDatabase) {
-  }
+  constructor(private db: AngularFireDatabase) {}
 
   ngOnInit() {
     this.db.object('currentPeriod').valueChanges().subscribe(currentPeriod => {
@@ -79,7 +70,6 @@ export class ProductionPlanningComponent implements OnInit {
     this.finishedProducts[2].orders = Number(this.forecast[0].inputs.P3);
   }
 
-  //ObjektKonstruktoren
   setFinishedProduct(id: number): FinishedProduct {
     let fP = new FinishedProduct();
     fP.id = id;
@@ -107,14 +97,12 @@ export class ProductionPlanningComponent implements OnInit {
     return sP;
   }
 
-  //NgModelChange Methoden
   updateAmmountNeededForFinishedProducts() {
     this.finishedProducts.forEach((finishedProduct, index) => {
       this.finishedProducts[index].amountneeded = ProductionPlanningComponent.calculateAmountForProducts(finishedProduct);
     });
     this.updateAmountNeededForSubProducts();
   }
-
 
   updateAmountNeededForSubProducts() {
     this.subProducts.forEach((subProduct, index) => {
@@ -124,7 +112,6 @@ export class ProductionPlanningComponent implements OnInit {
     this.saveResult();
   }
 
-  //Rechnungen
   static calculateAmountForProducts(product: any): number {
     let result = (product.orders + Number(product.plannedWHEnd) - product.inWaitlist - product.inProduction - product.inWarehouse);
 
@@ -135,7 +122,6 @@ export class ProductionPlanningComponent implements OnInit {
     }
   }
 
-  //ExtractValues
   getOrdersForSubProduct(product: SubProduct): number {
     let result = 0;
 
@@ -146,7 +132,6 @@ export class ProductionPlanningComponent implements OnInit {
 
     return result;
   }
-
 
   getAmountneededOfFinishedProductByID(id: number): number {
     let result = 0;
@@ -163,7 +148,6 @@ export class ProductionPlanningComponent implements OnInit {
     return result;
   }
 
-
   getAmountneededOFSubProductByID(id: number): number {
     let result = 0;
 
@@ -179,7 +163,6 @@ export class ProductionPlanningComponent implements OnInit {
     return result;
   }
 
-
   getDependenciesByID(id: number): Array<number> {
     let resultlist = [];
 
@@ -192,7 +175,6 @@ export class ProductionPlanningComponent implements OnInit {
     return resultlist;
   }
 
-  // Gibt eine Liste zurück mit Arbeitsplätzen an denen eine Warteschlange besteht
   getWorkPlaceWithWaitlist(): Array<any> {
     let workplacelist = this.values.waitinglistworkstations[0].workplace;
     let resultlist = [];
@@ -205,8 +187,6 @@ export class ProductionPlanningComponent implements OnInit {
 
     return resultlist;
   }
-
-
 
   getWaitlistSumByID(id: number):number {
     let result = 0;
@@ -290,8 +270,5 @@ export class ProductionPlanningComponent implements OnInit {
     });
 
     this.db.object('/result/production').update(result);
-
   }
-
-
 }

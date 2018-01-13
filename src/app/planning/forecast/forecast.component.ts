@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { ToastyServiceInt } from "../../util/toasty.service";
-import {Observable, Subscription} from "rxjs";
-import {ActivatedRoute, Params} from "@angular/router";
+import { Observable, Subscription } from "rxjs";
+import { ActivatedRoute, Params } from "@angular/router";
 
 @Component({
   selector: 'app-forecast',
@@ -47,14 +47,6 @@ export class ForecastComponent implements OnInit {
         });
       })
     })
-  }
-
-  onlyNumbers(e) {
-    if (e.charCode >= 48 && e.charCode <= 57) {
-      this.checkSum();
-    } else {
-      return e.charCode >= 48 && e.charCode <= 57;
-    }
   }
 
   checkSum() {

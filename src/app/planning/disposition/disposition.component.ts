@@ -3,7 +3,6 @@ import { ordersData } from './disposition.data';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { ToastyServiceInt } from "../../util/toasty.service";
-import {SimulationService} from "../simulation/simulation.service";
 
 @Component({
   selector: 'app-disposition',
@@ -263,10 +262,6 @@ export class DispositionComponent implements OnInit {
       this.ordersData[index].deliveryTime.express = Math.trunc(this.ordersData[index].deliveryTime.mean / 2 +1);
       this.ordersData[index].deliveryTime.normal = Math.trunc(this.ordersData[index].deliveryTime.mean + this.ordersData[index].deliveryTime.dev  + 2);
     });
-  }
-
-  onlyNumbers(e) {
-    return e.charCode >= 48 && e.charCode <= 57;
   }
 }
 

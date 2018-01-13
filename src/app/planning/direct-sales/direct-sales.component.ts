@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AngularFireDatabase} from "angularfire2/database";
-import {ToastyServiceInt} from "../../util/toasty.service";
-import {ActivatedRoute, Params} from "@angular/router";
-import {Subscription} from "rxjs";
+import { AngularFireDatabase } from "angularfire2/database";
+import { ActivatedRoute, Params } from "@angular/router";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-direct-sales',
@@ -11,15 +10,7 @@ import {Subscription} from "rxjs";
 })
 export class DirectSalesComponent implements OnInit {
 
-  otherProduct = {
-    id: 0,
-    amount:0,
-    price:0,
-    penalty:0
-  };
-
-
-  constructor(private db: AngularFireDatabase, private toastyServiceInt: ToastyServiceInt, private activatedRoute: ActivatedRoute) { }
+  constructor(private db: AngularFireDatabase, private activatedRoute: ActivatedRoute) { }
 
   result = [{
       id: 1,
@@ -39,7 +30,7 @@ export class DirectSalesComponent implements OnInit {
   ];
 
   directSalesSub: Subscription;
-  directSales: any
+  directSales: any;
 
   ngOnInit() {
     this.directSalesSub = this.db.object('/result/directsales').valueChanges().subscribe(result => {
@@ -54,47 +45,6 @@ export class DirectSalesComponent implements OnInit {
       });
     });
 
-  }
-
-  onlyNumbers(e) {
-    return e.charCode >= 48 && e.charCode <= 57;
-  }
-
-  alreadyExists(e) {
-
-    let alreadyExists = false;
-
-    this.result.forEach(entry => {
-      if (Number(e) === Number(entry.id)) {
-        alreadyExists = true;
-      }
-    });
-
-    if (e <= 0 || e > 59) {
-      alreadyExists = true;
-    }
-
-    return  alreadyExists;
-  }
-
-  newOtherProduct() {
-
-    if (!this.alreadyExists(this.otherProduct.id)) {
-      this.result.push(this.newObj(this.otherProduct));
-    } else {
-      this.toastyServiceInt.setToastyDefaultError("Produkt nicht verfügbar", "Das Produkt ist bereits vorhanden oder Sie haben kein gültiges Produkt eingegeben.")
-    }
-
-    this.onChange();
-  }
-
-  newObj(otherProduct: any): any {
-    return {
-      id: otherProduct.id,
-      amount: otherProduct.amount,
-      price: otherProduct.price,
-      penalty: otherProduct.penalty
-    }
   }
 
   onChange() {
@@ -116,7 +66,4 @@ export class DirectSalesComponent implements OnInit {
   loadData() {
    this.result = this.directSales;
   }
-
-
-
 }
