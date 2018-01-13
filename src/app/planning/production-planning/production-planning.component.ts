@@ -43,21 +43,9 @@ export class ProductionPlanningComponent implements OnInit {
   values: any;
 
   plannedStockSubscription: Subscription;
-
-  productOrder: Array<any> = [];
-
   subProductsIndex = [26, 51, 56, 31, 16, 17, 50, 55, 30, 4, 10, 49, 5, 11, 54, 6, 12, 29, 7, 13, 18, 8, 14, 19, 9, 15, 20];
 
-  constructor(private db: AngularFireDatabase, private dragulaService: DragulaService) {
-    dragulaService.setOptions('first-bag', {
-      moves: function (el, source, handle) {
-        return handle.className.indexOf("draggable") > -1;
-      },
-    });
-    dragulaService.dropModel.subscribe((value) => {
-      this.onDrop(value.slice(1));
-      this.saveResult();
-    });
+  constructor(private db: AngularFireDatabase) {
   }
 
   ngOnInit() {
@@ -73,7 +61,6 @@ export class ProductionPlanningComponent implements OnInit {
             this.plannedStockSubscription = this.plannedStockData.subscribe(result => {
               this.plannedStockSubscription.unsubscribe();
               this.plannedStock = result;
-              this.productOrder = [];
               this.finishedProducts = [this.setFinishedProduct(1), this.setFinishedProduct(2), this.setFinishedProduct(3)];
               this.subProductsIndex.forEach((subProductIndex, index) => {
                 this.subProducts[index] = this.setSubProduct(subProductIndex);
@@ -103,8 +90,6 @@ export class ProductionPlanningComponent implements OnInit {
     fP.inWarehouse = this.getWarehouseAmountByID(id);
     fP.amountneeded = ProductionPlanningComponent.calculateAmountForProducts(fP);
 
-    this.productOrder.push(id);
-
     return fP;
   }
 
@@ -118,8 +103,6 @@ export class ProductionPlanningComponent implements OnInit {
     sP.plannedWHEnd = Number(this.plannedStock[id]);
     sP.inWarehouse = this.getWarehouseAmountByID(id);
     sP.amountneeded = ProductionPlanningComponent.calculateAmountForProducts(sP);
-
-    this.productOrder.push(id);
 
     return sP;
   }
@@ -306,34 +289,9 @@ export class ProductionPlanningComponent implements OnInit {
       }
     });
 
-    let orderedResult = {item: [], amount: [], waitlist: [], plannedStock: {}};
-
-    this.productOrder.forEach((id, index) => {
-      let i;
-      result.item.some(function (element, ind) {
-        i = ind;
-        return element === id;
-      });
-
-      orderedResult.item.push(result.item[i]);
-      orderedResult.amount.push(result.amount[i]);
-      orderedResult.waitlist.push(result.waitlist[i]);
-
-      orderedResult.plannedStock[id] = result.plannedStock[id];
-    });
-
-    this.db.object('/result/production').update(orderedResult);
+    this.db.object('/result/production').update(result);
 
   }
 
-  private onDrop(args) {
-    let [e] = args;
-    if (e.className.indexOf("pos-changed") === -1) {
-      e.className = e.className ? [e.className, "pos-changed"].join(' ') : "pos-changed";
-    }
-  }
 
-  onlyNumbers(e) {
-    return e.charCode >= 48 && e.charCode <= 57;
-  }
 }

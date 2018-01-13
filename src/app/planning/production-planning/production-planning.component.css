@@ -12,30 +12,6 @@ input {
   text-align: center;
 }
 
-.planningTable th.draggable-col {
-  width: 5%;
-  min-width: 30px;
-}
-
-.draggable {
-  cursor: move; /* fallback if grab cursor is unsupported */
-  cursor: grab;
-  cursor: -moz-grab;
-  cursor: -webkit-grab;
-}
-
-.planningTable th:not(.draggable-col) {
-  width: 10%;
-}
-
-.pos-changed {
-  background-color: #faebd7;
-}
-
-.table-striped>tbody>tr:nth-of-type(odd).pos-changed {
-  background-color: #fddcb1bd;
-}
-
 .calculate-btn {
   margin-top: 15px;
   width: 160px;

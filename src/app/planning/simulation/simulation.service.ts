@@ -606,11 +606,6 @@ export class SimulationService {
     });
   }
 
-
-
-
-
-
   setData(periodData: any, productionPlan: any, inwardStockMovement: any, currentPeriod: number) {
     this.warehouseStock.data = {};
     this.productionPlan.data = {};
@@ -625,8 +620,8 @@ export class SimulationService {
       this.warehouseStock.index.push(Number(article.item.id));
     });
 
-    productionPlan.item.forEach((id,index) => {
-      this.productionPlan.data[id] = {amount: productionPlan.amount[index], waitlist: productionPlan.waitlist[index] };
+    productionPlan.order.forEach(id => {
+      this.productionPlan.data[id] = {amount: productionPlan.amount[productionPlan.item.indexOf(id)], waitlist: productionPlan.waitlist[productionPlan.item.indexOf(id)] };
       this.productionPlan.index.push(id);
     });
 

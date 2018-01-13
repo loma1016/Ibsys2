@@ -1,10 +1,6 @@
 <div class="container planningContainer">
-  1. Geplante Lagerbestände eingeben
-  2. Produktion berechnen
-  3. Priorisierung vornehemen <br><br>
   <table class="planningTable table-striped table-bordered">
     <thead>
-      <th class="draggable-col"></th>
       <th>Erzeugnisse </th>
       <th>Kundenaufträge </th>
       <th>gepl. Lagerendbestand</th>
@@ -13,13 +9,12 @@
       <th>in Bearbeitung </th>
       <th>Produktionsaufträge </th>
     </thead>
-    <tbody [dragula]='"first-bag"' [dragulaModel]='productOrder'>
+    <tbody>
       <tr *ngFor="let item of finishedProducts, let i = index">
-        <th class="draggable-col"><span class="draggable glyphicon glyphicon-align-justify"></span></th>
         <th>P{{i+1}}</th>
         <th>{{item.orders}}</th>
         <th>
-          <input placeholder="Lagerendbestand" type="text" (keypress)="onlyNumbers($event)" [(ngModel)]="item.plannedWHEnd">
+          <input type="number" min="0" placeholder="Lagerendbestand" [(ngModel)]="item.plannedWHEnd">
         </th>
         <th>{{item.inWarehouse}}</th>
         <th>{{item.inWaitlist}}</th>
@@ -27,11 +22,10 @@
         <th>{{item.amountneeded}}</th>
       </tr>
       <tr *ngFor="let item of subProducts, let i = index">
-        <th class="draggable-col"><span class="draggable glyphicon glyphicon-align-justify"></span></th>
         <th>E{{item.id}} </th>
         <th>{{item.orders}}</th>
         <th>
-          <input placeholder="Lagerendbestand" type="text" (keypress)="onlyNumbers($event)" [(ngModel)]="item.plannedWHEnd">
+          <input type="number" min="0" placeholder="Lagerendbestand" [(ngModel)]="item.plannedWHEnd">
         </th>
         <th>{{item.inWarehouse}}</th>
         <th>{{item.inWaitlist}}</th>

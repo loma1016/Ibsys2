@@ -36,9 +36,9 @@
     </div>
     <div class="app-modal-body">
       <label class="newOrderLabel"> Kaufteilnummer</label>
-      <input type="text" class="newOrderInput" name="newOrderItem" (keypress)="onlyNumbers($event)" [(ngModel)]="newOrderData.item"><br>
+      <input type="number" min="0" class="newOrderInput" name="newOrderItem" [(ngModel)]="newOrderData.item"><br>
       <label class="newOrderLabel">Anzahl</label>
-      <input type="text" class="newOrderInput" name="newOrderAmount" (keypress)="onlyNumbers($event)" [(ngModel)]="newOrderData.amount"><br>
+      <input type="number" min="0" class="newOrderInput" name="newOrderAmount" [(ngModel)]="newOrderData.amount"><br>
       <label class="newOrderLabel">Bestellmodus</label>
       <mat-slide-toggle (change)="sliderChangeEvent($event)">{{newOrderData.modeLabel}}</mat-slide-toggle>
     </div>

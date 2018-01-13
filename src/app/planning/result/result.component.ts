@@ -214,8 +214,8 @@ export class ResultComponent implements OnInit {
     }
 
     if (result.production) {
-      result.production.item.forEach((item, index) => {
-        this.result.productionlist.production.push({"@": {article:item, quantity: result.production.amount[index]}})
+      result.production.order.forEach(item => {
+        this.result.productionlist.production.push({"@": {article:item, quantity: result.production.amount[result.production.item.indexOf(item)]}})
       });
     }
 

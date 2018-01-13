@@ -1,0 +1,20 @@
+<div class="container planningContainer">
+  <table class="planningTable table-striped table-bordered">
+    <thead>
+      <th class="draggable-col"></th>
+      <th>Produkt </th>
+      <th>Fertigungsaufträge </th>
+      <th>Warteliste </th>
+    </thead>
+    <tbody [dragula]='"first-bag"' [dragulaModel]='order'>
+    <tr *ngFor="let item of order, let i = index">
+      <th class="draggable-col"><span class="draggable glyphicon glyphicon-align-justify"></span></th>
+      <th>P {{item}}</th>
+      <th>{{production.amount[production.item.indexOf(item)]}}</th>
+      <th>{{production.waitlist[production.item.indexOf(item)]}}</th>
+    </tr>
+    </tbody>
+  </table>
+  <button mat-raised-button style="margin-top: 2%" color="warn" matStepperPrevious>Zurück</button>
+  <button mat-raised-button style="margin-top: 2%" class="pull-right" color="primary" matStepperNext>Weiter</button>
+</div>

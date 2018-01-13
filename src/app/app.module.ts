@@ -43,6 +43,7 @@ import { AuthGuard } from "./shared/auth-guard";
 import { DirectSalesComponent } from './planning/direct-sales/direct-sales.component';
 import { BusyModule, BusyConfig } from 'angular2-busy';
 import MyErrorHandler from "./util/error.service";
+import { ProductionOrderComponent } from './planning/production-order/production-order.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import MyErrorHandler from "./util/error.service";
     ResultComponent,
     SelectPeriodComponent,
     LoginComponent,
-    DirectSalesComponent
+    DirectSalesComponent,
+    ProductionOrderComponent
   ],
   imports: [
     BrowserModule,
