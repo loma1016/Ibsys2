@@ -1,6 +1,5 @@
 <button mat-raised-button style="margin-top: 2%" color="warn" matStepperPrevious>Zurück</button>
-<button mat-raised-button style="margin-top: 2%" *ngIf="!simulated" class="simulate-btn" color="primary" (click)="simulatePeriod(); disableSimulation()" >Periode Simulieren</button>
-<button mat-raised-button style="margin-top: 2%" *ngIf="simulated" class="simulate-btn" color="primary" (click)="refresh()" >Daten neu eingeben</button>
+<button mat-raised-button style="margin-top: 2%"  class="simulate-btn" color="primary" (click)="simulatePeriod()" >Periode Simulieren</button>
 <button mat-raised-button style="margin-top: 2%" class="pull-right" color="primary" (click)="exportToXml()">Als XML Exportieren</button><br>
 <div class="text-center">
   <span *ngIf="!simulated">Bitte Periode simulieren um Ergebnisse anzuzeigen!</span>

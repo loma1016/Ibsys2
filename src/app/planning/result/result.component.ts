@@ -100,6 +100,7 @@ export class ResultComponent implements OnInit {
 
   simulatePeriod() {
     this.simulationResult = this.productionPlanningService.simulate(this.previousPeriod, this.resultRaw.production, this.resultRaw.disposition.inwardstockmovement, this.currentPeriod);
+    this.simulated = true;
   }
 
   getArrayOf(obj): Array<any> {
@@ -115,17 +116,6 @@ export class ResultComponent implements OnInit {
     });
 
     return result;
-  }
-
-
-  disableSimulation() {
-    this.simulated = true;
-  }
-
-  refresh() {
-    this.router.navigate(['/planning'], { queryParams: { loadData: true } }).then( _ => {
-      window.location.reload();
-    });
   }
 
   calculateStockValue(result: any) {

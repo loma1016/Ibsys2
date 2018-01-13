@@ -419,8 +419,6 @@ export class SimulationService {
         }
       });
 
-
-
       this.tick();
 
       this.checkInwardStockMovement();
@@ -599,6 +597,11 @@ export class SimulationService {
   }
 
   setData(periodData: any, productionPlan: any, inwardStockMovement: any, currentPeriod: number) {
+    this.ticksPassed = 0;
+    this.leerZeit = 0;
+
+    this.simulation = {byItem:{data:{},index:[]}, byWorkspace:{data:{},index:[]}};
+
     this.warehouseStock.data = {};
     this.productionPlan.data = {};
     this.warehouseStock.index = [];
@@ -615,6 +618,17 @@ export class SimulationService {
     productionPlan.order.forEach(id => {
       this.productionPlan.data[id] = {amount: productionPlan.amount[productionPlan.item.indexOf(id)], waitlist: productionPlan.waitlist[productionPlan.item.indexOf(id)] };
       this.productionPlan.index.push(id);
+    });
+
+    this.workspaces.index.forEach(id => {
+      this.workspaces.data[id] = {
+        time:0,
+        amount:0,
+        setupId:0,
+        notWorkingTime:0,
+        setupTimes:0,
+        lastProductFinished:0
+      }
     });
 
     for (let entry in this.workspaceOfItem) {
