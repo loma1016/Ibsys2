@@ -616,7 +616,7 @@ export class SimulationService {
     });
 
     productionPlan.order.forEach(id => {
-      this.productionPlan.data[id] = {amount: productionPlan.amount[productionPlan.item.indexOf(id)], waitlist: productionPlan.waitlist[productionPlan.item.indexOf(id)] };
+      this.productionPlan.data[id] = {amount: productionPlan.amount[productionPlan.item.indexOf(id)], waitlist: 0  };
       this.productionPlan.index.push(id);
     });
 
@@ -652,5 +652,39 @@ export class SimulationService {
         });
       }
     }
+
+    periodData.waitinglistworkstations[0].workplace.forEach( workplace => {
+      if (workplace.waitinglist) {
+        workplace.waitinglist.forEach( item => {
+          Object.keys(this.workTime.data[Number(item.item.item)]).forEach( step => {
+            if (this.workTime.data[Number(item.item.item)][step].station === Number(workplace.item.id)) {
+              if (Number(step) === 0) {
+                this.productionPlan.data[Number(item.item.item)].waitlist =  Number(item.item.amount);
+              } else {
+                this.workTime.data[Number(item.item.item)][Number(step)-1].waitlist = Number(item.item.amount);
+              }
+            }
+          });
+        })
+      }
+    });
+
+    periodData.waitingliststock[0].missingpart.forEach(item => {
+      item.waitinglist.forEach(part => {
+        this.productionPlan.data[Number(part.item.item)].waitlist = Number(part.item.amount);
+      });
+    });
+
+    periodData.ordersinwork[0].workplace.forEach( workplace => {
+      Object.keys(this.workTime.data[Number(workplace.item.item)]).forEach( step => {
+        if (this.workTime.data[Number(workplace.item.item)][step].station === Number(workplace.item.id)) {
+          if (Number(step) === 0) {
+            this.productionPlan.data[Number(workplace.item.item)].waitlist =  Number(workplace.item.amount);
+          } else {
+            this.workTime.data[Number(workplace.item.item)][Number(step)-1].waitlist = Number(workplace.item.amount);
+          }
+        }
+      });
+    });
   }
 }
