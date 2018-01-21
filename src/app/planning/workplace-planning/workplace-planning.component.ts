@@ -199,6 +199,8 @@ export class WorkspacePlanningComponent implements OnInit {
     this.db.object('currentPeriod').valueChanges().subscribe(currentPeriod => {
       this.previousPeriodData = this.db.object('periods/' + (Number(currentPeriod) - 1).toString()).valueChanges();
       this.previousPeriodData.subscribe(_ => {
+        this.inProductionTime = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        this.productionQueTime = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         if (_.ordersinwork[0].workplace) {
           _.ordersinwork[0].workplace.forEach(workplace => {
             let itemId = workplace.item.item;
