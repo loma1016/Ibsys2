@@ -1,8 +1,12 @@
-.draggable {
+.draggable-col {
   cursor: move; /* fallback if grab cursor is unsupported */
   cursor: grab;
   cursor: -moz-grab;
   cursor: -webkit-grab;
+}
+
+.draggable {
+  font-size: 18px;
 }
 
 .pos-changed {
@@ -14,10 +18,14 @@
 }
 
 .planningTable th.draggable-col {
-  width: 5%;
+  width: 3%;
   min-width: 30px;
 }
 
 .planningTable th:not(.draggable-col) {
   width: 10%;
+}
+
+.planningTable th, td {
+  text-align: center;
 }

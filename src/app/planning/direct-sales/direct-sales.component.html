@@ -1,13 +1,13 @@
 <div class="container planningContainer">
   <table class="planningTable table-striped table-bordered">
     <tr class="table-row head-row">
-      <th class="col-xs-2"></th>
+      <th class="col-xs-2 table-header">Produkt</th>
       <th class="table-header">Anzahl</th>
       <th class="table-header">Preis</th>
       <th class="table-header">Strafe</th>
     </tr>
     <tr class="table-row" *ngFor="let product of result; let i = index">
-      <th class="col-xs-2">P {{product.id}}</th>
+      <th class="col-xs-2">P{{product.id}}</th>
       <td>
         <mat-form-field>
           <input matInput class="table-input" type="number" min="0" name="inputP1" placeholder="Anzahl"  [(ngModel)]="result[i].amount" (ngModelChange)="onChange($event)">
