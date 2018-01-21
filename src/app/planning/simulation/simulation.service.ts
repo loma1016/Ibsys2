@@ -653,38 +653,48 @@ export class SimulationService {
       }
     }
 
-    periodData.waitinglistworkstations[0].workplace.forEach( workplace => {
-      if (workplace.waitinglist) {
-        workplace.waitinglist.forEach( item => {
-          Object.keys(this.workTime.data[Number(item.item.item)]).forEach( step => {
-            if (this.workTime.data[Number(item.item.item)][step].station === Number(workplace.item.id)) {
+    if (periodData && periodData.waitlistworkstations && periodData.waitlistworkstations[0] && periodData.waitlistworkstations[0].workplace ) {
+      periodData.waitinglistworkstations[0].workplace.forEach(workplace => {
+        if (workplace && workplace.waitinglist) {
+          workplace.waitinglist.forEach(item => {
+            Object.keys(this.workTime.data[Number(item.item.item)]).forEach(step => {
+              if (this.workTime.data[Number(item.item.item)][step].station === Number(workplace.item.id)) {
+                if (Number(step) === 0) {
+                  this.productionPlan.data[Number(item.item.item)].waitlist = Number(item.item.amount);
+                } else {
+                  this.workTime.data[Number(item.item.item)][Number(step) - 1].waitlist = Number(item.item.amount);
+                }
+              }
+            });
+          })
+        }
+      });
+    }
+
+    if (periodData && periodData.waitingliststock && periodData.waitingliststock[0] && periodData.waitingliststock[0].missingpart) {
+      periodData.waitingliststock[0].missingpart.forEach(item => {
+        if ( item && item.waitinglist) {
+          item.waitinglist.forEach(part => {
+            this.productionPlan.data[Number(part.item.item)].waitlist = Number(part.item.amount);
+          });
+        }
+      });
+    }
+
+    if (periodData && periodData.ordersinwork && periodData.ordersinwork[0].workplace) {
+      periodData.ordersinwork[0].workplace.forEach(workplace => {
+        if (workplace) {
+          Object.keys(this.workTime.data[Number(workplace.item.item)]).forEach(step => {
+            if (this.workTime.data[Number(workplace.item.item)][step].station === Number(workplace.item.id)) {
               if (Number(step) === 0) {
-                this.productionPlan.data[Number(item.item.item)].waitlist =  Number(item.item.amount);
+                this.productionPlan.data[Number(workplace.item.item)].waitlist = Number(workplace.item.amount);
               } else {
-                this.workTime.data[Number(item.item.item)][Number(step)-1].waitlist = Number(item.item.amount);
+                this.workTime.data[Number(workplace.item.item)][Number(step) - 1].waitlist = Number(workplace.item.amount);
               }
             }
           });
-        })
-      }
-    });
-
-    periodData.waitingliststock[0].missingpart.forEach(item => {
-      item.waitinglist.forEach(part => {
-        this.productionPlan.data[Number(part.item.item)].waitlist = Number(part.item.amount);
-      });
-    });
-
-    periodData.ordersinwork[0].workplace.forEach( workplace => {
-      Object.keys(this.workTime.data[Number(workplace.item.item)]).forEach( step => {
-        if (this.workTime.data[Number(workplace.item.item)][step].station === Number(workplace.item.id)) {
-          if (Number(step) === 0) {
-            this.productionPlan.data[Number(workplace.item.item)].waitlist =  Number(workplace.item.amount);
-          } else {
-            this.workTime.data[Number(workplace.item.item)][Number(step)-1].waitlist = Number(workplace.item.amount);
-          }
         }
       });
-    });
+    }
   }
 }
